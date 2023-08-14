@@ -1,0 +1,19 @@
+{
+  "name": "Terraform",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
+  "customizations": {
+    "vscode": {
+      "extensions": ["hashicorp.terraform"],
+      "settings": {
+        "terraform.languageServer": {
+          "enabled": true,
+          "args": []
+        }
+      }
+    }
+},
+"features": {
+	"ghcr.io/dhoeric/features/terraformer:1": {}
+}
+
+}

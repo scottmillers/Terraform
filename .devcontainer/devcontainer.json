@@ -1,9 +1,12 @@
 {
-  "name": "Terraform",
+  "name": "terraform-aws",
   "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
   "customizations": {
     "vscode": {
-      "extensions": ["hashicorp.terraform"],
+      "extensions": [
+		"hashicorp.terraform",
+		"GitHub.copilot"
+	],
       "settings": {
         "terraform.languageServer": {
           "enabled": true,
@@ -13,7 +16,8 @@
     }
 },
 "features": {
-	"ghcr.io/dhoeric/features/terraformer:1": {}
+	"ghcr.io/dhoeric/features/terraformer:1": {},
+	"ghcr.io/devcontainers/features/aws-cli:1": {}
 }
 
 }

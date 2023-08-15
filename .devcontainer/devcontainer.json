@@ -1,23 +1,20 @@
 {
   "name": "terraform-aws",
   "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
+  "mounts": ["source=${env:HOME}${env:USERPROFILE}/.aws,target=/root/.aws,type=bind"],
   "customizations": {
     "vscode": {
       "extensions": [
 		"hashicorp.terraform",
 		"GitHub.copilot"
-	],
-      "settings": {
-        "terraform.languageServer": {
-          "enabled": true,
-          "args": []
-        }
-      }
-    }
+	]
+  }
 },
+
 "features": {
-	"ghcr.io/dhoeric/features/terraformer:1": {},
-	"ghcr.io/devcontainers/features/aws-cli:1": {}
+	"ghcr.io/devcontainers/features/aws-cli:1": {},
+	"ghcr.io/devcontainers-contrib/features/terraform-asdf:2": {},
+	"ghcr.io/dhoeric/features/terraform-docs:1": {}
 }
 
 }

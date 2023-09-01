@@ -1,0 +1,1 @@
+curl $(terraform output -raw domain-name)

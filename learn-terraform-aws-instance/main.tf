@@ -17,6 +17,23 @@ provider "random" {}
 
 resource "random_pet" "name" {}
 
+# See https://registry.terraform.io/modules/cloudposse/label/null/latest for documentation
+module "label" {
+  source  = "cloudposse/label/null"
+  version = "0.25.0"
+  # insert the 12 required variables here
+  namespace  = "example"
+  stage      = "dev"
+  name       = "learning-terraform"
+  attributes = ["public"]
+  delimiter  = "-"
+
+  tags = {
+    "BusinessUnit" = "CTO",
+    "Snapshot"     = "true"
+  }
+}
+
 module "my_vpc" {
   source     = "./modules/vpc"
   subnet1_az = "us-west-2a"
@@ -33,7 +50,9 @@ resource "aws_instance" "web_server" {
   user_data              = file("init-script.sh")
   vpc_security_group_ids = [module.my_vpc.public_subnet1_sg_id]
   subnet_id              = module.my_vpc.public_subnet1_id
-  tags = {
+  tags = module.label.tags
+  /*tags = {
     Name = random_pet.name.id
   }
+  */
 }

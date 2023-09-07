@@ -1,0 +1,22 @@
+{
+  "name": "terraform-azure",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
+  "mounts": [
+    "source=${env:HOME}${env:USERPROFILE}/.azure,target=/root/.azure,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "GitHub.copilot"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/terraform-asdf:2": {},
+    "ghcr.io/dhoeric/features/terraform-docs:1": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {
+      "version": "latest"
+    }
+  }
+}

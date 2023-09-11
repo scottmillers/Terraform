@@ -1,11 +1,14 @@
-
-/*output "onprem_vm_public_ip_address" {
-  value       = azurerm_public_ip.onprem-vm-nic-publicip.ip_address
-  description = "The public IP address of the on-premise virtual machine."
+output "dns_public_ip_address" {
+  value = azurerm_windows_virtual_machine.dns-onprem.public_ip_address
 }
 
-output "onprem_virtual_network_dns_servers" {
-  value       = azurerm_virtual_network.vnet-spoke-onprem.dns_servers
-  description = "The DNS servers set on the onprem virtual network."
+output "dns_admin_username" {
+  sensitive = false
+  value     = azurerm_windows_virtual_machine.dns-onprem.admin_username
 }
-*/
+
+output "dns_admin_password" {
+  sensitive = true
+  value     = azurerm_windows_virtual_machine.dns-onprem.admin_password
+}
+

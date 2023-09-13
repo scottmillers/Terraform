@@ -15,7 +15,7 @@ resource "azurerm_subnet" "snet-vm-onprem" {
 
 }
 
- #Create a NSG for the onprem spoke
+#Create a NSG for the onprem spoke
 resource "azurerm_network_security_group" "snet-nsg-onprem" {
   name                = "snet-nsg-onprem"
   location            = var.region
@@ -44,6 +44,21 @@ resource "azurerm_network_security_group" "snet-nsg-onprem" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+/*
+  security_rule {
+    name                       = "allow-winrm-https"
+    priority                   = 1003
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5986"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+
+  }
+  */
+
 }
 
 
@@ -66,7 +81,8 @@ resource "azurerm_network_interface" "nic-dns-onprem" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.snet-vm-onprem.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static" # Set to "static" to support DNS
+    private_ip_address            = "10.0.2.10"
     public_ip_address_id          = azurerm_public_ip.publicip-dns-onprem.id
   }
 }
@@ -74,25 +90,10 @@ resource "azurerm_network_interface" "nic-dns-onprem" {
 # associate the NSG to the network interface
 resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
   subnet_id                 = azurerm_subnet.snet-vm-onprem.id
-  network_security_group_id  = azurerm_network_security_group.snet-nsg-onprem.id
+  network_security_group_id = azurerm_network_security_group.snet-nsg-onprem.id
 }
 
-# associate the NSG to the network interface
-/*resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
-  subnet_id                 = azurerm_subnet.snet-vm-onprem.id
-  network_security_group_id  = azurerm_network_security_group.snet-nsg-onprem.id
-}
-*/
 
-# create a random password for the dns server
-resource "random_password" "password" {
-  length      = 20
-  min_lower   = 1
-  min_upper   = 1
-  min_numeric = 1
-  min_special = 1
-  special     = true
-}
 
 # create a virtual machine with a dns
 resource "azurerm_windows_virtual_machine" "dns-onprem" {
@@ -100,9 +101,9 @@ resource "azurerm_windows_virtual_machine" "dns-onprem" {
   resource_group_name = var.resource_group_name
   location            = var.region
   size                = "Standard_D2s_v3"
-  admin_username        = "azureuser"
-  //admin_password        = random_password.password.result
-  admin_password = "@123Password"
+  admin_username      = var.dns_admin_username
+  admin_password      = var.dns_admin_password
+
   network_interface_ids = [
     azurerm_network_interface.nic-dns-onprem.id,
   ]
@@ -118,21 +119,50 @@ resource "azurerm_windows_virtual_machine" "dns-onprem" {
     sku       = "2019-Datacenter"
     version   = "latest"
   }
+
+
 }
 
+# Install a DNS server on the virtual machine
+# https://techcommunity.microsoft.com/t5/itops-talk-blog/how-to-run-powershell-scripts-on-azure-vms-with-terraform/ba-p/3827573
+resource "azurerm_virtual_machine_extension" "install_dns" {
+  name                 = "install_ad"
+  virtual_machine_id   = azurerm_windows_virtual_machine.dns-onprem.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.9"
 
-# Add provisioner to promote VM to a domain controller (Assuming Active Directory is already installed on the VM)
-/*provisioner "remote-exec" {
-  inline = [
-    "Add-WindowsFeature AD-Domain-Services",
-    "Install-ADDSForest -DomainName 'onpremise.hhs.gov' -DomainNetbiosName 'onpremise.hhs.gov' -InstallDns:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'YourAdminPasswordHere' -AsPlainText -Force) -Force",
-  ]
+  protected_settings = <<SETTINGS
+  {    
+    "commandToExecute": "powershell -command \"[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${base64encode(data.template_file.DNS.rendered)}')) | Out-File -filepath DNS.ps1\" && powershell -ExecutionPolicy Unrestricted -File DNS.ps1 -Domain_DNSName ${data.template_file.DNS.vars.Domain_DNSName}" 
+  }
+  SETTINGS
+}
 
-  connection {
-    type     = "ssh"
-    host     = azurerm_network_interface.example.private_ip_address
-    user     = "adminuser"
-    password = "YourPasswordHere"
+#Variable input for the DNS.ps1 script
+data "template_file" "DNS" {
+  template = file("${path.module}/scripts/Install-DNS.ps1")
+  vars = {
+    Domain_DNSName = "${var.Domain_DNSName}"
   }
 }
+
+# Install IIS web server to the virtual machine
+/*resource "azurerm_virtual_machine_extension" "web_server_install" {
+  name                       = "${random_pet.prefix.id}-wsi"
+  virtual_machine_id         = azurerm_windows_virtual_machine.main.id
+  publisher                  = "Microsoft.Compute"
+  type                       = "CustomScriptExtension"
+  type_handler_version       = "1.8"
+  auto_upgrade_minor_version = true
+
+  settings = <<SETTINGS
+    {
+      "commandToExecute": "powershell -ExecutionPolicy Unrestricted Install-WindowsFeature -Name Web-Server -IncludeAllSubFeature -IncludeManagementTools"
+    }
+  SETTINGS
+}
 */
+
+
+

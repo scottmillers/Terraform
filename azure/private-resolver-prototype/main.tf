@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0.2"
+      version = "~> 3.72.0"
     }
 
 
@@ -40,21 +40,22 @@ resource "azurerm_resource_group" "rg" {
   location = "southcentralus"
 }
 
-/*
-module "hub-vnet" {
-  source = "./modules/hub-vnet"
-  # insert the 2 required variables here
-  resource_group_name = azurerm_resource_group.rg.name
-  region              = azurerm_resource_group.rg.location
-}
-*/
-module "onpremise-spoke-vnet" {
-  source = "./modules/onpremise-spoke-vnet"
+
+module "vnet-hub" {
+  source = "./modules/vnet-hub"
   # insert the 2 required variables here
   resource_group_name = azurerm_resource_group.rg.name
   region              = azurerm_resource_group.rg.location
 }
 
+/*
+module "vnet-spoke-onprem" {
+  source = "./modules/vnet-spoke-onpremise"
+  # insert the 2 required variables here
+  resource_group_name = azurerm_resource_group.rg.name
+  region              = azurerm_resource_group.rg.location
+}
+*/
 
 /*
 resource "azurerm_linux_virtual_machine" "onprem-vm" {

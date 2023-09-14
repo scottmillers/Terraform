@@ -1,3 +1,11 @@
+output "vnet-id" {
+  value = azurerm_virtual_network.vnet-spoke-onprem.id
+} 
+
+output "vnet-name" {
+  value = azurerm_virtual_network.vnet-spoke-onprem.name
+}
+
 output "dns_public_ip_address" {
   value = azurerm_windows_virtual_machine.dns-onprem.public_ip_address
 }

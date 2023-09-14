@@ -44,20 +44,7 @@ resource "azurerm_network_security_group" "snet-nsg-onprem" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  /*
-  security_rule {
-    name                       = "allow-winrm-https"
-    priority                   = 1003
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5986"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-
-  }
-  */
+  
 
 }
 

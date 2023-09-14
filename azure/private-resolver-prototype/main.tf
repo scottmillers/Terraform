@@ -58,6 +58,25 @@ module "vnet-spoke-onprem" {
 */
 
 /*
+resource "azurerm_virtual_network_peering" "vnet-hub_to_vnet-spoke-onprem" {
+  name                         = "vnet-hub_to_vnet-spoke-onprem"
+  resource_group_name          = azurerm_resource_group.vnet1.name
+  virtual_network_name         = azurerm_virtual_network.vnet1.name
+  remote_virtual_network_id    = azurerm_virtual_network.vnet2.id
+  allow_virtual_network_access = true
+}
+
+resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
+  name                         = "vnet2-to-vnet1"
+  resource_group_name          = azurerm_resource_group.vnet2.name
+  virtual_network_name         = azurerm_virtual_network.vnet2.name
+  remote_virtual_network_id    = azurerm_virtual_network.vnet1.id
+  allow_virtual_network_access = true
+}
+*/
+
+
+/*
 resource "azurerm_linux_virtual_machine" "onprem-vm" {
   name                = "onprem-vm"
   resource_group_name = var.resource_group_name

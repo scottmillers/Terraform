@@ -12,5 +12,5 @@ resource "azurerm_private_dns_zone_virtual_network_link" "hub-private-dns-zone-l
   resource_group_name   = var.resource_group_name
   private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
   virtual_network_id    = azurerm_virtual_network.vnet-hub.id
-  registration_enabled = true
+  registration_enabled  = true
 }

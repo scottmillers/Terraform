@@ -23,7 +23,7 @@ resource "azurerm_network_interface" "nic-vm-one" {
   ip_configuration {
     name                          = "vm-one-ipconfig"
     subnet_id                     = azurerm_subnet.snet-vm.id
-    private_ip_address_allocation = "Dynamic" 
+    private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.publicip-vm-one.id
   }
 }
@@ -37,9 +37,9 @@ resource "azurerm_linux_virtual_machine" "vm-one" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic-vm-one.id]
   size                  = "Standard_DS1_v2"
-  computer_name  = "vmone"
-  admin_username = var.vm_username
-  
+  computer_name         = "bepvmone"
+  admin_username        = var.vm_username
+
   os_disk {
     name                 = "vmone-osdisk"
     caching              = "ReadWrite"
@@ -110,7 +110,7 @@ resource "azurerm_network_interface" "nic-vm-two" {
   ip_configuration {
     name                          = "vm-two-ipconfig"
     subnet_id                     = azurerm_subnet.snet-vm.id
-    private_ip_address_allocation = "Dynamic" 
+    private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.publicip-vm-two.id
   }
 }
@@ -124,9 +124,9 @@ resource "azurerm_linux_virtual_machine" "vm-two" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic-vm-two.id]
   size                  = "Standard_DS1_v2"
-  computer_name  = "vmtwo"
-  admin_username = var.vm_username
-  
+  computer_name         = "bepvmtwo"
+  admin_username        = var.vm_username
+
   os_disk {
     name                 = "vm-two-osdisk"
     caching              = "ReadWrite"

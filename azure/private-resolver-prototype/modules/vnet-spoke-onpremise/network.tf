@@ -43,7 +43,19 @@ resource "azurerm_network_security_group" "snet-nsg-onprem" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  
+
+  security_rule {
+    name                       = "allow_icmp"
+    priority                   = 1003
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Icmp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
 
 }
 

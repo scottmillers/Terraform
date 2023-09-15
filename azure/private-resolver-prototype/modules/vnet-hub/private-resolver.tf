@@ -10,10 +10,8 @@ resource "azurerm_private_dns_resolver" "private-resolver" {
 
 
 
-
-
 # create a private dns resolver inbound endpoint
-/*resource "azurerm_private_dns_resolver_inbound_endpoint" "endpoint-dns-inbound" {
+resource "azurerm_private_dns_resolver_inbound_endpoint" "endpoint-dns-inbound" {
   name                    = "endpoint-dns-inbound"
   private_dns_resolver_id = azurerm_private_dns_resolver.private-resolver.id
   location                = var.region
@@ -23,7 +21,7 @@ resource "azurerm_private_dns_resolver" "private-resolver" {
   }
 
 }
-*/
+
 # create a private dns resolver output endpoint
 resource "azurerm_private_dns_resolver_outbound_endpoint" "endpoint-dns-outbound" {
   name                    = "endpoint-dns-outbound"
@@ -39,7 +37,7 @@ resource "azurerm_private_dns_resolver_dns_forwarding_ruleset" "dns-forwarding-r
   location                                   = var.region
   private_dns_resolver_outbound_endpoint_ids = [azurerm_private_dns_resolver_outbound_endpoint.endpoint-dns-outbound.id]
 
- 
+
 }
 
 resource "azurerm_private_dns_resolver_forwarding_rule" "dns-forwarding-rule-onpremise" {

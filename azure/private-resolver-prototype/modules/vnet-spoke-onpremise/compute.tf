@@ -38,7 +38,7 @@ resource "azurerm_windows_virtual_machine" "dns-onprem" {
   size                = "Standard_D2s_v3"
   admin_username      = var.dns_admin_username
   admin_password      = var.dns_admin_password
-
+  computer_name       = "hhsdns"
   network_interface_ids = [
     azurerm_network_interface.nic-dns-onprem.id,
   ]

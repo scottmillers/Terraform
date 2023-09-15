@@ -1,13 +1,13 @@
 # add a variable to pass in the resource group name
 variable "resource_group_name" {
-    description = "value of the resource group name"            
-     type = string 
-    }       
+  description = "value of the resource group name"
+  type        = string
+}
 
 variable "region" {
-    description = "value of the azure region to put the resources"
-    type = string
-    }   
+  description = "value of the azure region to put the resources"
+  type        = string
+}
 
 
 # add a variable for the login username
@@ -19,7 +19,7 @@ variable "vm_username" {
 
 variable "ssh_public_key" {
   description = "value of the ssh public key"
-  type      = string    
+  type        = string
 }
 
 variable "private_zone_name" {

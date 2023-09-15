@@ -6,7 +6,7 @@ terraform {
       version = "~> 3.72.0"
     }
 
-    
+
     random = {
       source  = "hashicorp/random"
       version = "~>3.0"
@@ -41,7 +41,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg-hub-vnet" {
   name     = "hub-vnet"
-  location =  var.region
+  location = var.region
 }
 
 resource "azurerm_resource_group" "rg-on-prem-vnet" {
@@ -56,8 +56,8 @@ module "vnet-hub" {
   # insert the 2 required variables here
   resource_group_name = azurerm_resource_group.rg-hub-vnet.name
   region              = var.region
-  vm_username = "azureuser"
-  ssh_public_key             = tls_private_key.ssh.public_key_openssh
+  vm_username         = "azureuser"
+  ssh_public_key      = tls_private_key.ssh.public_key_openssh
 }
 
 
@@ -66,7 +66,7 @@ module "vnet-spoke-onprem" {
   # insert the 2 required variables here
   resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
   region              = var.region
-  dns_admin_username = "azureuser"
+  dns_admin_username  = "azureuser"
 }
 
 

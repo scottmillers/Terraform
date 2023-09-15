@@ -25,7 +25,7 @@ resource "azurerm_subnet" "snet-dns-outbound" {
 
 
 # create a subnet for the private resolver inbound DNS subnet endpoint
-/*resource "azurerm_subnet" "snet-dns-inbound" {
+resource "azurerm_subnet" "snet-dns-inbound" {
   name                 = "snet-dns-inbound"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet-hub.name
@@ -38,7 +38,7 @@ resource "azurerm_subnet" "snet-dns-outbound" {
     }
   }
 }
-*/
+
 
 # create a subnet for the vm
 resource "azurerm_subnet" "snet-vm" {
@@ -54,7 +54,7 @@ resource "azurerm_network_security_group" "nsg-snet-vm" {
   name                = "nsg-snet-vm"
   location            = var.region
   resource_group_name = var.resource_group_name
-   security_rule {
+  security_rule {
     name                       = "allow_ssh"
     priority                   = 1001
     direction                  = "Inbound"
@@ -74,6 +74,18 @@ resource "azurerm_network_security_group" "nsg-snet-vm" {
     protocol                   = "Udp"
     source_port_range          = "*"
     destination_port_range     = "53"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "allow_icmp"
+    priority                   = 1003
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Icmp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }

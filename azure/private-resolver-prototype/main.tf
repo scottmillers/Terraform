@@ -67,6 +67,7 @@ module "vnet-spoke-onprem" {
   resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
   region              = var.region
   dns_admin_username  = "azureuser"
+  ssh_public_key = tls_private_key.ssh.public_key_openssh
 }
 
 

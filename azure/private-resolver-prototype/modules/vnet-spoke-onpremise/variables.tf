@@ -11,6 +11,12 @@ variable "region" {
   default     = "centralus"
 }
 
+# add a variable for the ssh public key
+variable "ssh_public_key" {
+  description = "value of the ssh public key"
+  type        = string
+}
+
 # add a variable for the login username
 variable "dns_admin_username" {
   description = "value of the dns server username"

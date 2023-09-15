@@ -1,3 +1,8 @@
+/*output "vnet" {
+  value = azurerm_virtual_network.vnet-spoke-onprem
+}
+*/
+
 output "vnet-id" {
   value = azurerm_virtual_network.vnet-spoke-onprem.id
 } 

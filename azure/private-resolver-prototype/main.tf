@@ -39,49 +39,54 @@ provider "azurerm" {
 }
 */
 
-
-
-resource "azurerm_resource_group" "rg" {
-  name     = "private-resolver-prototype"
-  location = "southcentralus"
+resource "azurerm_resource_group" "rg-hub-vnet" {
+  name     = "hub-vnet"
+  location =  var.region
 }
+
+resource "azurerm_resource_group" "rg-on-prem-vnet" {
+  name     = "on-prem-vnet"
+  location = var.region
+}
+
 
 
 module "vnet-hub" {
   source = "./modules/vnet-hub"
   # insert the 2 required variables here
-  resource_group_name = azurerm_resource_group.rg.name
-  region              = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg-hub-vnet.name
+  region              = var.region
   vm_username = "azureuser"
   ssh_public_key             = tls_private_key.ssh.public_key_openssh
 }
 
-/*
+
 module "vnet-spoke-onprem" {
   source = "./modules/vnet-spoke-onpremise"
   # insert the 2 required variables here
-  resource_group_name = azurerm_resource_group.rg.name
-  region              = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
+  region              = var.region
+  dns_admin_username = "azureuser"
 }
-*/
 
-/*
+
+// create vnet peering between hub and spoke
 resource "azurerm_virtual_network_peering" "vnet-hub_to_vnet-spoke-onprem" {
   name                         = "vnet-hub_to_vnet-spoke-onprem"
-  resource_group_name          = azurerm_resource_group.vnet1.name
-  virtual_network_name         = azurerm_virtual_network.vnet1.name
-  remote_virtual_network_id    = azurerm_virtual_network.vnet2.id
+  resource_group_name          = azurerm_resource_group.rg-hub-vnet.name
+  virtual_network_name         = module.vnet-hub.vnet-name
+  remote_virtual_network_id    = module.vnet-spoke-onprem.vnet-id
   allow_virtual_network_access = true
 }
 
-resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
-  name                         = "vnet2-to-vnet1"
-  resource_group_name          = azurerm_resource_group.vnet2.name
-  virtual_network_name         = azurerm_virtual_network.vnet2.name
-  remote_virtual_network_id    = azurerm_virtual_network.vnet1.id
+// create vnet peering between spoke and hub
+resource "azurerm_virtual_network_peering" "vnet-spoke-onprem_to_vnet-hub" {
+  name                         = "vnet-spoke-onprem_to_vnet-hub"
+  resource_group_name          = azurerm_resource_group.rg-on-prem-vnet.name
+  virtual_network_name         = module.vnet-spoke-onprem.vnet-name
+  remote_virtual_network_id    = module.vnet-hub.vnet-id
   allow_virtual_network_access = true
 }
-*/
 
 
 /*

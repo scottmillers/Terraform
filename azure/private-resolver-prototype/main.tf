@@ -6,6 +6,11 @@ terraform {
       version = "~> 3.72.0"
     }
 
+    
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.0"
+    }
 
   }
 
@@ -17,7 +22,7 @@ provider "azurerm" {
 }
 
 # See https://registry.terraform.io/modules/cloudposse/label/null/latest for documentation
-module "label" {
+/*module "label" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
   # insert the 12 required variables here
@@ -32,6 +37,7 @@ module "label" {
     "Snapshot"     = "true"
   }
 }
+*/
 
 
 
@@ -46,6 +52,8 @@ module "vnet-hub" {
   # insert the 2 required variables here
   resource_group_name = azurerm_resource_group.rg.name
   region              = azurerm_resource_group.rg.location
+  vm_username = "azureuser"
+  ssh_public_key             = tls_private_key.ssh.public_key_openssh
 }
 
 /*

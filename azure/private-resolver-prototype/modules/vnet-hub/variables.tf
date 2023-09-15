@@ -8,3 +8,25 @@ variable "region" {
     description = "value of the azure region to put the resources"
     type = string
     }   
+
+
+# add a variable for the login username
+variable "vm_username" {
+  description = "value of the ssh username"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "ssh_public_key" {
+  description = "value of the ssh public key"
+  type      = string    
+}
+
+variable "private_zone_name" {
+  description = "name of the private zone"
+  type        = string
+  default     = "bep.hhs.gov"
+}
+
+
+

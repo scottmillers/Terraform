@@ -37,11 +37,15 @@ $ZoneNameRev = "2.0.10.in-addr.arpa"
 $ZoneFile = "$ZoneNameRev.dns"
 Add-DnsServerPrimaryZone -ZoneName $ZoneNameRev -ZoneFile $ZoneFile
 
+# Create a conditional forwarder
+Add-DnsServerConditionalForwarderZone -Name "bep.hhs.com" -MasterServers 10.0.0.4 -PassThru
+
+
 # Create the host records for the DNS server
 Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "dns" -IPv4Address "10.0.2.10"
 Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "10" -PtrDomainName "dns.$ZoneNameFwd"
 
 # Create a host record for a host
-Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "host1" -IPv4Address "10.0.2.20"
-Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "20" -PtrDomainName "host1.$ZoneNameFwd"
+Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "vmone" -IPv4Address "10.0.2.20"
+Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "20" -PtrDomainName "vmone.$ZoneNameFwd"
 

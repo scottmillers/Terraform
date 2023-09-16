@@ -22,11 +22,6 @@ resource "azurerm_network_interface" "nic-dns-onprem" {
   }
 }
 
-# associate the NSG to the network interface
-resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
-  subnet_id                 = azurerm_subnet.snet-vm-onprem.id
-  network_security_group_id = azurerm_network_security_group.snet-nsg-onprem.id
-}
 
 
 
@@ -58,10 +53,19 @@ resource "azurerm_windows_virtual_machine" "dns-onprem" {
 
 }
 
+
+#Variable input for the DNS.ps1 script
+data "template_file" "DNS" {
+  template = file("${path.module}/scripts/Install-DNS.ps1")
+  vars = {
+    Domain_DNSName = "${var.Domain_DNSName}"
+  }
+}
+
 # Install a DNS server on the virtual machine
 # https://techcommunity.microsoft.com/t5/itops-talk-blog/how-to-run-powershell-scripts-on-azure-vms-with-terraform/ba-p/3827573
 resource "azurerm_virtual_machine_extension" "install_dns" {
-  name                 = "install_ad"
+  name                 = "install_dns"
   virtual_machine_id   = azurerm_windows_virtual_machine.dns-onprem.id
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
@@ -74,13 +78,51 @@ resource "azurerm_virtual_machine_extension" "install_dns" {
   SETTINGS
 }
 
+
 #Variable input for the DNS.ps1 script
-data "template_file" "DNS" {
-  template = file("${path.module}/scripts/Install-DNS.ps1")
+data "template_file" "SSH" {
+  template = file("${path.module}/scripts/Install-SSH.ps1")
   vars = {
-    Domain_DNSName = "${var.Domain_DNSName}"
+    ssh_public_key = "${var.ssh_public_key}"
   }
 }
+
+resource "azurerm_virtual_machine_extension" "install_ssh" {
+  name                 = "install_ssh"
+  virtual_machine_id   = azurerm_windows_virtual_machine.dns-onprem.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.9"
+
+  protected_settings = <<SETTINGS
+  {    
+    "commandToExecute": "powershell -command \"[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${base64encode(data.template_file.SSH.rendered)}')) | Out-File -filepath SSH.ps1\" && powershell -ExecutionPolicy Unrestricted -File SSH.ps1 -Domain_DNSName ${data.template_file.SSH.vars.ssh_public_key}" 
+  }
+  SETTINGS
+}
+
+
+
+#Variable input for the DNS.ps1 script
+data "template_file" "TIME" {
+  template = file("${path.module}/scripts/Set-TimeZone.ps1")
+}
+
+resource "azurerm_virtual_machine_extension" "set_timezone" {
+  name                 = "set_timezone"
+  virtual_machine_id   = azurerm_windows_virtual_machine.dns-onprem.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.9"
+
+  protected_settings = <<SETTINGS
+  {    
+    "commandToExecute": "powershell -command \"[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${base64encode(data.template_file.TIME.rendered)}')) | Out-File -filepath TIME.ps1\" && powershell -ExecutionPolicy Unrestricted -File TIME.ps1" 
+  }
+  SETTINGS
+}
+
+
 
 # Install IIS web server to the virtual machine
 /*resource "azurerm_virtual_machine_extension" "web_server_install" {

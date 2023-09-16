@@ -1,3 +1,3 @@
 #!/bin/bash
-ssh  azureuser@20.225.196.185 -i ~/.ssh/private_key.pem
+ssh  azureuser@4.151.147.250 -i ~/.ssh/private_key.pem
 

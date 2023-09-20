@@ -30,6 +30,7 @@ resource "azurerm_private_dns_resolver_outbound_endpoint" "endpoint-dns-outbound
   subnet_id               = azurerm_subnet.snet-dns-outbound.id
 }
 
+
 # create a private dns resolver forwarding ruleset
 resource "azurerm_private_dns_resolver_dns_forwarding_ruleset" "dns-forwarding-ruleset" {
   name                                       = "dns-forwarding-ruleset"
@@ -53,11 +54,4 @@ resource "azurerm_private_dns_resolver_forwarding_rule" "dns-forwarding-rule-onp
   metadata = {
     key = "value"
   }
-}
-
-# create a virtual network link between the hub virtual network and the private dns resolver 
-resource "azurerm_private_dns_resolver_virtual_network_link" "dns-resolver-link" {
-  name                      = "dns-resolver-link"
-  dns_forwarding_ruleset_id = azurerm_private_dns_resolver_dns_forwarding_ruleset.dns-forwarding-ruleset.id
-  virtual_network_id        = azurerm_virtual_network.vnet-hub.id
 }

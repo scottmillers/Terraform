@@ -39,84 +39,81 @@ provider "azurerm" {
 }
 */
 
+// create the resource group for the hub virtual network
 resource "azurerm_resource_group" "rg-hub-vnet" {
   name     = "hub-vnet"
   location = var.region
 }
 
+// create the resource group for the spoke application virtual network
+resource "azurerm_resource_group" "rg-application-vnet" {
+  name     = "application-vnet"
+  location = var.region
+}
+
+// create the resource group for the spoke on-premise virtual network
 resource "azurerm_resource_group" "rg-on-prem-vnet" {
   name     = "on-prem-vnet"
   location = var.region
 }
 
-
-
-module "vnet-hub" {
-  source = "./modules/vnet-hub"
-  # insert the 2 required variables here
-  resource_group_name = azurerm_resource_group.rg-hub-vnet.name
+// create the on-premise virtual network components
+module "vnet-spoke-onprem" {
+  source              = "./modules/vnet-spoke-onpremise"
+  resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
   region              = var.region
-  vm_username         = "azureuser"
+  dns_admin_username  = var.vm_username
   ssh_public_key      = tls_private_key.ssh.public_key_openssh
 }
 
-
-module "vnet-spoke-onprem" {
-  source = "./modules/vnet-spoke-onpremise"
-  # insert the 2 required variables here
-  resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
-  region              = var.region
-  dns_admin_username  = "azureuser"
-  ssh_public_key = tls_private_key.ssh.public_key_openssh
+// create the hub virtual network components
+module "vnet-hub" {
+  source                = "./modules/vnet-hub"
+  resource_group_name   = azurerm_resource_group.rg-hub-vnet.name
+  region                = var.region
+  private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
+  vm_username           = var.vm_username
+  ssh_public_key        = tls_private_key.ssh.public_key_openssh
 }
 
-
-// create vnet peering between hub and spoke
-resource "azurerm_virtual_network_peering" "vnet-hub_to_vnet-spoke-onprem" {
-  name                         = "vnet-hub_to_vnet-spoke-onprem"
-  resource_group_name          = azurerm_resource_group.rg-hub-vnet.name
-  virtual_network_name         = module.vnet-hub.vnet-name
-  remote_virtual_network_id    = module.vnet-spoke-onprem.vnet-id
-  allow_virtual_network_access = true
+// create the application spoke virtual network components
+module "vnet-spoke-application" {
+  source                = "./modules/vnet-spoke-application"
+  resource_group_name   = azurerm_resource_group.rg-application-vnet.name
+  region                = var.region
+  private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
+  vm_username           = var.vm_username
+  ssh_public_key        = tls_private_key.ssh.public_key_openssh
 }
-
-// create vnet peering between spoke and hub
-resource "azurerm_virtual_network_peering" "vnet-spoke-onprem_to_vnet-hub" {
-  name                         = "vnet-spoke-onprem_to_vnet-hub"
-  resource_group_name          = azurerm_resource_group.rg-on-prem-vnet.name
-  virtual_network_name         = module.vnet-spoke-onprem.vnet-name
-  remote_virtual_network_id    = module.vnet-hub.vnet-id
-  allow_virtual_network_access = true
-}
-
 
 /*
-resource "azurerm_linux_virtual_machine" "onprem-vm" {
-  name                = "onprem-vm"
-  resource_group_name = var.resource_group_name
-  location            = var.region
-  size                = "Standard_B1s"
-
-  admin_username = "adminuser"
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
-  }
-
-  network_interface_ids = [
-    azurerm_network_interface.onprem-vm-nic.id,
-  ]
-
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
-  }
+resource "local_file" "output_to_file" {
+  content  = "The VM Public IP is: ${output.hub_vm_public_ip_address.value}"
+  filename = "${path.module}/output.txt"
 }
 */
+/*
+// create an output file to connect to the HUB VM's
+resource "local_file" "connect-hubvm" {
+  content  = <<EOF
+  Line 1: "#!/bin/bash"
+  Line 2: "ssh  ${output.hub_vm_user_name.value}@${output.hub_vm_public_ip_address.value} -i ~/.ssh/private_key.pem"
+  EOF
+ 
+  filename = "${path.module}/connect_hubvm.sh"
+}
+
+*/
+// create an output file to connect to the Spoke VM's
+/*resource "local_file" "connect-spokevm" {
+  content  = <<EOF
+  #!/bin/bash
+  ssh  ${output.spoke_vm_user_name}@${output.spoke_vm_public_ip_address} -i ~/.ssh/private_key.pem
+  EOF
+ 
+  filename = "${path.module}/connect_spokevm.sh"
+}
+*/
+
+
+

@@ -79,8 +79,10 @@ resource "azurerm_virtual_machine_extension" "install_dns" {
 }
 
 
+# for Windows VM's you can only run one custom script extension
+
 #Variable input for the DNS.ps1 script
-data "template_file" "SSH" {
+/*data "template_file" "SSH" {
   template = file("${path.module}/scripts/Install-SSH.ps1")
   vars = {
     ssh_public_key = "${var.ssh_public_key}"
@@ -100,11 +102,11 @@ resource "azurerm_virtual_machine_extension" "install_ssh" {
   }
   SETTINGS
 }
-
+*/
 
 
 #Variable input for the DNS.ps1 script
-data "template_file" "TIME" {
+/*data "template_file" "TIME" {
   template = file("${path.module}/scripts/Set-TimeZone.ps1")
 }
 
@@ -122,7 +124,7 @@ resource "azurerm_virtual_machine_extension" "set_timezone" {
   SETTINGS
 }
 
-
+*/
 
 # Install IIS web server to the virtual machine
 /*resource "azurerm_virtual_machine_extension" "web_server_install" {

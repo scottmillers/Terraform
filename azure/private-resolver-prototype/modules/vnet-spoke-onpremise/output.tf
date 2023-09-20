@@ -1,13 +1,8 @@
-/*output "vnet" {
-  value = azurerm_virtual_network.vnet-spoke-onprem
-}
-*/
-
-output "vnet-id" {
+output "vnet_id" {
   value = azurerm_virtual_network.vnet-spoke-onprem.id
 }
 
-output "vnet-name" {
+output "vnet_name" {
   value = azurerm_virtual_network.vnet-spoke-onprem.name
 }
 
@@ -21,7 +16,7 @@ output "dns_admin_username" {
 }
 
 output "dns_admin_password" {
-  sensitive = true
+  sensitive = false
   value     = var.dns_admin_password
 }
 

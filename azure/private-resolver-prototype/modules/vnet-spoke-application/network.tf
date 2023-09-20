@@ -1,33 +1,34 @@
-# Create a vnet for the onprem spoke
-resource "azurerm_virtual_network" "vnet-spoke-onprem" {
-  name                = "vnet-onprem-spoke"
+# Create the first virtual network that simulates the Hub
+resource "azurerm_virtual_network" "vnet-spoke-application" {
+  name                = "vnet-spoke-application"
+  address_space       = ["10.0.4.0/24"]
   location            = var.region
   resource_group_name = var.resource_group_name
-  address_space       = ["10.0.2.0/24"]
 }
 
-resource "azurerm_subnet" "snet-vm-onprem" {
-  name                 = "snet-onprem-vm"
+
+# create a subnet for the vm
+resource "azurerm_subnet" "snet-vm" {
+  name                 = "snet-vm"
   resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.vnet-spoke-onprem.name
-  address_prefixes     = ["10.0.2.0/28"]
-
+  virtual_network_name = azurerm_virtual_network.vnet-spoke-application.name
+  address_prefixes     = ["10.0.4.0/28"]
 }
 
-#Create a NSG for the onprem spoke
-resource "azurerm_network_security_group" "snet-nsg-onprem" {
-  name                = "snet-nsg-onprem"
+
+# create a security rule for the vm
+resource "azurerm_network_security_group" "nsg-snet-vm" {
+  name                = "nsg-snet-vm"
   location            = var.region
   resource_group_name = var.resource_group_name
-
   security_rule {
-    name                       = "allow_rdp"
+    name                       = "allow_ssh"
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "3389"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -55,14 +56,14 @@ resource "azurerm_network_security_group" "snet-nsg-onprem" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
 }
 
 
-  # associate the NSG to the network interface
-  resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
-    subnet_id                 = azurerm_subnet.snet-vm-onprem.id
-    network_security_group_id = azurerm_network_security_group.snet-nsg-onprem.id
-  }
-
+# associate the NSG to the subnet
+resource "azurerm_subnet_network_security_group_association" "nsg-associate-snet-vm" {
+  subnet_id                 = azurerm_subnet.snet-vm.id
+  network_security_group_id = azurerm_network_security_group.nsg-snet-vm.id
+}
 
 

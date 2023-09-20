@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="-DPmXS76Umg-Spe6nsbr" name="PrivateResolver Demo">
-        <mxGraphModel dx="1646" dy="802" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1786" dy="987" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-71" style="edgeStyle=none;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.052;entryY=0.512;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="12" target="A5Da7jHjknWkfX75Lmv2-42" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-71" style="edgeStyle=none;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=-0.039;entryY=0.457;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="12" target="A5Da7jHjknWkfX75Lmv2-42" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="510" y="840" as="targetPoint"/>
                     </mxGeometry>
@@ -14,17 +14,20 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-77" style="edgeStyle=none;html=1;entryX=0.488;entryY=1.083;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#e51400;strokeColor=#B20000;" parent="1" source="A5Da7jHjknWkfX75Lmv2-42" target="A5Da7jHjknWkfX75Lmv2-33" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-77" style="edgeStyle=none;html=1;fillColor=#e51400;strokeColor=#B20000;entryX=0.114;entryY=0.996;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="A5Da7jHjknWkfX75Lmv2-42" target="25" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="340" y="550" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-42" value="DNS Forwarding Ruleset&lt;br&gt;&lt;div style=&quot;&quot;&gt;Rule:&lt;/div&gt;*.onpremise.hhs.gov&lt;br&gt;10.0.2.10" style="html=1;verticalLabelPosition=bottom;align=left;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.forward;fillStyle=dots;fillColor=none;flipH=1;" parent="1" vertex="1">
-                    <mxGeometry x="311.19" y="670" width="87.62" height="36.8" as="geometry"/>
+                    <mxGeometry x="300" y="673.2" width="87.62" height="36.8" as="geometry"/>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-79" style="edgeStyle=none;html=1;strokeColor=#B20000;" parent="1" source="A5Da7jHjknWkfX75Lmv2-43" target="A5Da7jHjknWkfX75Lmv2-32" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-79" style="edgeStyle=none;html=1;strokeColor=#B20000;" parent="1" source="A5Da7jHjknWkfX75Lmv2-43" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="400" y="610"/>
                         </Array>
+                        <mxPoint x="400" y="480" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-80" value="Outbound &lt;br&gt;Endpoint" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="A5Da7jHjknWkfX75Lmv2-79" vertex="1" connectable="0">
@@ -32,11 +35,11 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-82" style="edgeStyle=none;html=1;strokeColor=#006EAF;fillColor=#1ba1e2;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="1" source="A5Da7jHjknWkfX75Lmv2-43" target="A5Da7jHjknWkfX75Lmv2-26" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-82" style="edgeStyle=none;html=1;strokeColor=#006EAF;fillColor=#1ba1e2;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="1" source="A5Da7jHjknWkfX75Lmv2-43" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="540" y="520" as="targetPoint"/>
+                        <mxPoint x="540" y="480" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="540" y="610"/>
+                            <mxPoint x="550" y="610"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -54,53 +57,42 @@
                 <mxCell id="12" value="OnPremise&lt;br&gt;10.0.2.0/24" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#001DBC;fillColor=none;verticalAlign=bottom;align=left;fontColor=#ffffff;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
                     <mxGeometry x="60" width="460" height="230" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="VNet-Spoke-Application" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
+                <mxCell id="2" value="VNet-Spoke (Application)&lt;br&gt;10.0.4.0/24" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
                     <mxGeometry x="433" width="67" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="Private subnet-VMSubnet" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#147EBA;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=0;labelBackgroundColor=none;fillStyle=dots;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
-                    <mxGeometry x="80" y="8.240000000000009" width="310" height="197.5" as="geometry"/>
+                <mxCell id="39" value="&lt;div style=&quot;&quot;&gt;Subnet-(VM)&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.4.0/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#000000;" vertex="1" parent="A5Da7jHjknWkfX75Lmv2-54">
+                    <mxGeometry x="90" y="15" width="310" height="200" as="geometry">
+                        <mxRectangle x="1210" y="330" width="50" height="40" as="alternateBounds"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="20" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
-                    <mxGeometry x="200.5" y="110" width="69" height="64" as="geometry"/>
+                <mxCell id="40" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;container=0;" vertex="1" parent="39">
+                    <mxGeometry x="120.00142857142859" y="54.36999999999999" width="69" height="64" as="geometry"/>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-66" value="*.bep.hhs.gov&lt;br&gt;(DNS Private Zone Link)" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/DNS_Private_Zones.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="A5Da7jHjknWkfX75Lmv2-54" vertex="1">
-                    <mxGeometry y="190" width="72" height="72" as="geometry"/>
+                    <mxGeometry x="440" y="143" width="72" height="72" as="geometry"/>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-23" value="Out" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#007FFF;fillColor=none;verticalAlign=bottom;align=left;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="260" y="270" width="860" height="225" as="geometry"/>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-26" value="Private subnet-Dns-Inbound&lt;br&gt;10.0.0.0/28&lt;br&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20style%3D%22edgeStyle%3Dnone%3Bhtml%3D1%3BentryX%3D0.742%3BentryY%3D0.972%3BentryDx%3D0%3BentryDy%3D0%3BentryPerimeter%3D0%3BstrokeColor%3D%23006EAF%3BfillColor%3D%231ba1e2%3B%22%20edge%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CmxPoint%20x%3D%22497.6457415735547%22%20y%3D%22550%22%20as%3D%22sourcePoint%22%2F%3E%3CmxPoint%20x%3D%22610.0040000000001%22%20y%3D%22407.44799999999987%22%20as%3D%22targetPoint%22%2F%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;br&gt;1&lt;br&gt;&lt;/span&gt;" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#147EBA;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=0;labelBackgroundColor=none;fillStyle=dots;" parent="1" vertex="1">
-                    <mxGeometry x="540" y="283.75" width="190" height="196.25" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-32" value="Private subnet-Dns-Outbound&lt;br&gt;10.0.0.16/28" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#147EBA;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=0;labelBackgroundColor=none;fillStyle=dots;" parent="1" vertex="1">
-                    <mxGeometry x="300" y="279.74" width="200" height="200.26" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-40" value="Vnet Hub" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-40" value="Vnet (Hub)&lt;br&gt;10.0.0.0/24" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="1030" y="270" width="67" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-41" value="*.bep.hhs.gov&lt;br&gt;(DNS Private Zone Link)" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/DNS_Private_Zones.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="210" y="338.74" width="72" height="72" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-30" value="InBound Endpoint" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Service_Endpoint_Policies.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="564" y="345.24" width="62" height="64" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-85" style="edgeStyle=none;html=1;strokeColor=#B20000;rounded=0;" parent="1" source="A5Da7jHjknWkfX75Lmv2-33" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-85" style="edgeStyle=none;html=1;strokeColor=#B20000;rounded=0;exitX=0.386;exitY=-0.01;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="25" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="730" y="90" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="355" y="90"/>
+                            <mxPoint x="400" y="90"/>
                         </Array>
+                        <mxPoint x="360" y="230" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-33" value="OutBound Endpoint" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Service_Endpoint_Policies.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="324" y="345.24" width="62" height="64" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-86" style="edgeStyle=none;html=1;strokeColor=#001DBC;entryX=0;entryY=0;entryDx=0;entryDy=0;rounded=0;fillColor=#0050ef;" parent="1" target="A5Da7jHjknWkfX75Lmv2-26" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-86" style="edgeStyle=none;html=1;strokeColor=#001DBC;entryX=0;entryY=0;entryDx=0;entryDy=0;rounded=0;fillColor=#0050ef;" parent="1" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="730" y="120" as="sourcePoint"/>
                         <Array as="points">
-                            <mxPoint x="540" y="120"/>
+                            <mxPoint x="550" y="120"/>
                         </Array>
+                        <mxPoint x="540" y="283.75" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-87" value="Conditional forwarder:&amp;nbsp;&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;bep.hhs.gov&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;10.0.0.4&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="A5Da7jHjknWkfX75Lmv2-86" vertex="1" connectable="0">
@@ -108,42 +100,63 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-88" value="Vnet&lt;br&gt;Peering" style="edgeStyle=none;rounded=0;html=1;strokeColor=#001DBC;exitX=0;exitY=0.5;exitDx=0;exitDy=0;shape=link;fillColor=#0050ef;entryX=0.437;entryY=0.979;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="12" target="A5Da7jHjknWkfX75Lmv2-23" edge="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-88" value="Vnet&lt;br&gt;Peering" style="edgeStyle=none;rounded=0;html=1;strokeColor=#001DBC;exitX=0;exitY=0.5;exitDx=0;exitDy=0;shape=link;fillColor=#0050ef;entryX=0.419;entryY=0.978;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="12" target="A5Da7jHjknWkfX75Lmv2-23" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="580" y="492" as="targetPoint"/>
+                        <mxPoint x="620" y="501" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="636" y="635"/>
+                            <mxPoint x="620" y="635"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-58" value="OnPremise&lt;br&gt;10.0.2.0/24" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#001DBC;fillColor=none;verticalAlign=bottom;align=left;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="636" y="10" width="484" height="230" as="geometry"/>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-59" value="VNet-Spoke-OnPremise" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="1" vertex="1">
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-59" value="VNet-Spoke (OnPremise)&lt;br&gt;&lt;div style=&quot;&quot;&gt;10.0.2.0/24&lt;/div&gt;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="1" vertex="1">
                     <mxGeometry x="1033" y="10" width="67" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-61" value="Private subnet-VMSubnet&lt;br&gt;10.0.2.0/28" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#147EBA;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=0;labelBackgroundColor=none;fillStyle=dots;" parent="1" vertex="1">
-                    <mxGeometry x="680" y="18.24000000000001" width="310" height="231.76" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-63" value="DNS Server&lt;br&gt;Windows Server 2019&lt;br&gt;10.0..2.10" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" parent="A5Da7jHjknWkfX75Lmv2-61" vertex="1">
-                    <mxGeometry x="50" y="60" width="69" height="64" as="geometry"/>
-                </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-62" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" parent="A5Da7jHjknWkfX75Lmv2-61" vertex="1">
-                    <mxGeometry x="220" y="60" width="69" height="64" as="geometry"/>
-                </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-60" value="*.onpremise.hhs.gov" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/DNS_Zones.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#007FFF;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="600" width="60" height="60" as="geometry"/>
+                    <mxGeometry x="1033" y="148.37" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="A5Da7jHjknWkfX75Lmv2-89" value="&lt;h1&gt;Private Resolver Demo&lt;/h1&gt;&lt;p&gt;DNS Outbound&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Application Spoke VNET associates a DNS private resolver for all lookup of resources in Azure&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;dashed=1;labelBackgroundColor=none;fillStyle=dots;" parent="1" vertex="1">
                     <mxGeometry x="20" y="18" width="280" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font&gt;Private subnet&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.0.32/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#007FFF;" vertex="1" parent="1">
-                    <mxGeometry x="1180" y="250" width="240" height="200" as="geometry">
+                <mxCell id="24" value="&lt;div style=&quot;&quot;&gt;Subnet-(DNS-Inbound)&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.0.0/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="550" y="280.37" width="210" height="197.5" as="geometry">
                         <mxRectangle x="1210" y="330" width="50" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="A5Da7jHjknWkfX75Lmv2-36" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" parent="21" vertex="1">
-                    <mxGeometry x="85.71428571428571" y="60" width="59.14285714285714" height="54.857142857142854" as="geometry"/>
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-30" value="InBound Endpoint" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Service_Endpoint_Policies.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="624" y="340" width="62" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;div style=&quot;&quot;&gt;Subnet-(DNS-Outbound)&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.0.16/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="280.99" width="210" height="198.75" as="geometry">
+                        <mxRectangle x="1210" y="330" width="50" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" value="OutBound Endpoint" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/networking/Service_Endpoint_Policies.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="394" y="340" width="62" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;div style=&quot;&quot;&gt;Subnet-(VM)&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.0.32/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="280.37" width="210" height="200" as="geometry">
+                        <mxRectangle x="1210" y="330" width="50" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5Da7jHjknWkfX75Lmv2-62" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="850.5" y="340" width="69" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;div style=&quot;&quot;&gt;Subnet-(VM)&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10.0.2.0/28&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;fillColor=none;container=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;verticalAlign=bottom;align=left;dashed=1;strokeColor=#007FFF;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="25" width="310" height="200" as="geometry">
+                        <mxRectangle x="1210" y="330" width="50" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="vm01&lt;br&gt;Ubuntu 22.04&amp;nbsp;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;container=0;" vertex="1" parent="35">
+                    <mxGeometry x="200.0014285714286" y="54.36999999999999" width="69" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="DNS Server&lt;br&gt;Windows Server 2019&lt;br&gt;10.0.2.10" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;labelBackgroundColor=none;" vertex="1" parent="35">
+                    <mxGeometry x="60" y="54.370000000000005" width="69" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="*.bep.hhs.gov&lt;br&gt;(DNS Private Zone Link)" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/DNS_Private_Zones.svg;dashed=1;labelBackgroundColor=none;fillStyle=dots;strokeColor=#000000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="400" width="72" height="72" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

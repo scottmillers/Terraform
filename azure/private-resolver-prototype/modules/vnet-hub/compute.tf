@@ -37,7 +37,7 @@ resource "azurerm_linux_virtual_machine" "vm-one" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic-vm-one.id]
   size                  = "Standard_DS1_v2"
-  computer_name         = "bepvmone"
+  computer_name         = "hub-vmone"
   admin_username        = var.vm_username
 
   os_disk {
@@ -63,6 +63,15 @@ resource "azurerm_linux_virtual_machine" "vm-one" {
 
 }
 
+# Solution to return the public ip address of the vm
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/public_ip.html
+data "azurerm_public_ip" "public-ip-vm-one" {
+  name                = azurerm_public_ip.publicip-vm-one.name
+  resource_group_name = var.resource_group_name
+}
+
+
+/*
 resource "azurerm_virtual_machine_extension" "ext-vm-one" {
   name                 = "ext-vm-one"
   virtual_machine_id   = azurerm_linux_virtual_machine.vm-one.id
@@ -77,7 +86,7 @@ resource "azurerm_virtual_machine_extension" "ext-vm-one" {
  }
 SETTINGS
 }
-
+*/
 #Variable input for the setup.sh script
 /*
 data "template_file" "setup" {
@@ -93,6 +102,7 @@ data "template_file" "setup" {
 ######################
 # create a virtual machine
 # create a public ip address for the vm
+/*
 resource "azurerm_public_ip" "publicip-vm-two" {
   name                = "publicip-vm-two"
   resource_group_name = var.resource_group_name
@@ -163,6 +173,7 @@ resource "azurerm_virtual_machine_extension" "ext-vm-two" {
  }
 SETTINGS
 }
+*/
 
 #Variable input for the setup.sh script
 /*

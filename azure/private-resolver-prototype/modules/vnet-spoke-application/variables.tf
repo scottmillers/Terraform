@@ -2,11 +2,13 @@
 variable "resource_group_name" {
   description = "value of the resource group name"
   type        = string
+  default     = "private-resolver-prototype"
 }
-
+# add a variable to pass in the azure region
 variable "region" {
   description = "value of the azure region to put the resources"
   type        = string
+  default     = "centralus"
 }
 
 
@@ -27,6 +29,8 @@ variable "private_dns_zone_name" {
   type        = string
   default     = "bep.hhs.gov"
 }
+
+
 
 
 

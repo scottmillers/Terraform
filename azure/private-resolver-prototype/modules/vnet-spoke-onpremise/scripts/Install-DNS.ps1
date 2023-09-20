@@ -38,7 +38,7 @@ $ZoneFile = "$ZoneNameRev.dns"
 Add-DnsServerPrimaryZone -ZoneName $ZoneNameRev -ZoneFile $ZoneFile
 
 # Create a conditional forwarder
-Add-DnsServerConditionalForwarderZone -Name "bep.hhs.com" -MasterServers 10.0.0.4 -PassThru
+Add-DnsServerConditionalForwarderZone -Name "bep.hhs.gov" -MasterServers 10.0.0.4 -PassThru
 
 
 # Create the host records for the DNS server

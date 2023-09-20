@@ -7,9 +7,10 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "hashicorp.terraform",
-        "GitHub.copilot"
-      ]
+		"hashicorp.terraform",
+		"GitHub.copilot",
+		"shd101wyy.markdown-preview-enhanced"
+	]
     }
   },
   "features": {

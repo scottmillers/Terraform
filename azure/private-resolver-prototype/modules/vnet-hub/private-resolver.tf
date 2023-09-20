@@ -40,6 +40,7 @@ resource "azurerm_private_dns_resolver_dns_forwarding_ruleset" "dns-forwarding-r
 
 }
 
+# create a dns resolver forwarding rule that associates a domain with a target IP
 resource "azurerm_private_dns_resolver_forwarding_rule" "dns-forwarding-rule-onpremise" {
   name                      = "dns-forwarding-rule-onpremise"
   dns_forwarding_ruleset_id = azurerm_private_dns_resolver_dns_forwarding_ruleset.dns-forwarding-ruleset.id

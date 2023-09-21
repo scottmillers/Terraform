@@ -86,12 +86,38 @@ module "vnet-spoke-application" {
   ssh_public_key        = tls_private_key.ssh.public_key_openssh
 }
 
-/*
-resource "local_file" "output_to_file" {
-  content  = "The VM Public IP is: ${output.hub_vm_public_ip_address.value}"
-  filename = "${path.module}/output.txt"
+locals {
+  connect_hub = <<-EOT
+    #!/bin/bash
+    ##
+    ## Connect to the hubs VM
+    ##
+    myusername = ${module.vnet-hub.vm_username}
+    ssh  ${module.vnet-hub.vm_username}@${module.vnet-hub.vm_public_ip_address} -i ~/.ssh/private_key.pem
+
+  EOT
+
+  connect_spoke = <<-EOT
+    #!/bin/bash
+    ##
+    ## Connect to the spoke VM
+    ##
+    myusername = ${module.spoke_vm_user_name}
+    ssh  ${module.vnet-spoke-application.vm_username}@${module.vnet-spoke-application.vm_public_ip_address} -i ~/.ssh/private_key.pem
+
+  EOT
 }
-*/
+
+resource "local_file" "output_shell_connect_hub" {
+  content  = local.connect_hub
+  filename = "${path.module}/connect_hub.sh"
+}
+
+resource "local_file" "output_shell_connect_spoke" {
+  content  = local.connect_spoke
+  filename = "${path.module}/connect_spoke.sh"
+}
+
 /*
 // create an output file to connect to the HUB VM's
 resource "local_file" "connect-hubvm" {

@@ -38,4 +38,3 @@ resource "azurerm_virtual_network_peering" "vnet-spoke-application_to_vnet-hub" 
 }
 
 
-

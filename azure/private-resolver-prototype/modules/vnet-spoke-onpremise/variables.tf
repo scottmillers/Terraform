@@ -11,11 +11,6 @@ variable "region" {
   default     = "centralus"
 }
 
-# add a variable for the ssh public key
-variable "ssh_public_key" {
-  description = "value of the ssh public key"
-  type        = string
-}
 
 # add a variable for the login username
 variable "dns_admin_username" {
@@ -35,5 +30,29 @@ variable "Domain_DNSName" {
   type        = string
   sensitive   = false
   default     = "onpremise.hhs.gov"
+}
+
+variable "dns_interal_ip_address" {
+  description = "value of the dns server internal ip address"
+  type = string
+  default = "10.0.2.10"
+}
+
+# add a variable for the login username
+variable "vm_username" {
+  description = "value of the ssh username"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "vm_internal_ip_address" {
+  description = "value of the vm internal ip address"
+  type = string
+  default = "10.0.2.14"
+}
+
+variable "ssh_public_key" {
+  description = "value of the ssh public key"
+  type        = string
 }
 

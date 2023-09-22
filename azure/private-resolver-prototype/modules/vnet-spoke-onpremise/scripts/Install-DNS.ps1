@@ -8,7 +8,6 @@ param
 #
 
 
-
 # Replace with your desired static IP address, subnet mask, and default gateway, and dns server
 $InterfaceAlias = "Ethernet"  # Change this to the name of your network interface
 $IPAddress = '10.0.2.10'
@@ -46,6 +45,6 @@ Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "dns" -IPv4Address "10
 Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "10" -PtrDomainName "dns.$ZoneNameFwd"
 
 # Create a host record for a host
-Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "vmone" -IPv4Address "10.0.2.20"
-Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "20" -PtrDomainName "vmone.$ZoneNameFwd"
+Add-DnsServerResourceRecordA -ZoneName $ZoneNameFwd -Name "vmone" -IPv4Address "10.0.2.14"
+Add-DnsServerResourceRecordPtr -ZoneName $ZoneNameRev -Name "14" -PtrDomainName "vmone.$ZoneNameFwd"
 

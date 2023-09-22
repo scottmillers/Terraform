@@ -38,21 +38,21 @@ DNS lookup for a on-premise VM
 DNS lookup for a Azure Storage Table in the Spoke VNet 
 ```$nslookup hhscscbepffcfoprodstor.table.core.windows.net```
 
-#### From On-Premise (onpremise.hhs.gov)
+#### From On-Premise VNet (onpremise.hhs.gov)
 
-Login to a VM in the on-premise network (Hostname: dns.onpremise.hhs.gov):
-
-DNS lookup for a VM in the Hub VNET 
-
-```$nslookup hub-vmone.bep.hhs.gov```
-
-DNS lookup for a VM in the Spoke  VNet 
-
-```$nslookup spoke-app-vmone.bep.hhs.gov```
+Login to a VM in the on-premise network (Hostname: onpremise-vmone):
 
 DNS lookup for a on-premise VM 
 
 ```$nslookup vmone.onpremise.hhs.gov ```
 
-DNS lookup for a Azure Storage Table in the Spoke VNet **(This will fail)**
+DNS lookup for a VM in the Hub VNet 
+
+```$nslookup hub-vmone.bep.hhs.gov```
+
+DNS lookup for a VM in the Spoke VNet 
+
+```$nslookup spoke-app-vmone.bep.hhs.gov```
+
+DNS lookup for a Azure Storage Table in the Spoke VNet 
 ```$nslookup hhscscbepffcfoprodstor.table.core.windows.net```

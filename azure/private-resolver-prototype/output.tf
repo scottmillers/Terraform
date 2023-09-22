@@ -18,20 +18,29 @@ output "spoke_vm_user_name" {
   value       = module.vnet-spoke-application.vm_username
 }
 
-output "dns_public_ip_address" {
+output "onpremise_dns_public_ip_address" {
   description = "The public ip address of the dns server"
   value       = module.vnet-spoke-onprem.dns_public_ip_address
 }
 
-output "dns_admin_username" {
+output "onpremise_dns_user_name" {
   description = "The admin username of the dns server"
   sensitive   = false
   value       = module.vnet-spoke-onprem.dns_admin_username
 }
 
-output "dns_admin_password" {
+output "onpremise_dns_user_password" {
   description = "The admin password of the dns server"
   sensitive   = false
   value       = module.vnet-spoke-onprem.dns_admin_password
 }
 
+output "onpremise_vm_public_ip_address" {
+  description = "The public ip address of the onpremise vm"
+  value       = module.vnet-spoke-onprem.vm_public_ip_address
+}
+
+output "onpremise_vm_user_name" {
+  description = "The public ip address of the onpremise vm"
+  value       = module.vnet-spoke-onprem.vm_public_ip_address
+}

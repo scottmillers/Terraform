@@ -63,6 +63,7 @@ module "vnet-spoke-onprem" {
   resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
   region              = var.region
   dns_admin_username  = var.vm_username
+  vm_username         = var.vm_username
   ssh_public_key      = tls_private_key.ssh.public_key_openssh
 }
 
@@ -104,40 +105,33 @@ locals {
     ssh  ${module.vnet-spoke-application.vm_username}@${module.vnet-spoke-application.vm_public_ip_address} -i ~/.ssh/private_key.pem
 
   EOT
+
+  connect_onpremise = <<-EOT
+    #!/bin/bash
+    ##
+    ## Connect to the on-premise VM
+    ##
+    ssh  ${module.vnet-spoke-onprem.vm_username}@${module.vnet-spoke-onprem.vm_public_ip_address} -i ~/.ssh/private_key.pem
+  EOT  
 }
 
-resource "local_file" "output_shell_connect_hub" {
+resource "local_file" "output_ssh_hub" {
   content  = local.connect_hub
-  filename = "${path.module}/connect_hub.sh"
+  filename = "${path.module}/ssh_hub.sh"
 }
 
-resource "local_file" "output_shell_connect_spoke" {
+resource "local_file" "output_ssh_spoke" {
   content  = local.connect_spoke
-  filename = "${path.module}/connect_spoke.sh"
+  filename = "${path.module}/ssh_spoke.sh"
 }
 
-/*
-// create an output file to connect to the HUB VM's
-resource "local_file" "connect-hubvm" {
-  content  = <<EOF
-  Line 1: "#!/bin/bash"
-  Line 2: "ssh  ${output.hub_vm_user_name.value}@${output.hub_vm_public_ip_address.value} -i ~/.ssh/private_key.pem"
-  EOF
- 
-  filename = "${path.module}/connect_hubvm.sh"
+
+resource "local_file" "output_shell_onpremise" {
+  content  = local.connect_onpremise
+  filename = "${path.module}/ssh_onpremise.sh"
 }
 
-*/
-// create an output file to connect to the Spoke VM's
-/*resource "local_file" "connect-spokevm" {
-  content  = <<EOF
-  #!/bin/bash
-  ssh  ${output.spoke_vm_user_name}@${output.spoke_vm_public_ip_address} -i ~/.ssh/private_key.pem
-  EOF
- 
-  filename = "${path.module}/connect_spokevm.sh"
-}
-*/
+
 
 
 

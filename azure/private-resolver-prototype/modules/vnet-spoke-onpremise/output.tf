@@ -20,3 +20,13 @@ output "dns_admin_password" {
   value     = var.dns_admin_password
 }
 
+
+output "vm_public_ip_address" {
+  value = azurerm_linux_virtual_machine.vm-one.public_ip_address
+}
+
+output "vm_username" {
+  sensitive = false
+  value     = var.vm_username
+}
+

@@ -92,7 +92,6 @@ locals {
     ##
     ## Connect to the hubs VM
     ##
-    myusername = ${module.vnet-hub.vm_username}
     ssh  ${module.vnet-hub.vm_username}@${module.vnet-hub.vm_public_ip_address} -i ~/.ssh/private_key.pem
 
   EOT
@@ -102,7 +101,6 @@ locals {
     ##
     ## Connect to the spoke VM
     ##
-    myusername = ${module.spoke_vm_user_name}
     ssh  ${module.vnet-spoke-application.vm_username}@${module.vnet-spoke-application.vm_public_ip_address} -i ~/.ssh/private_key.pem
 
   EOT

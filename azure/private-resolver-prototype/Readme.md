@@ -3,7 +3,7 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td style="width: 140px; text-align: center;"><a href="https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview"><img width="130px" src="./docs/images/dns-private-resolver-logo.png" alt="Azure Private Resolver logo"/></a></td>
 <td>
-<strong>Prototype for DNS name resolutinon using the Azure Private Resolver</strong><br />
+<strong>Prototype for DNS name resolution using the Azure Private Resolver</strong><br />
 <i>Terraform scripts to build the Azure environment</i><br />
 </td>
 </tr></table>
@@ -38,5 +38,9 @@ The Terraform scripts will setup 3 Azure virtual networks
 
 ![Alt text](docs/images/private-resolver-demo.svg)
 
+## Installation
 
+## Usage
+
+## Features
 

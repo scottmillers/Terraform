@@ -8,7 +8,8 @@ output "vnet_name" {
 
 output "vm_public_ip_address" {
   description = "value of the vm public ip address"
-  value = data.azurerm_public_ip.public-ip-vm-one.ip_address
+  #value = data.azurerm_public_ip.public-ip-vm-one.ip_address
+   value = azurerm_linux_virtual_machine.vm-one.public_ip_address
 }
 
 output "vm_username" {

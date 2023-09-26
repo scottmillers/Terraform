@@ -65,10 +65,10 @@ resource "azurerm_linux_virtual_machine" "vm-one" {
 
 # Solution to return the public ip address of the vm
 #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/public_ip.html
-data "azurerm_public_ip" "public-ip-vm-one" {
-  name                = azurerm_public_ip.publicip-vm-one.name
-  resource_group_name = var.resource_group_name
-}
+#data "azurerm_public_ip" "public-ip-vm-one" {
+#  name                = azurerm_public_ip.publicip-vm-one.name
+#  resource_group_name = var.resource_group_name
+#}
 
 
 /*

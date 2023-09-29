@@ -12,8 +12,8 @@
 
 
 
+
  
-##Azure Examples
- 
-- [Terraform prototype for Azure Private Resolver](./azure/private-resolver-prototype)
+### [Terraform prototype for Azure Private Resolver](./azure/private-resolver-prototype)
+A Terraform prototype for Azure Private DNS Zones and Private DNS Zone Groups. This prototype is based on the following [Azure documentation](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview).
 

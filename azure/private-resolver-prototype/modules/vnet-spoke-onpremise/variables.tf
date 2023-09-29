@@ -11,6 +11,16 @@ variable "region" {
   default     = "centralus"
 }
 
+// add a object to allow peering 
+variable "peerings" {
+  description = "List of VNet peers to peer with"
+  type = list(object({
+    name                         = string
+    remote_virtual_network_id    = string
+    allow_virtual_network_access = bool
+  }))
+  default = []
+}
 
 # add a variable for the login username
 variable "dns_admin_username" {
@@ -34,8 +44,8 @@ variable "Domain_DNSName" {
 
 variable "dns_interal_ip_address" {
   description = "value of the dns server internal ip address"
-  type = string
-  default = "10.0.2.10"
+  type        = string
+  default     = "10.0.2.10"
 }
 
 # add a variable for the login username
@@ -47,8 +57,8 @@ variable "vm_username" {
 
 variable "vm_internal_ip_address" {
   description = "value of the vm internal ip address"
-  type = string
-  default = "10.0.2.14"
+  type        = string
+  default     = "10.0.2.14"
 }
 
 variable "ssh_public_key" {

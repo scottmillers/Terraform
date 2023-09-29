@@ -9,6 +9,21 @@ variable "region" {
   type        = string
 }
 
+variable "peerings" {
+  description = "List of VNet peers to peer with"
+  type = list(object({
+    name                         = string
+    remote_virtual_network_id    = string
+    allow_virtual_network_access = bool
+  }))
+  default = []
+}
+
+variable "vnet_network_peer_ids" {
+  description = "list of vnets ids to peer with"
+  type        = list(string)
+  default     = []
+}
 
 # add a variable for the login username
 variable "vm_username" {
@@ -27,6 +42,8 @@ variable "private_dns_zone_name" {
   type        = string
   default     = "bep.hhs.gov"
 }
+
+
 
 
 

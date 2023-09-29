@@ -12,6 +12,16 @@ variable "region" {
 }
 
 
+variable "peerings" {
+  description = "List of VNet peers to peer with"
+  type = list(object({
+    name                         = string
+    remote_virtual_network_id    = string
+    allow_virtual_network_access = bool
+  }))
+  default = []
+}
+
 # add a variable for the login username
 variable "vm_username" {
   description = "value of the ssh username"

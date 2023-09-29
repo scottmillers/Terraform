@@ -71,11 +71,11 @@ resource "azurerm_network_security_group" "snet-nsg-onprem" {
 }
 
 
-  # associate the NSG to the network interface
-  resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
-    subnet_id                 = azurerm_subnet.snet-vm-onprem.id
-    network_security_group_id = azurerm_network_security_group.snet-nsg-onprem.id
-  }
+# associate the NSG to the network interface
+resource "azurerm_subnet_network_security_group_association" "sg-associate-dns-onprem" {
+  subnet_id                 = azurerm_subnet.snet-vm-onprem.id
+  network_security_group_id = azurerm_network_security_group.snet-nsg-onprem.id
+}
 
 
 

@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage-account" {
-  name                     = "hhscscbepffcfoprodstor"
+  name                     = "hhsstoragedemo"
   resource_group_name      = var.resource_group_name
   location                 = var.region
   account_tier             = "Standard"
@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "storage-account" {
 }
 
 resource "azurerm_storage_table" "application-table" {
-  name                 = "applicationtable"
+  name                 = "prototypetable"
   storage_account_name = azurerm_storage_account.storage-account.name
 }
 

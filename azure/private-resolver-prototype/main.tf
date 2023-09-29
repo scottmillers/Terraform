@@ -57,15 +57,24 @@ resource "azurerm_resource_group" "rg-on-prem-vnet" {
   location = var.region
 }
 
+
 // create the on-premise virtual network components
-module "vnet-spoke-onprem" {
+module "vnet-spoke-onpremise" {
   source              = "./modules/vnet-spoke-onpremise"
   resource_group_name = azurerm_resource_group.rg-on-prem-vnet.name
   region              = var.region
   dns_admin_username  = var.vm_username
   vm_username         = var.vm_username
   ssh_public_key      = tls_private_key.ssh.public_key_openssh
+  peerings = [
+    {
+      name                         = "vnet-spoke-onpremise-to-hub"
+      remote_virtual_network_id    = module.vnet-hub.vnet_id
+      allow_virtual_network_access = true
+    },
+  ]
 }
+
 
 // create the hub virtual network components
 module "vnet-hub" {
@@ -75,6 +84,18 @@ module "vnet-hub" {
   private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
   vm_username           = var.vm_username
   ssh_public_key        = tls_private_key.ssh.public_key_openssh
+  peerings = [
+    {
+      name                         = "vnet-hub-to-spoke-onpremise"
+      remote_virtual_network_id    = module.vnet-spoke-onpremise.vnet_id
+      allow_virtual_network_access = true
+    },
+    {
+      name                         = "vnet-hub-to-spoke-application"
+      remote_virtual_network_id    = module.vnet-spoke-application.vnet_id
+      allow_virtual_network_access = true
+    }
+  ]
 }
 
 // create the application spoke virtual network components
@@ -85,51 +106,15 @@ module "vnet-spoke-application" {
   private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
   vm_username           = var.vm_username
   ssh_public_key        = tls_private_key.ssh.public_key_openssh
+  peerings = [
+    {
+      name                         = "vnet-spoke-application-to-hub"
+      remote_virtual_network_id    = module.vnet-hub.vnet_id
+      allow_virtual_network_access = true
+    },
+  ]
 }
 
-locals {
-  connect_hub = <<-EOT
-    #!/bin/bash
-    ##
-    ## Connect to the hubs VM
-    ##
-    ssh  ${module.vnet-hub.vm_username}@${module.vnet-hub.vm_public_ip_address} -i ~/.ssh/private_key.pem
-
-  EOT
-
-  connect_spoke = <<-EOT
-    #!/bin/bash
-    ##
-    ## Connect to the spoke VM
-    ##
-    ssh  ${module.vnet-spoke-application.vm_username}@${module.vnet-spoke-application.vm_public_ip_address} -i ~/.ssh/private_key.pem
-
-  EOT
-
-  connect_onpremise = <<-EOT
-    #!/bin/bash
-    ##
-    ## Connect to the on-premise VM
-    ##
-    ssh  ${module.vnet-spoke-onprem.vm_username}@${module.vnet-spoke-onprem.vm_public_ip_address} -i ~/.ssh/private_key.pem
-  EOT  
-}
-
-resource "local_file" "output_ssh_hub" {
-  content  = local.connect_hub
-  filename = "${path.module}/ssh_hub.sh"
-}
-
-resource "local_file" "output_ssh_spoke" {
-  content  = local.connect_spoke
-  filename = "${path.module}/ssh_spoke.sh"
-}
-
-
-resource "local_file" "output_shell_onpremise" {
-  content  = local.connect_onpremise
-  filename = "${path.module}/ssh_onpremise.sh"
-}
 
 
 

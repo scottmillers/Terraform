@@ -107,7 +107,7 @@ resource "azurerm_network_interface" "nic-vm-one" {
     public_ip_address_id          = azurerm_public_ip.publicip-vm-one.id
   }
 
-  dns_servers = [ var.dns_interal_ip_address ]
+  dns_servers = [var.dns_interal_ip_address]
 }
 
 

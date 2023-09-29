@@ -8,6 +8,7 @@ resource "azurerm_virtual_network" "vnet-hub" {
 
 
 
+
 # create a subnet for the private resolver outbound DNS subnet endpoint
 resource "azurerm_subnet" "snet-dns-outbound" {
   name                 = "snet-dns-outbound"

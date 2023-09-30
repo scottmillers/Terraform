@@ -22,7 +22,11 @@ variable "peerings" {
   default = []
 }
 
-# add a variable for the login username
+variable "private_dns_zone_ids" {
+  description = "Private DNS zone ids to associate with the table private endpoint"
+  type = list(string)
+}
+
 variable "vm_username" {
   description = "value of the ssh username"
   type        = string
@@ -34,13 +38,8 @@ variable "ssh_public_key" {
   type        = string
 }
 
-variable "private_dns_zone_name" {
-  description = "name of the private zone"
-  type        = string
-  default     = "bep.hhs.gov"
-}
 
-
+  
 
 
 

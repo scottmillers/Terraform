@@ -7,12 +7,14 @@ resource "azurerm_virtual_network" "vnet-spoke-application" {
 }
 
 
-# create a subnet for the vm
+# create a subnet for the vm and allow it to access the storage account through a private endpoint
 resource "azurerm_subnet" "snet-vm" {
   name                 = "snet-vm"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet-spoke-application.name
   address_prefixes     = ["10.0.4.0/28"]
+  service_endpoints    = ["Microsoft.Storage"]
+  private_endpoint_network_policies_enabled = true # this is required to allow the private endpoint to access the storage account
 }
 
 

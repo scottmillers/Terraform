@@ -2,12 +2,6 @@
 
 source ./variables.zsh
 
-L0="junk.bep.hhs.gov" # this should fail
-L1="hub-vmone.bep.hhs.gov" 
-L2="spoke-app-vmone.bep.hhs.gov" 
-L3="vmone.onpremise.hhs.gov"  
-L4="hhscscbepffcfoprodstor.table.core.windows.net"  
-
 # SSH into the HUB VM and run nslookup
 ssh -o StrictHostKeyChecking=no -i ${PRIVATE_KEY_FILE} "${REMOTE_USER}@${HUB_VM}"  << EOF
 echo "Hello from the Hub VM ${L1}"

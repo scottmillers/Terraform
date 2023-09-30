@@ -103,9 +103,9 @@ module "vnet-spoke-application" {
   source                = "./modules/vnet-spoke-application"
   resource_group_name   = azurerm_resource_group.rg-application-vnet.name
   region                = var.region
-  private_dns_zone_name = azurerm_private_dns_zone.private-dns-zone.name
   vm_username           = var.vm_username
   ssh_public_key        = tls_private_key.ssh.public_key_openssh
+  private_dns_zone_ids = [azurerm_private_dns_zone.private-dns-zone.id]
   peerings = [
     {
       name                         = "vnet-spoke-application-to-hub"

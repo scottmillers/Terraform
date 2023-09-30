@@ -119,7 +119,7 @@ resource "azurerm_linux_virtual_machine" "vm-one" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic-vm-one.id]
   size                  = "Standard_DS1_v2"
-  computer_name         = "onpremise-vmone"
+  computer_name         = "vmone"
   admin_username        = var.vm_username
 
   os_disk {

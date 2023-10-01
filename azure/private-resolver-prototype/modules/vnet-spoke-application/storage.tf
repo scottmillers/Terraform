@@ -32,6 +32,7 @@ resource "azurerm_storage_table" "nslookup-table" {
 }
 
 
+/* removing since it is not needed
 resource "azurerm_storage_account_network_rules" "storage-account-network-rules" {
   storage_account_id         = azurerm_storage_account.nslookup-storage-account.id
   default_action             = "Deny"
@@ -39,6 +40,7 @@ resource "azurerm_storage_account_network_rules" "storage-account-network-rules"
   virtual_network_subnet_ids = [azurerm_subnet.snet-vm.id]
   bypass                     = ["None"]
 }
+*/
 
 
 

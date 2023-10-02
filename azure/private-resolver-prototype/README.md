@@ -52,33 +52,42 @@ The Terraform script will create everything in the architecture diagram plus:
 
 ## Installation and Usage
 
-The easiest way to get started is to use [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) setup in the root of the repository.  The Dev Container will install all the tools you need to run the Terraform scripts and connect to Azure.
+The easiest way to get started is to use a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/devcontainers/containers).  The Dev Container will install all the tools you need to run the Terraform scripts and connect to Azure.
 
 
 ### Prerequisites to use the Dev Container
-1.  Install [Visual Studio Code](https://code.visualstudio.com/download)
-2.  Install Docker Desktop for [Windows](https://docs.docker.com/docker-for-windows/install/) or [Mac](https://docs.docker.com/docker-for-mac/install/)
-3.  Install the Visual Studio Code [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+1. Install [Visual Studio Code](https://code.visualstudio.com/download)
+2.  Install Docker for [Windows](https://docs.docker.com/docker-for-windows/install/) or [Mac](https://docs.docker.com/docker-for-mac/install/) 
+3. Install the [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) for Visual Studio Code
 
 ### Setup
 
-1. Clone the repository into a local Dev Container volume 
-Open the Visual Studio code command palette and select "Dev Containers: Clone Repository in Container volume" ![dev container image](docs/images/devcontainer.png)
-Select GitHub as the remote source. Type scottmillers/terraform to find my terraform repository. Select the main branch. Build the new container.
-2. Open a terminal window in Visual Studio Code 
+1. Clone the repository into a Dev Container volume 
+
+   Open the Visual Studio code command palette. 
+   Type "Dev Containers: Clone Repository in Container volume" 
+
+    ![dev container image](docs/images/devcontainer.png)
+    Select GitHub as the remote source. 
+    Type scottmillers/terraform to select my terraform repository. 
+    Select the main branch. 
+    Build the new container.
+
+2. Open a bash terminal in Visual Studio Code 
+
 3. Login to Azure using the Azure CLI
-```bash
-$az login
-```
+  ```
+  $az login
+  ```
 4. Run the terraform script to build the prototype
-```bash
-$cd azure/private-resolver-prototype
-$terraform init
-...
-$terraform plan
-...
-$terraform apply
-``` 
+  ```
+  $cd azure/private-resolver-prototype
+  $terraform init
+  ...
+  $terraform plan
+  ...
+  $terraform apply
+  ``` 
 
 
  

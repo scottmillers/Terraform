@@ -24,7 +24,7 @@ variable "peerings" {
 
 variable "private_dns_zone_ids" {
   description = "Private DNS zone ids to associate with the table private endpoint"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "vm_username" {
@@ -39,7 +39,7 @@ variable "ssh_public_key" {
 }
 
 
-  
+
 
 
 

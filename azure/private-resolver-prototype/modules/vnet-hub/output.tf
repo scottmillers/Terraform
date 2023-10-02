@@ -16,7 +16,7 @@ output "vm_computer_name" {
   description = "value of the vm computer name"
   value       = azurerm_linux_virtual_machine.vm-one.computer_name
 }
-  
+
 
 output "vm_username" {
   description = "value of the vm username"

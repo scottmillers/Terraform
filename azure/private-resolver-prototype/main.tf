@@ -100,11 +100,11 @@ module "vnet-hub" {
 
 // create the application spoke virtual network components
 module "vnet-spoke-application" {
-  source                = "./modules/vnet-spoke-application"
-  resource_group_name   = azurerm_resource_group.rg-application-vnet.name
-  region                = var.region
-  vm_username           = var.vm_username
-  ssh_public_key        = tls_private_key.ssh.public_key_openssh
+  source               = "./modules/vnet-spoke-application"
+  resource_group_name  = azurerm_resource_group.rg-application-vnet.name
+  region               = var.region
+  vm_username          = var.vm_username
+  ssh_public_key       = tls_private_key.ssh.public_key_openssh
   private_dns_zone_ids = [azurerm_private_dns_zone.private-dns-zone.id]
   peerings = [
     {

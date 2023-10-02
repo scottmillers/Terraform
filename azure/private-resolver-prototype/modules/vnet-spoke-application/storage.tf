@@ -19,10 +19,10 @@ resource "azurerm_private_endpoint" "private-endpoint-storage-account" {
     subresource_names              = ["table"]
   }
 
-    private_dns_zone_group {
-      name = "add_to_azure_private_dns"
-      private_dns_zone_ids = var.private_dns_zone_ids
-    }
+  private_dns_zone_group {
+    name                 = "add_to_azure_private_dns"
+    private_dns_zone_ids = var.private_dns_zone_ids
+  }
 }
 
 

@@ -52,11 +52,34 @@ The Terraform script will create everything in the architecture diagram plus:
 
 ## Installation and Usage
 
-The easiest way to get started is setup a [Visual Studio Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
+The easiest way to get started is to use [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) setup in the root of the repository.  The Dev Container will install all the tools you need to run the Terraform scripts and connect to Azure.
 
-Once setup, clone my [GitHub terraform repository](https://github.com/scottmillers/terraform) in a new Dev Container volume.
 
-Once cloned Visual Studio code will recognize the devcontainer.json file in the root of the repository.  It will ask if you want to build the Dev Container with the new root volume attached. The devcontainer.json file defines all Visual Studio Code extensions for development as well as everything you need to connect to Azure and run the Terraform scripts. 
+### Prerequisites to use the Dev Container
+1.  Install [Visual Studio Code](https://code.visualstudio.com/download)
+2.  Install Docker Desktop for [Windows](https://docs.docker.com/docker-for-windows/install/) or [Mac](https://docs.docker.com/docker-for-mac/install/)
+3.  Install the Visual Studio Code [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+### Setup
+
+1. Clone the repository into a local Dev Container volume 
+Open the Visual Studio code command palette and select "Dev Containers: Clone Repository in Container volume" ![dev container image](docs/images/devcontainer.png)
+Select GitHub as the remote source. Type scottmillers/terraform to find my terraform repository. Select the main branch. Build the new container.
+2. Open a terminal window in Visual Studio Code 
+3. Login to Azure using the Azure CLI
+```bash
+$az login
+```
+4. Run the terraform script to build the prototype
+```bash
+$cd azure/private-resolver-prototype
+$terraform init
+...
+$terraform plan
+...
+$terraform apply
+``` 
+
 
  
 

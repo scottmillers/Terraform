@@ -68,6 +68,7 @@ The easiest way to get started is to use a [Visual Studio Code Dev Container](ht
    Type "Dev Containers: Clone Repository in Container volume" 
 
     ![dev container image](docs/images/devcontainer.png)
+    
     Select GitHub as the remote source. 
     Type scottmillers/terraform to select my terraform repository. 
     Select the main branch. 

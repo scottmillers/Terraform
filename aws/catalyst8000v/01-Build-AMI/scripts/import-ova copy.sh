@@ -1,11 +1,9 @@
 #!/bin/bash
 
 # Set variables
-OVA_FILE_PATH="/path/to/ova/file.ova"
+FILE_PATH="container.json"
 AWS_REGION="us-east-1"
-AWS_ACCESS_KEY="your_access_key"
-AWS_SECRET_KEY="your_secret_key"
-AMI_NAME="my-ami"
+AMI_NAME="my-cisco8000v-ami"
 INSTANCE_TYPE="t2.micro"
 
 # Import OVA file to EC2
@@ -13,9 +11,9 @@ IMPORT_TASK_ID=$(aws ec2 import-image \
     --region $AWS_REGION \
     --architecture x86_64 \
     --platform Linux \
-    --description "My OVA image" \
+    --description "My Cisco 8000v OVA image" \
     --license-type BYOL \
-    --disk-containers "file://$OVA_FILE_PATH" \
+    --disk-containers $FILE_PATH \
     --output json \
     --query 'ImportTaskId' \
     --profile default)
@@ -38,7 +36,7 @@ aws ec2 create-image \
     --region $AWS_REGION \
     --instance-id $IMPORTED_IMAGE_ID \
     --name $AMI_NAME \
-    --description "My AMI" \
+    --description "My Cisco 8000v AMI" \
     --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"DeleteOnTermination\":true,\"VolumeSize\":8,\"VolumeType\":\"gp2\"}}]" \
     --virtualization-type hvm \
     --output json \

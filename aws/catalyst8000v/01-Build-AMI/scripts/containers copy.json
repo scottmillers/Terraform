@@ -1,0 +1,18 @@
+[
+    {
+      "Description": "My Cisco8000v OVA",
+      "Format": "ova",
+      "Url": "s3://cisco-8000v-image/c8000v-universalk9_vga.V177_1A_CSCWE66776_2.ova",
+     
+    }
+    {
+      "DeviceName": "/dev/sde",
+      "Ebs": 
+        {
+            "Encrypted": false,
+            "DeleteOnTermination": true,
+            "SnapshotId": "snapshot-id",
+            "VolumeSize": 30
+        }
+    }
+  ]

@@ -1,32 +1,38 @@
-# Create SD-WAN Router in the Branch:
-
-resource "aws_instance" "branch1_r1" {
-  ami 				= var.aws_ami_id_branch1_r1
-  instance_type 	= var.aws_ami_type_branch1_r1
-  key_name 			= var.aws_key_pair_name
-  availability_zone = var.aws_branch1_az
-  user_data  		= file("cloud-init-branch1-r1.user_data")
-
-  network_interface {
-    device_index         = 0
-    network_interface_id = aws_network_interface.branch1_r1_nic1.id
-    delete_on_termination = false
-  }
-
-  network_interface {
-    device_index         = 1
-    network_interface_id = aws_network_interface.branch1_r1_nic2.id
-    delete_on_termination = false
-  }
-  
-  network_interface {
-    device_index         = 2
-    network_interface_id = aws_network_interface.branch1_r1_nic3.id
-    delete_on_termination = false
-  }
+resource "aws_vpc" "example" {
+  cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = "${var.bucket_prefix} Branch1 SD-WAN R1"
+    Name = "tf-example"
   }
+}
 
+resource "aws_subnet" "example" {
+  vpc_id            = aws_vpc.example.id
+  cidr_block        = "172.16.10.0/24"
+  availability_zone = "us-east-2a"
+
+  tags = {
+    Name = "tf-example"
+  }
+}
+
+data "aws_ami" "amzn-linux-2023-ami" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+}
+
+resource "aws_instance" "example" {
+  ami           = data.aws_ami.amzn-linux-2023-ami.id
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.example.id
+
+
+  tags = {
+    Name = "tf-example"
+  }
 }

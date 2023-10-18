@@ -1,0 +1,11 @@
+[
+    {
+      "Description": "My Cisco8000v OVA",
+      "Format": "ova",
+      "UserBucket": 
+      {
+        "S3Bucket": "cisco-8000v-software",
+        "S3Key": "c8000v-universalk9_vga.V177_1A_CSCWE66776_2.ovf"
+      }
+    }
+  ]

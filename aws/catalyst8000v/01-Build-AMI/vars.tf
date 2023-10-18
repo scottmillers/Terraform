@@ -5,22 +5,17 @@ variable "aws_region" {
 }
 
 variable "bucket_name" {
-  description = "Bucket name to store the OVA file"
+  description = "Bucket name to store the Cisco software"
   type        = string
-  default     = "cisco-8000v-image"
+  default     = "cisco-8000v-software"
 }
 
-variable file_name {
-  description = "File to upload"
-  type        = string
-  default     = "c8000v-universalk9_vga.V177_1A_CSCWE66776_2.ova"
 
-}
-
+# You need to change this.  I am using my dev container mounted host filesystem to access files.  
 variable "file_path" {
-  description = "Local path for the file to upload"
+  description = "Local path to the directory for the files to upload"
   type        = string
-  default     = "/host-home-folder/Downloads/"
+  default     = "/host-home-folder/Downloads/cisco8000v/c8000v-universalk9_vga.V177_1A_CSCWE66776_2/"
 }
 
 

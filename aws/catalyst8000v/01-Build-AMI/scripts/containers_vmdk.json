@@ -1,0 +1,22 @@
+[
+      {
+        "Description": "First disk",
+        "Format": "vmdk",
+        "UserBucket": 
+        {
+          "S3Bucket": "cisco-8000v-software",
+          "S3Key": "c8000v_harddisk_8G.vmdk"
+        }
+      },          
+      {
+        "Description": "Second disk",    
+        "Format": "vmdk",
+        "UserBucket": 
+        {
+          "S3Bucket": "cisco-8000v-software",
+          "S3Key": "c8000v_harddisk_16G.vmdk"
+        }
+      
+      }
+]
+  

@@ -3,14 +3,18 @@ resource "aws_s3_bucket" "my_bucket" {
   bucket = var.bucket_name # this name has to be unique globally
 }
 
+# upload all files from the local directory to the S3 bucket
 resource "aws_s3_object" "file_upload" {
-  bucket      = aws_s3_bucket.my_bucket.bucket
-  key         =  var.file_name
-  source      =  "${var.file_path}${var.file_name}"
-  source_hash = filemd5("${var.file_path}${var.file_name}")
+  for_each = fileset(var.file_path, "*")
+  source = "${var.file_path}${each.value}"
+  bucket = aws_s3_bucket.my_bucket.id
+  key    = each.value
+  # etag makes the file update when it changes; see https://stackoverflow.com/questions/56107258/terraform-upload-file-to-s3-on-every-apply
+  etag   = filemd5("${var.file_path}${each.value}")
 }
 
-
+# Required permissions for VM Import/Export
+# https://docs.aws.amazon.com/vm-import/latest/userguide/required-permissions.html
 resource "aws_iam_role" "vm_import" {
   name = "vmimport"
   assume_role_policy = jsonencode({

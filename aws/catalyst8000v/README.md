@@ -23,14 +23,15 @@ On my personal AWS account :
 
 On my work AWS account:
 
-Move the AMI from my personal account to my work account **(Fail!)**:disappointed:
- ```
-aws ec2 copy-image --source-image-id "ami-0af0d29e399b3acc1" --source-region us-east-1 --region us-east-1 --name "Cisco Catalyst 8000V AMI" --output text
-An error occurred (InvalidRequest) when calling the CopyImage operation: Images from AWS Marketplace cannot be copied to another AWS account.
- ``` 
+1. Move the AMI from my personal account to my work account **(Fail!)**:disappointed:
+   ```
+   # command to copy the AMI from my personal account to my work account
+   aws ec2 copy-image --source-image-id "ami-0af0d29e399b3acc1" --source-region us-east-1 --region us-east-1 --name "Cisco Catalyst 8000V AMI" --output text
+   An error occurred (InvalidRequest) when calling the CopyImage operation: Images from AWS Marketplace cannot be copied to another AWS account.
+    ``` 
 
 
-If any AMI is created from an original AWS Marketplace AMI's it cannot be copied to another account. This is a restriction of the AWS Marketplace licensing. My guess is somethings gets embedded in all AMI's created from the AWS Marketplace original which enforces this restriction
+My guess is if any AMI is created from an original AWS Marketplace AMI's it cannot be copied to another account. This is a restriction of the AWS Marketplace licensing. My hypothesis is something gets embedded in all AMI's created from the AWS Marketplace original which enforces this restriction
 
 ## Create a AMI from the Cisco Catalyst 8000V software
 

@@ -2,13 +2,13 @@
 # Deploying Cisco Catalyst 8000V for SD-WAN & Routing to AWS
 
 ## Problem Statement
--	The [AWS Marketplace has the Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) which allows you to create a EC2 instance with the provided AMI
--	All the [Cisco documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the image from the AWS Marketplace
+-	The [AWS Marketplace has the Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) which allows you to create a EC2 instance with the Cisco 8000V software installed
+-	The [Cisco documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the image from the AWS Marketplace
 -	Texas Division of Information Resources does not allow us to get software from the AWS Marketplace. 
 
     ![Marketplace Error](docs/images/marketplaceerror.png)
 
-# Here is what I have tried as a workaround
+# Here are the workarounds I have tried
 
 ## Move a AMI from my AWS personal account to my work account
 
@@ -56,6 +56,6 @@ Error messages:
 
 I also tried to split the .ova file into the .vmdk and .ovf files and import them separately.  This also failed with the same error.
 
-My current hypothesis is the .ovf file has a number of selectors that allow software like VMWare hypervisors to make selection as part of the build process.  I think the AWS import-image process is not able to handle these selectors.
+My current hypothesis is the .ovf file has a number of selectors that allow software like VMWare hypervisor to make selection as part of the build process.  I think the AWS ec2 import-image process is not able to handle these selectors.
 
 

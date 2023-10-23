@@ -1,12 +1,7 @@
+![Azure Private Resolver](./docs/images/dns-private-resolver-logo.png)
 # Azure Private Resolver Prototype
-
-<table style="width: 100%; border-style: none;"><tr>
-<td style="width: 140px; text-align: center;"><a href="https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview"><img width="130px" src="./docs/images/dns-private-resolver-logo.png" alt="Azure Private Resolver logo"/></a></td>
-<td>
-<strong>Prototype for DNS name resolution using the Azure Private Resolver</strong><br />
-<i>Terraform scripts to build a prototype to test the Azure Private Resolver</i><br />
-</td>
-</tr></table>
+**Prototype for DNS name resolution using the Azure Private Resolver**
+*Terraform scripts to build a prototype to test the Azure Private Resolver*
 
 The Azure Private Resolver is a feature in Azure DNS that allows you to resolve DNS names in a virtual network without the need to configure a custom DNS server. 
 
@@ -52,7 +47,7 @@ The Terraform script will create everything in the architecture diagram plus:
 
 ## Installation and Usage
 
-The easiest way to get started is to use a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/devcontainers/containers).  The Dev Container will install all the tools you need to run the Terraform scripts and connect to Azure.
+The easiest way to get started is to use the [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) that is in root of this Terraform repository.  The Dev Container will install all the tools you need to run the Terraform scripts and connect to Azure.
 
 
 ### Prerequisites to use the Dev Container
@@ -62,32 +57,31 @@ The easiest way to get started is to use a [Visual Studio Code Dev Container](ht
 
 ### Setup
 
-1. Clone the repository into a Dev Container volume 
+1. Clone the repository into a Dev Container volume  
+   1. Open the Visual Studio code command palette(Ctrl-Shift-P) 
+   2. Type "Dev Containers: Clone Repository in Container volume" 
 
-   Open the Visual Studio code command palette. 
-   Type "Dev Containers: Clone Repository in Container volume" 
-
-    ![dev container image](docs/images/devcontainer.png)
+      ![dev container image](docs/images/devcontainer.png)
     
-    Select GitHub as the remote source. 
-    Type scottmillers/terraform to select my terraform repository. 
-    Select the main branch. 
-    Build the new container.
+    3. Select GitHub as the remote source. 
+    4. Type scottmillers/terraform to select my terraform repository. 
+    5. Select the main branch. 
+    6. Build the new container.
 
 2. Open a bash terminal in Visual Studio Code 
 
 3. Login to Azure using the Azure CLI
-  ```
-  $az login
-  ```
+   ```
+    $az login
+    ```
 4. Run the terraform script to build the prototype
-  ```
-  $cd azure/private-resolver-prototype
-  $terraform init
-  ...
-  $terraform plan
-  ...
-  $terraform apply
+   ```
+    $cd azure/private-resolver-prototype
+    $terraform init
+    ...
+    $terraform plan
+    ...
+    $terraform apply
   ``` 
 
 

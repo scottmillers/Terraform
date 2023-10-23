@@ -10,12 +10,10 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = var.region
 }
 
-provider "random" {}
 
-resource "random_pet" "name" {}
 
 # See https://registry.terraform.io/modules/cloudposse/label/null/latest for documentation
 module "label" {
@@ -34,25 +32,41 @@ module "label" {
   }
 }
 
+# Setup the network
 module "my_vpc" {
   source     = "./modules/vpc"
-  subnet1_az = "us-west-2a"
-  subnet2_az = "us-west-2b"
-  // other needed variables here
+  subnet1_az = var.subnet1_az
 }
 
 
+# Find the latest AMI for Amazon Linux 2
+data "aws_ami" "amzLinux" {
+  most_recent = true
+  owners = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-gp2"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  } 
+}
 
 
+ # Build the web server
 resource "aws_instance" "web_server" {
-  ami                    = "ami-a0cfeed8"
-  instance_type          = "t2.micro"
-  user_data              = file("init-script.sh")
+  ami                    = data.aws_ami.amzLinux.id
+  instance_type          = var.instance_type
+  user_data              = file("scripts/init-script.sh")
   vpc_security_group_ids = [module.my_vpc.public_subnet1_sg_id]
   subnet_id              = module.my_vpc.public_subnet1_id
   tags = module.label.tags
-  /*tags = {
-    Name = random_pet.name.id
-  }
-  */
 }
+

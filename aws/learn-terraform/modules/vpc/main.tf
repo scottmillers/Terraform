@@ -5,9 +5,6 @@ resource "aws_vpc" "example_vpc" {
   enable_dns_support = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name = "example-vpc"
-  }
 }
 
 # Create an internet gateway
@@ -34,14 +31,21 @@ resource "aws_route_table" "example_public_route_table" {
 }
 
 # Create a security group for the public network
-resource "aws_security_group" "web_sg" {
+resource "aws_security_group" "example_web_sg" {
   vpc_id = aws_vpc.example_vpc.id
   name = "example-publicsubnet-sg"
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] # WARNING: This allows HTTP from anywhere. Modify as needed.
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # WARNING: This allows SSH from anywhere. Modify as needed.
   }
 
   egress {

@@ -1,5 +1,7 @@
+
+
 output "application-url" {
-  value = "${aws_instance.web_server.public_dns}/index.php"
+  value = "http://${aws_instance.web_server.public_dns}/tetris/index.html"
 }
 
 /*

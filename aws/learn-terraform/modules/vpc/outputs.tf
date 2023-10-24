@@ -5,5 +5,5 @@ output "public_subnet1_id" {
 
 output "public_subnet1_sg_id" {
   description = "The id of the security group attached to the public subnet"
-  value       = aws_security_group.web_sg.id
+  value       = aws_security_group.example_web_sg.id
 }

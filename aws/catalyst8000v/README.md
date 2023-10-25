@@ -2,7 +2,7 @@
 # Deploying Cisco Catalyst 8000V for SD-WAN & Routing to AWS
 
 ## Problem Statement
--	The [AWS Marketplace has the Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) as a Amazon Machine Image, or AMI.  You use this AMI to create a EC2 instance which will have the Cisco 8000V software installed
+-	The AWS Marketplace has the [Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) as a Amazon Machine Image, or AMI.  You use this AMI to create a EC2 instance
 -	The [Cisco Catalyst 8000v documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the AMI from the AWS Marketplace
 -	Texas Division of Information Resources, and their cloud service provider Rackspace, does not allow us to use the AWS Marketplace
 
@@ -12,7 +12,7 @@
 
 We currently have no solution.
 
-We tried two workarounds to deploy the Cisco Catalyst 8000v software to AWS.  Both failed.   
+We tried two workarounds to deploy the Cisco Catalyst 8000v software to AWS.   
 - [Move an AMI from my AWS personal account to my work account](#moveami)
   My AWS personal account has AWS Marketplace access and my work account does not.  I tried to move a AMI across accounts.  That failed. Amazon said that you cannot move a AMI that is based on a AMI from the Marketplace to an account which does not have Marketplace access.  This is due to licensing restrictions.
 - [Create a new AMI from the Cisco Catalyst 8000v software images](#newami)  

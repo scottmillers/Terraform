@@ -2,15 +2,25 @@
 # Deploying Cisco Catalyst 8000V for SD-WAN & Routing to AWS
 
 ## Problem Statement
--	The [AWS Marketplace has the Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) which allows you to create a EC2 instance with the Cisco 8000V software installed
--	The [Cisco documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the image from the AWS Marketplace
--	Texas Division of Information Resources does not allow us to get software from the AWS Marketplace. 
+-	The [AWS Marketplace has the Cisco Catalyst 8000v software](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) as a Amazon Machine Image, or AMI.  You use this AMI to create a EC2 instance which will have the Cisco 8000V software installed
+-	The [Cisco Catalyst 8000v documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the AMI from the AWS Marketplace
+-	Texas Division of Information Resources, and their cloud service provider Rackspace, does not allow us to use the AWS Marketplace
 
     ![Marketplace Error](docs/images/marketplaceerror.png)
 
-# Here are the workarounds I have tried
+## Solution
 
-## Move a AMI from my AWS personal account to my work account
+We currently have no solution.
+
+We tried two workarounds to deploy the Cisco Catalyst 8000v software to AWS.  Both failed.   
+- [Move an AMI from my AWS personal account to my work account](#moveami)
+  My AWS personal account has AWS Marketplace access and my work account does not.  I tried to move a AMI across accounts.  That failed. Amazon said that you cannot move a AMI that is based on a AMI from the Marketplace to an account which does not have Marketplace access.  This is due to licensing restrictions.
+- [Create a new AMI from the Cisco Catalyst 8000v software images](#newami)  
+  Cisco provides software images to install the software on for example a VMWare hypervisor.  I tried to use these images to create a AMI.  This also failed.  Cisco confirmed this is not possible due to driver issues.
+
+## What workarounds did I try?
+
+### <a name="moveami"></a>Move the AMI from my AWS personal account to my work account
 
 Steps:
 
@@ -33,15 +43,14 @@ On my work AWS account:
 
 My guess is if any AMI is created from an original AWS Marketplace AMI's it cannot be copied to another account. This is a restriction of the AWS Marketplace licensing. My hypothesis is something gets embedded in all AMI's created from the AWS Marketplace original which enforces this restriction
 
-## Create a AMI from the Cisco Catalyst 8000V software
+### <a name="newami"></a> Create a new AMI from the Cisco Catalyst 8000v software images  
 
 We have licenses and access to the Cisco 8000V software. This workaround is to create the AMI from the Cisco 8000V software images using [AWS VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html).
 
 Steps:
 1. Setup the [AWS infrastructure and permissions](./01-Build-AMI/) for VM Import/Export **(Success!)**:smiley:
-2. Create the [scripts to import the Cisco 8000V image](./01-Build-AMI/scripts).  This Cisco software has images for ova, ovf, raw and vmdk formats.  I have container.json files for each one **(Success)**:smiley:
+2. Create the [scripts to import the Cisco 8000V image](./01-Build-AMI/scripts).  This Cisco software has images in ova, bin and iso formats.  I have container.json files for each one **(Success)**:smiley:
 3. Try to import the Cisco 8000v image **(Fail!)**:disappointed:
-
 
  ```console
  # Command to import the image.  The only thing that changes is what is in containers.json
@@ -57,6 +66,4 @@ Error messages:
 
 I also tried to split the .ova file into the .vmdk and .ovf files and import them separately.  This also failed with the same error.
 
-My current hypothesis is the .ovf file has a number of selectors that allow software like VMWare hypervisor to make selection as part of the build process.  I think the AWS ec2 import-image process is not able to handle these selectors.
-
-
+My current hypothesis is the .ova file has a number of selectors that allow software like VMWare hypervisor to make selection as part of the build process.  I think the AWS ec2 import-image process is not able to handle these selectors.

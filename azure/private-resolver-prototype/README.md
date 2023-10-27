@@ -1,11 +1,12 @@
 ![Azure Private Resolver](./docs/images/dns-private-resolver-logo.png)
 # Azure Private Resolver Prototype
-**Prototype for DNS name resolution using the Azure Private Resolver**
-*Terraform scripts to build a prototype to test the Azure Private Resolver*
+**Terraform to build a prototype for the Azure Private Resolver**
+
+
 
 The Azure Private Resolver is a feature in Azure DNS that allows you to resolve DNS names in a virtual network without the need to configure a custom DNS server. 
 
-Use the Azure Private Resolver to:
+This prototype will use the Azure Private Resolver to:
 - Resolve DNS names to on-premise resources from Azure 
 - Resolve DNS names to an Azure resources from an on-premise network
 

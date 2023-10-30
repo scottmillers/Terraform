@@ -40,9 +40,7 @@ module "my_vpc" {
   subnet1_az = var.subnet1_az
 }
 
-
-
- # Build the web server
+# Build the web server
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.amzn2_x86_ami.id
   instance_type          = var.instance_type

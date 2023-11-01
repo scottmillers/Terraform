@@ -19,21 +19,21 @@ resource "aws_iam_policy" "omics_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Action   = [
+        Action = [
           "omics:*"
         ],
         Effect   = "Allow",
         Resource = "*"
       },
       {
-        Action   = [
+        Action = [
           "iam:PassRole"
         ],
         Effect   = "Allow",
         Resource = "*",
         Condition = {
           StringEquals = {
-            "iam:PassedToService": "omics.amazonaws.com"
+            "iam:PassedToService" : "omics.amazonaws.com"
           }
         }
       }
@@ -52,7 +52,7 @@ resource "aws_iam_group_policy_attachment" "attach_iam_readonly_access" {
 
 # Attach HealthOmics poliy to the group
 resource "aws_iam_group_policy_attachment" "attach_omics" {
-  group      =  aws_iam_group.bioinformatics_group.name
+  group      = aws_iam_group.bioinformatics_group.name
   policy_arn = aws_iam_policy.omics_policy.arn
 }
 
@@ -66,8 +66,8 @@ resource "aws_iam_policy" "omics_s3_bucket_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = "s3:*",
+        Effect = "Allow",
+        Action = "s3:*",
         Resource = [
           "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}}",
           "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}/*"
@@ -77,8 +77,9 @@ resource "aws_iam_policy" "omics_s3_bucket_policy" {
   })
 }
 
-
-# Attach the s3 bucket policy to the group
+# The IAM policies to grant user access to the AWS HealthOmics
+# https://docs.aws.amazon.com/omics/latest/dev/permissions-user.html
+# Attach the s3 bucket policy to the group. 
 resource "aws_iam_group_policy_attachment" "attach_omics_s3" {
   group      = aws_iam_group.bioinformatics_group.name
   policy_arn = aws_iam_policy.omics_s3_bucket_policy.arn
@@ -99,20 +100,41 @@ resource "aws_iam_group_policy_attachment" "attach_iam_lakeformationdataadminacc
 }
 
 # Tag AWS HealthOmics resources with AWS HealthOmics tagging API operations
-resource "aws_iam_group_policy_attachment" "attach_iam_lakeformationdataadminaccess" {
+resource "aws_iam_group_policy_attachment" "attach_iam_resourcegroupsandtageditorfullaccess" {
   group      = aws_iam_group.bioinformatics_group.name
   policy_arn = "arn:aws:iam::aws:policy/ResourceGroupsandTagEditorFullAccess"
 }
 
 
 # Create the service role for HealthOmics
+# The service role is used by the AWS HealthOmics service to run workflows on your behalf.
+# https://docs.aws.amazon.com/omics/latest/dev/permissions-service.html
 resource "aws_iam_role" "omics_service_role" {
-  name = "OmicsR2RWorkflowRunRole"
+  name = "OmicsWorkflowServiceRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "omics.amazonaws.com"
+        },
+      }
+    ]
+  })
+}
+
+# Service role policy needed to run Omics workflows
+resource "aws_iam_policy" "omics_service_role_policy" {
+  name        = "OmicsWorkflowServiceRolePolicy"
+  description = "Policy for AWS HealthOmics service role"
+  # Policy definition
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+       {
         Action   = [
           "omics:*",
           "ram:AcceptResourceShareInvitation",
@@ -120,7 +142,7 @@ resource "aws_iam_role" "omics_service_role" {
         ],
         Resource = "*"
         Effect = "Allow"
-      },
+      },   
       {
         Action = [
           "s3:AbortMultipartUpload",
@@ -135,9 +157,8 @@ resource "aws_iam_role" "omics_service_role" {
           "arn:aws:s3:::804609861260-bioinformatics-infectious-disease/*",
           "arn:aws:s3:::bioinformatics-nbs/*",
           "arn:aws:s3:::omics-us-east-1/*",
-          "arn:aws:s3:::sentieon-omics-license-us-east-1/*"
         ],
-        "Effect" = "Allow"
+        Effect = "Allow"
       },
       {
         Action =  [
@@ -145,15 +166,28 @@ resource "aws_iam_role" "omics_service_role" {
           "logs:DescribeLogStreams",
           "logs:PutLogEvents"
         ],
-        Resource = "arn:aws:logs:us-east-1:588459062833:log-group:/aws/omics/WorkflowLog:log-stream:*",
+        Resource = [
+          "arn:aws:logs:us-east-1:588459062833:log-group:/aws/omics/WorkflowLog:log-stream:*"
+        ],
         Effect = "Allow"
       },
       {
-        Action = "logs:CreateLogGroup",
-        Resource = "arn:aws:logs:us-east-1:588459062833:log-group:/aws/omics/WorkflowLog:*",
+        Action = [
+          "logs:CreateLogGroup"
+        ],
+        Resource = [
+          "arn:aws:logs:us-east-1:588459062833:log-group:/aws/omics/WorkflowLog:*"
+        ],
         Effect = "Allow"
       }
     ]
+  })
+}
+
+// Attach the service policy to the service role
+resource "aws_iam_role_policy_attachment" "omics_service_role_describe" {
+  role       = aws_iam_role.omics_service_role.name
+  policy_arn = aws_iam_policy.omics_policy.arn
 }
 
 

@@ -21,24 +21,6 @@ provider "azurerm" {
   features {}
 }
 
-# See https://registry.terraform.io/modules/cloudposse/label/null/latest for documentation
-/*module "label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-  # insert the 12 required variables here
-  namespace  = "hhs"
-  stage      = "dev"
-  name       = "private-resolver-prototype"
-  attributes = ["public"]
-  delimiter  = "-"
-
-  tags = {
-    "BusinessUnit" = "CTO",
-    "Snapshot"     = "true"
-  }
-}
-*/
-
 // create the resource group for the hub virtual network
 resource "azurerm_resource_group" "rg-hub-vnet" {
   name     = "hub-vnet"

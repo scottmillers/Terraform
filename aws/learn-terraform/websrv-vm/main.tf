@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-
-}
-
-provider "aws" {
-  region = var.region
-}
-
-
 
 # See https://registry.terraform.io/modules/cloudposse/label/null/latest for documentation
 module "label" {

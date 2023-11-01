@@ -144,21 +144,14 @@ resource "aws_iam_policy" "omics_service_role_policy" {
         Effect = "Allow"
       },   
       {
-        Action = [
-          "s3:AbortMultipartUpload",
-          "s3:GetObject",
-          "s3:GetObjectAcl",
-          "s3:ListBucket",
-          "s3:ListMultipartUploadParts",
-          "s3:PutObject",
-          "s3:PutObjectAcl"
-        ],
-        Resource = [
-          "arn:aws:s3:::804609861260-bioinformatics-infectious-disease/*",
-          "arn:aws:s3:::bioinformatics-nbs/*",
+       Action = "s3:*",
+       Resource = [
+          "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}}",
+          "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}/*",
+          "arn:aws:s3:::omics-us-east-1",
           "arn:aws:s3:::omics-us-east-1/*",
-        ],
-        Effect = "Allow"
+        ]
+       Effect = "Allow",
       },
       {
         Action =  [
@@ -187,7 +180,7 @@ resource "aws_iam_policy" "omics_service_role_policy" {
 // Attach the service policy to the service role
 resource "aws_iam_role_policy_attachment" "omics_service_role_describe" {
   role       = aws_iam_role.omics_service_role.name
-  policy_arn = aws_iam_policy.omics_policy.arn
+  policy_arn = aws_iam_policy.omics_service_role_policy.arn
 }
 
 

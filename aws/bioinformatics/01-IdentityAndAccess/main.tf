@@ -85,6 +85,13 @@ resource "aws_iam_group_policy_attachment" "attach_omics_s3" {
   policy_arn = aws_iam_policy.omics_s3_bucket_policy.arn
 }
 
+# Omics users needs access to cloudwatch logs if something goes wrong
+resource "aws_iam_group_policy_attachment" "attach_iam_cloudwatchlogsfullaccess" {
+  group      = aws_iam_group.bioinformatics_group.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
+
 # Attached EC2 Container Registry Full Access
 # Used for workflow container images access
 resource "aws_iam_group_policy_attachment" "attach_iam_ecrfullaccess" {

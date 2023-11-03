@@ -1,4 +1,4 @@
-# AWS HealthOmics R2RWorkflows fail to run 
+# AWS HealthOmics R2RWorkflow Error
 
 ## Problem Statement 
 
@@ -77,6 +77,5 @@ The error is the fq2bam task failed.
   This is possible.  The fq2bam task is a custom task that is not part of the Omics service.  It is a task that is provided by NVIDIA.  It is possible that NVIDIA has changed the task and it is no longer compatible with the Omics service.  
 
   What evidence do we have that this is the case?
-
-  When I ran the NVIDIA Parabricks FQ2BAM WGS for up to 50x(8211545) workflow with our data and I get the same error message 
+  When I ran the NVIDIA Parabricks FQ2BAM WGS for up to 50x(8211545) workflow with our data and I got the same error message 
   

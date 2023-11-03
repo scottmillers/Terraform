@@ -2,17 +2,18 @@
 
 ## Problem Statement 
 
-- We have been using the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X(7709200) Ready2Run workflow to run our Bioinformatics pipelines
-- These workflows ran with the same account permissions, and the same data, in August 2023
-- These workflow no longer run
+- We have been using the Omics Ready2Run worfklows 
+- We have been successful running the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X
+- We were able to successfully run the workflow with the same account permissions, and the same data, in August 2023
+- As of November 1 2023, we are unable to run the workflow with the same account permissions, and the same data
 
 ## What are the error messages?
 
-Here is the console error message:
+Here is the run result and the console error message:
 
 ![Error](images/7709200-error.png)
 
-The Cloudwatch logs are:
+The Cloudwatch logs:
 
 ```
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,16 +55,17 @@ The error is the fq2bam task failed.
 
 - The Genomics data is corrupted.  
   
-  This is unlikely because the same data ran in August 2023
+  This is unlikely because the same data ran successfully on August 30 2023
   ![working r2rworkflow](images/7709200-working.png)
 
-  I also ran the same workflow with the Omics sample data: 
-  ```
+  I also ran the same workflow with the Omics sample data and got the same error.
+  ``` 
    s3://omics-us-east-1/sample-inputs/7709200/HG002-NA24385-pFDA_S2_L002_R2_001-5x.fastq.gz
    s3://omics-us-east-1/sample-inputs/7709200/HG002-NA24385-pFDA_S2_L002_R1_001-5x.fastq.gz
   ```
-
+  
 - Service role Permissions have changed
+  
   This is unlikely because the same Omics Service role(OmicsR2RworkflowRole) was used in both cases
 
 - [Omics Quota](https://us-east-1.console.aws.amazon.com/servicequotas/home/services/omics/quotas) limits have been reached

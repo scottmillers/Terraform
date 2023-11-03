@@ -3,8 +3,7 @@
 ## Problem Statement 
 
 - We have been using the Omics Ready2Run worfklows 
-- We have been successful running the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X
-- We were able to successfully run the workflow with the same account permissions, and the same data, in August 2023
+- We have been successful running the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X as of August 2023 
 - As of November 1 2023, we are unable to run the workflow with the same account permissions, and the same data
 
 ## What are the error messages?

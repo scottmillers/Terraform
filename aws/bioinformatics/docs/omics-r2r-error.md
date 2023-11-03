@@ -1,17 +1,18 @@
-# AWS HealthOmics R2RWorkflows fail to run
+# AWS HealthOmics R2RWorkflows fail to run 
 
-## Problem Statement
+## Problem Statement 
 
-- We have been using Ready2Run Workflows
-- We primarily using the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X(7709200), and the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 30X(4974161).
+- We have been using the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X(7709200) Ready2Run workflow to run our Bioinformatics pipelines
 - These workflows ran with the same account permissions, and the same data, in August 2023
 - These workflow no longer run
 
 ## What are the error messages?
 
+Here is the console error message:
+
 ![Error](images/7709200-error.png)
 
-When I View the Cloudwatch logs I get the following:
+The Cloudwatch logs are:
 
 ```
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,8 +39,7 @@ When I View the Cloudwatch logs I get the following:
 
 ```
 
-
-From the logs it appears that the fq2bam task failed.  
+The error is the fq2bam task failed.  
 
 ```
 2023-11-02T11:51:34.588-05:00
@@ -53,10 +53,28 @@ From the logs it appears that the fq2bam task failed.
 ## What are possible causes?
 
 - The Genomics data is corrupted.  
+  
   This is unlikely because the same data ran in August 2023
-
   ![working r2rworkflow](images/7709200-working.png)
 
-- Permissions have changed
+  I also ran the same workflow with the Omics sample data: 
+  ```
+   s3://omics-us-east-1/sample-inputs/7709200/HG002-NA24385-pFDA_S2_L002_R2_001-5x.fastq.gz
+   s3://omics-us-east-1/sample-inputs/7709200/HG002-NA24385-pFDA_S2_L002_R1_001-5x.fastq.gz
+  ```
 
-- Omics Quota limits have been reached
+- Service role Permissions have changed
+  This is unlikely because the same Omics Service role(OmicsR2RworkflowRole) was used in both cases
+
+- [Omics Quota](https://us-east-1.console.aws.amazon.com/servicequotas/home/services/omics/quotas) limits have been reached
+
+  This is unlikely because the Omics Quota limits are 1000 runs per account per region per month.  We have only run 5 workflows in this account in November 2023.
+
+- The NVIDIA FASTQ to BAM task is not working
+
+  This is possible.  The fq2bam task is a custom task that is not part of the Omics service.  It is a task that is provided by NVIDIA.  It is possible that NVIDIA has changed the task and it is no longer compatible with the Omics service.  
+
+  What evidence do we have that this is the case?
+
+  When I ran the NVIDIA Parabricks FQ2BAM WGS for up to 50x(8211545) workflow with our data and I get the same error message 
+  

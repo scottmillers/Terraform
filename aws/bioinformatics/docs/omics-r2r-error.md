@@ -6,13 +6,13 @@
 - We have been successful running the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X as of August 2023 
 - As of November 1 2023, we are unable to run the workflow with the same account permissions, and the same data
 
-## What are the error messages?
+## What is the error?
 
-Here is the run result and the console error message:
+Here is the console error message for the workflow run:
 
 ![Error](images/7709200-error.png)
 
-The Cloudwatch logs:
+Here is the cloudwatch log for the workflow run:
 
 ```
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,8 +73,4 @@ The error is the fq2bam task failed.
 
 - The NVIDIA FASTQ to BAM task is not working
 
-  This is possible.  The fq2bam task is a custom task that is not part of the Omics service.  It is a task that is provided by NVIDIA.  It is possible that NVIDIA has changed the task and it is no longer compatible with the Omics service.  
-
-  What evidence do we have that this is the case?
-  When I ran the NVIDIA Parabricks FQ2BAM WGS for up to 50x(8211545) workflow with our data and I got the same error message 
-  
+  This is possible.  The fq2bam task is a custom task that is not part of the Omics service.  It is a task that is provided by NVIDIA.  It is possible that NVIDIA has changed the task and it is no longer compatible with the Omics service.  What evidence do we have? When I ran the NVIDIA Parabricks FQ2BAM WGS for up to 50x(8211545) I get the same error message.  This is evidence that the NVIDIA fq2bam task is not working.

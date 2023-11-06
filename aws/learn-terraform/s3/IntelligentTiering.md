@@ -13,7 +13,7 @@ To view these settings open the S3 bucket and click on the Properties tab.
 
 The Scope limits what gets archived.  The archive prefix is how you limit what gets archived to particular objects.  For example if you have a prefix of `archive/` then any object that starts with `archive/` will be archived.  If you have a prefix of `archive/2020/` then any object that starts with `archive/2020/` will be archived.  You can have multiple archive prefixes.
 
-Rackspace has setup archiving to only archive objects that start with the prefix `deeparchive`.  Any folder or object with the prefix `deeparchive` will be archived.  
+Rackspace has setup archiving for the `804609861260-bioinformatics-nbs` bucket to only archive objects that start with the prefix `deeparchive`.  Any folder or object with the prefix `deeparchive` will be archived.  
 
 
 ![archive prefix](images/archive-prefix.png)
@@ -26,7 +26,7 @@ The Archive Access tier objects will be retrieved in 3-5 hours and the Deep Arch
 
 ![archive rules](images/archive-rules.png)
 
-Rackspace has setup the Archives rules to put objects in the Deep Archive after 180 days if they meet the prefix of `deeparchive`.  This means that any object that starts with `deeparchive` will be archived to the Deep Archive Access tier after 180 days.  
+For the `804609861260-bioinformatics-nbs` bucket Rackspace has setup the Archives rules to put objects in the Deep Archive after 180 days if they meet the prefix of `deeparchive`.  This means that any object that starts with `deeparchive` will be archived to the Deep Archive Access tier after 180 days.  
 
 ## Lifecycle rules
 

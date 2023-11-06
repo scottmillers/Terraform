@@ -1,13 +1,13 @@
 # S3 Intelligent Tiering 
 
-The S3 Intelligent-Tiering storage class is designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead.
+The S3 Intelligent-Tiering storage option is designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead.
 
-In the S3 bucket there are two sections for the S3 Intelligent Tiering storage class.  One is Intelligent-Tiering Archive configuration and the other is Lifecycle rules.  
+Your S3 bucket has two sections for the S3 Intelligent Tiering storage class.  One is Intelligent-Tiering Archive configuration and the other is Lifecycle rules.  Currently only Intelligent-Tiering Archive configuration is used.  
 
 
 ## Intelligent-Tiering Archive configuration
 
-This enables objects stored in the Intelligent-Tiering storage class to tier-down to the Archive Access tier or the Deep Archive Access tier which are optimized for objects that will be rarely accessed for long periods of time.
+This enables objects stored in your bucket to tier-down to the Archive Access tier or the Deep Archive Access tier which are optimized for objects that will be rarely accessed for long periods of time.
 
 To view these settings open the S3 bucket and click on the Properties tab.  
 
@@ -22,13 +22,11 @@ The Archive rule actions allow you to put the S3 object in Archive Access tier o
 
 Deep Archive Access tier when enabled, Intelligent-Tiering will automatically move objects that haven't been accessed for a minimum of 180 days to the Deep Archive Access tier.  
 
-The Archive Access tier objects will be retrieved in 3-5 hours and the Deep Archive Access Tier will be retrieved in 12 hours.  The [price is also different](https://aws.amazon.com/s3/pricing/#Intelligent-Tiering_pricing) with Archive Access tier costing more to store than Deep Archive.
+The Archive Access tier objects will be retrieved in 3-5 hours and the Deep Archive Access Tier will be retrieved in 12 hours.  The [price is also different](https://aws.amazon.com/s3/pricing/#Intelligent-Tiering_pricing) with Archive Access tier costing more to store, but less to retrieve, than Deep Archive.
 
 ![archive rules](images/archive-rules.png)
 
 Rackspace has setup the Archives rules to put objects in the Deep Archive after 180 days if they meet the prefix of `deeparchive`.  This means that any object that starts with `deeparchive` will be archived to the Deep Archive Access tier after 180 days.  
-
-
 
 ## Lifecycle rules
 

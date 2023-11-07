@@ -9,7 +9,7 @@ To move objects to different storage classes in the console:
 
 ![Select Action](images/manual-move.png)
 3. Choose a storage class
-
+![Alt text](image.png)
 ![Storage Class options](images/storage-class.png)
 
 4. Select "Save Changes"

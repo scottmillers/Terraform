@@ -1,17 +1,22 @@
+
+
 # Create an S3 bucket
-resource "aws_s3_bucket" "quarterly" {
-  bucket = "my-learning-s3-bucket-quarterly"
+resource "aws_s3_bucket" "sample" {
+  bucket = "my-learning-s3-bucket-sample"
+  force_destroy = true   # delete the bucket even if it has objects in it
 }
 
 
+# Enable versioning
+resource "aws_s3_bucket_versioning" "sample_version" {
+  bucket = aws_s3_bucket.sample.id
 
-resource "aws_s3_bucket_versioning" "quarterly_version" {
-  bucket = aws_s3_bucket.quarterly.id
   versioning_configuration {
     status = "Enabled"
   }
 }
 
+# Setup Lifecycle rules
 # Lifecyle rule to move log files that are in 
 # log directories with tags rule=log and autoclean=true to
 # Standard infrequent access: After 30 days
@@ -19,8 +24,9 @@ resource "aws_s3_bucket_versioning" "quarterly_version" {
 # Glacier Deep Archive: After 365 days
 # Delete after 5 years, or 1825 days
 # https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html
-resource "aws_s3_bucket_lifecycle_configuration" "quarterly_lifecycle_config" {
-  bucket = aws_s3_bucket.quarterly.id
+resource "aws_s3_bucket_lifecycle_configuration" "sample_lifecycle_config" {
+  bucket = aws_s3_bucket.sample.id
+ 
 
   rule {
     id = "log"
@@ -73,27 +79,3 @@ resource "aws_s3_bucket_lifecycle_configuration" "quarterly_lifecycle_config" {
     status = "Enabled"
   }
 }
-
-/*
-resource "aws_s3_bucket" "permanent" {
-  bucket = "my-learning-s3-bucket-permanent"
-  acl    = "private"
-
-  # Enable versioning
-  versioning {
-    enabled = true
-  }
-
-  # Add a lifecycle rule to transition objects to Glacier storage class after 30 days
-  lifecycle_rule {
-    id      = "permanent_retention"
-    prefix = "permanent/"
-    enabled = true
-
-    transition {
-      days          = 10
-      storage_class = "GLACIER"
-    }
-  }
-}
-*/

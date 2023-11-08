@@ -26,5 +26,5 @@
     - Can be used to speed up downloads
     - Can be used to retrieve only partial data(for example the head of a file)
 
-
+![S3 Batch](images/s3-batch.png)
     

@@ -1,16 +1,16 @@
 ![Cisco Logo](docs/images/cisco.png)
-# Using the Cisco Catalyst 8000V software router on AWS
+# Prototype Cisco Catalyst 8000V SD-WAN on AWS
 
 ## Problem Statement
--	We use the Cisco Catalyst 8000V to optimize TIERS network traffic
-- The Cisco Catalyst 8000V optimizes network traffic for over 200 regional offices to the Winters Data Center
-- The Cisco Catalyst 8000V is currently hosted in the Winters Data Center
+-	We currently use Cisco Catalyst 8000V SD-WAN to optimize TIERS network traffic
+- The Cisco Catalyst 8000V SD-WAN software optimizes the network traffic from the Winters Data Center to over 200 regional offices
+- The Cisco Catalyst 8000V SD-WAN software terminates the regional offices connection at the Winters Data Center
 - We are moving the TIERS production systems from the Winters Data Center to AWS
-- We need to move Cisco Catalyst 8000V to AWS along with TIERS
-- We do not know if the Cisco Catalyst 8000V will work on AWS
-- If the Cisco Catalyst 8000V software does not work as planned on AWS:
-  - We have no good solution option to replace it
-  - We will have to delay the TIERS project and add significant unexpected costs
+- We need to move Cisco Catalyst 8000V SD-WAN software to AWS along with TIERS so we can terminate the regional office connections in AWS
+- We do not know if the Cisco Catalyst 8000V SD-WAN software will meet our requirements on AWS
+- If the Cisco Catalyst 8000V software does not meet our requirements running on AWS:
+  - We have no solution to replace it
+  - The TIERS project will be delayed and will have to add significant unexpected costs until a solution is found
 
 ## Solution
 
@@ -57,6 +57,7 @@ The following diagram shows a draft of the high-level design for the prototype. 
 
 ![AWS High-Level architecture](docs/images/design-high.svg)
 
+ 
 
 
 

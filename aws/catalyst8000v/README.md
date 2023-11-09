@@ -21,7 +21,7 @@ The prototype will answer the following questions:
 
   - Will the Cisco Catalyst 8000V SD-WAN software work on AWS?
   - What is the required AWS compute, storage, and network configuration to run the Cisco Catalyst 8000V software on AWS?
-  - What is the optimal AWS compute, storage, and network to get the network optimization we get now?
+  - What is the optimal AWS compute, storage, and network to get the same network optimization(for example, 85% ) we get now?
   - Will we get the same network optimization to AWS in us-east-2 as we get now to Winters?
   - How should we ensure the Cisco Catalyst 8000V SD-WAN software on AWS is highly available and meets our DR requirements?
   - How does the Cisco Catalyst 8000V SD-WAN software on AWS integrate with our existing network monitoring and management tools?
@@ -40,7 +40,7 @@ The prototype effort will deliver the following artifacts:
 ## Pre-requisites
 
 - AWS Access **(Done!)**:smiley:
-  - We will use our AWS Sandbox account acquired through the Service Now Portal
+  - We will use a AWS Sandbox account acquired through the Service Now Portal
 - Cisco Catalyst 8000V SD-WAN software license **(Done!)**:smiley:
   - For both the prototype and production the HHSC networking team will use the Bring Your Own License (BYOL) option to deploy the Cisco Catalyst 8000V software on AWS. See [our documentation](CiscoCatalystLicensing.md) on which Cisco license option we will use once we get access to the AWS MarketPlace AMI.  
 - AWS Marketplace Access **(AWS Policy change required)**:disappointed:
@@ -53,7 +53,7 @@ The prototype effort will deliver the following artifacts:
 
 ## High-Level Design
 
-The following diagram shows a draft of the high-level design for the production system.       
+The following diagram shows a draft of the high-level design for the production system.
 
 ![AWS High-Level architecture](docs/images/design-high.svg)
 

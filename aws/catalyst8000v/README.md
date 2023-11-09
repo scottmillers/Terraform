@@ -1,36 +1,62 @@
 ![Cisco Logo](docs/images/cisco.png)
-# Using the Cisco Catalyst 8000V Edge software on AWS
+# Using the Cisco Catalyst 8000V software router on AWS
 
 ## Problem Statement
--	We use the Cisco Catalyst 8000V Edge software to optimize TIERS network traffic
-- The Cisco Catalyst 8000V Edge software optimizes network traffic from over 200 regional offices to the Winters Data Center
-- The Cisco Catalyst 8000V Edge is currently hosted in the Winters Data Center
+-	We use the Cisco Catalyst 8000V to optimize TIERS network traffic
+- The Cisco Catalyst 8000V optimizes network traffic for over 200 regional offices to the Winters Data Center
+- The Cisco Catalyst 8000V is currently hosted in the Winters Data Center
 - We are moving the TIERS production systems from the Winters Data Center to AWS
-- We need to move Cisco Catalyst 8000V Edge software to AWS along with TIERS
-- We do not know if the Cisco Catalyst 8000V Edge software will work on AWS
-- If the Cisco Catalyst 8000V software does not work as expected on AWS, we have no good solution option to replace it, and we will have to delay the TIERS project and add significant unexpected costs
+- We need to move Cisco Catalyst 8000V to AWS along with TIERS
+- We do not know if the Cisco Catalyst 8000V will work on AWS
+- If the Cisco Catalyst 8000V software does not work as planned on AWS:
+  - We have no good solution option to replace it
+  - We will have to delay the TIERS project and add significant unexpected costs
 
 ## Solution
 
-We want to prototype the Cisco Catalyst Edge software on AWS.  
+We want to prototype the Cisco Catalyst Edge software for SD-WAN on AWS.  
 
-- The prototype will answer the following questions: 
+The prototype will answer the following questions: 
 
-  - Can we get the Cisco Catalyst 8000V software to work on AWS?
-  - What is the required AWS compute, storage, and network to run the Cisco Catalyst 8000V software on AWS?
-  - What is the optimal AWS compute, storage, and network to get the same end-user network optimization we get now?
-  - Will we get the same end-user network optimization to AWS in us-east-2 as we get now in Winters?
-  - What is the best way to monitor the Cisco Catalyst 8000V software on AWS? 
-  - How does the Cisco Catalyst 8000V software fit into the overall TIERS DR strategy?
-  - What changes, if any, do we need to make to our current TIERS DR strategy to accommodate the Cisco Catalyst 8000V software on AWS?
+  - Will the Cisco Catalyst 8000V software work on AWS?
+  - What is the required AWS compute, storage, and network configuration to run the Cisco Catalyst 8000V software on AWS?
+  - What is the optimal AWS compute, storage, and network to get the same network optimization we get now?
+  - Will we get the same network optimization to AWS in us-east-2 as we get now to Winters?
+  - How should we ensure the Cisco Catalyst 8000V software on AWS is highly available and meets our DR requirements?
+  - How does the Cisco Catalyst 8000V software on AWS integrate with our existing network monitoring and management tools?
   - Does our AWS design for the prototype follow the [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/?wa-lens-whitepapers.sort-by=item.additionalFields.sortDate&wa-lens-whitepapers.sort-order=desc&wa-guidance-whitepapers.sort-by=item.additionalFields.sortDate&wa-guidance-whitepapers.sort-order=desc)?
 
 
-- The prototype effort will deliver the following artifacts:
+
+The prototype effort will deliver the following artifacts:
   - Design document that describes the architecture and configuration settings for the Cisco Catalyst Edge software
-  - [Terraform](https://www.terraform.io/) to build and destroy the AWS infrastructure
-  - Code(TBD but Ansible preferred) to configure the Cisco Catalyst Edge software on AWS
-  - Measurement tools and data to compare the prototype to the current network optimization and performance
+  - Measurement tool set and data to compare the prototype to the current network optimization and performance
+  - Infrastructure as Code, or [Terraform](https://www.terraform.io/) scripts, to build and destroy the AWS infrastructure
+  - Configuration Code, language TBD, to configure anything on the EC2 instances including but not limited to the Cisco Catalyst Edge software
+ 
 
 
-## Project Status
+## Pre-requisites
+
+- AWS Access **(Done!)**:smiley:
+  - We will use our AWS Sandbox account acquired through the Service Now Portal 
+- AWS Marketplace Access **(AWS Policy change required)**:disappointed:
+  - We need to use the [Cisco Catalyst 8000V image for SD-WAN and Routing image](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) from the AWS Marketplace. 
+  - We tried multiple workarounds to get a AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
+  - We requested an exception to DIR for AWS Marketplace access
+  - DIR approved the exception to allow AWS Marketplace Access on 2023-11-06.
+  - We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the Cisco Catalyst 8000V image from the AWS Marketplace.
+- Cisco Catalyst 8000V software license **(Done!)**:smiley:
+  - For the prototype we will use a 90-day trial license from Cisco
+  - For production the HHSC networking team will use the Bring Your Own License (BYOL) option to use the Cisco Catalyst 8000V software on AWS
+
+## High-Level Design
+
+The following diagram shows a draft of the high-level design for the prototype.  The prototype will use the Cisco Catalyst 8000V SD-WAN software on AWS to optimize network traffic from the TIERS regional, or field offices, to the TIERS production systems in AWS.   
+
+
+![AWS High-Level architecture](docs/images/design-high.svg)
+
+
+
+

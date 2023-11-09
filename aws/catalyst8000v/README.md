@@ -1,20 +1,21 @@
 ![Cisco Logo](docs/images/cisco.png)
-# Prototype Cisco Catalyst 8000V SD-WAN on AWS
+# Cisco Catalyst 8000V SD-WAN on AWS
 
 ## Problem Statement
--	We currently use Cisco Catalyst 8000V SD-WAN to optimize TIERS network traffic
-- We optimizes the network traffic from the Winters Data Center to over 200 regional offices
+-	We use the Cisco Catalyst 8000V SD-WAN software to optimize TIERS network traffic
+- We optimizes the network traffic to the Winters Data Center from over 200 regional offices
 - We terminate the regional offices connection at the Winters Data Center
 - We are moving the TIERS production systems from the Winters Data Center to AWS
-- We need to move Cisco Catalyst 8000V SD-WAN software to AWS and terminate the regional offices connection in AWS
+- We need to move Cisco Catalyst 8000V SD-WAN software to AWS
+- We need to terminate the regional offices connection in AWS
 - We do not know if the Cisco Catalyst 8000V SD-WAN software will meet our requirements on AWS
 - If the Cisco Catalyst 8000V SD-WAN software does not meet our requirements running on AWS:
-  - We have no solution to replace it
-  - The TIERS project will be delayed and we will have to add significant unexpected costs until a solution is found
+  - We have no alternative solution
+  - The TIERS project scope, schedule, and budget will be impacted
 
 ## Solution
 
-We want to prototype the Cisco Catalyst Edge software for SD-WAN on AWS.  
+We want to prototype the Cisco Catalyst SD-WAN software on AWS.  
 
 The prototype will answer the following questions: 
 
@@ -30,7 +31,7 @@ The prototype will answer the following questions:
 
 The prototype effort will deliver the following artifacts:
   - Design document that describes the architecture and configuration settings required for the Cisco Catalyst 8000V SD-WAN software
-  - Report with data that compares the prototype performance and network optimizations to the current network performance and optimizations
+  - Report with data that compares the prototype performance to the current network performance and bandwidth optimizations
   - Infrastructure as Code, or [Terraform](https://www.terraform.io/) scripts, to build and destroy the AWS infrastructure
   - Configuration as Code, in [Ansible](https://www.ansible.com/), to configure anything on the EC2 instances including but not limited to the Cisco Catalyst Edge software
  
@@ -39,20 +40,20 @@ The prototype effort will deliver the following artifacts:
 ## Pre-requisites
 
 - AWS Access **(Done!)**:smiley:
-  - We will use our AWS Sandbox account acquired through the Service Now Portal 
+  - We will use our AWS Sandbox account acquired through the Service Now Portal
+- Cisco Catalyst 8000V SD-WAN software license **(Done!)**:smiley:
+  - For both the prototype and production the HHSC networking team will use the Bring Your Own License (BYOL) option to deploy the Cisco Catalyst 8000V software on AWS. See [our documentation](CiscoCatalystLicensing.md) on which Cisco license option we will use once we get access to the AWS MarketPlace AMI.  
 - AWS Marketplace Access **(AWS Policy change required)**:disappointed:
   - We need to use the [Cisco Catalyst 8000V image for SD-WAN and Routing image](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) from the AWS Marketplace. 
-  - We tried multiple workarounds to get a AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
+  - We tried multiple workarounds to get or build AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
   - We requested an exception to DIR for AWS Marketplace access
   - DIR approved the exception to allow AWS Marketplace Access on 2023-11-06.
-  - We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the Cisco Catalyst 8000V image from the AWS Marketplace.
-- Cisco Catalyst 8000V SD-WAN software license **(Done!)**:smiley:
-  - For the prototype we will use a 90-day trial license from Cisco
-  - For production the HHSC networking team will use the Bring Your Own License (BYOL) option to use the Cisco Catalyst 8000V software on AWS
+  - We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the AWS Marketplace.
+
 
 ## High-Level Design
 
-The following diagram shows a draft of the high-level design for the prototype.     
+The following diagram shows a draft of the high-level design for the production system.       
 
 ![AWS High-Level architecture](docs/images/design-high.svg)
 

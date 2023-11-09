@@ -10,7 +10,10 @@
 
 ## Solution
 
-We currently have no solution.
+We received a DIR exception to use the AWS Marketplace on 2023-11-06.  Once provided access we will use the Cisco Catalyst 8000v software AMI from the AWS Marketplace. 
+
+
+Here are the workarounds we tried before asking for the exception:
 
 We tried two workarounds to deploy the Cisco Catalyst 8000v software to AWS.   
 - [Move an AMI from my AWS personal account to my work account](#moveami)

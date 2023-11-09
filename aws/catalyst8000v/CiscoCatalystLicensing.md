@@ -14,10 +14,9 @@ During the Deployment of the [Cisco Catalyst 8000V setup on AWS](https://www.cis
    This is the software we already use and the one we want to use on AWS
 
 
-We will use option 4, Cisco Catalyst 8000V - BYOL For SDWAN.
+For option 4, it says the [Getting Started with Cisco SD-WAN guide](https://www.cisco.com/c/en/us/td/docs/routers/sdwan/configuration/sdwan-xe-gs-book/licensing-on-cisco-sd-wan.html) has documentation on this license. It says the "Cisco DNA licenses offer both portability and flexibility to move from cloud management (Cisco SD-WAN Manager) to on-premises management (Cisco DNA Center) and across hardware platforms"
 
-The [Getting Started with Cisco SD-WAN guide](https://www.cisco.com/c/en/us/td/docs/routers/sdwan/configuration/sdwan-xe-gs-book/licensing-on-cisco-sd-wan.html) has documentation on this license.
-
-It says the "Cisco DNA licenses offer both portability and flexibility to move from cloud management (Cisco SD-WAN Manager) to on-premises management (Cisco DNA Center) and across hardware platforms"
-
-That means we can use our existing Cisco Catalyst 8000V - BYOL For SDWAN license on AWS.
+Questions:
+- Will we use  Cisco Catalyst 8000V - BYOL For SDWAN?
+- Can we get a trial license to prototype the Cisco Catalyst 8000V - BYOL For SDWAN?
+- Will the trial license be for 90-days?

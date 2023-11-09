@@ -23,7 +23,7 @@ The prototype will answer the following questions:
   - What is the required AWS compute, storage, and network configuration to run the Cisco Catalyst 8000V software on AWS?
   - What is the optimal AWS compute, storage, and network to get the same network optimization(for example, 85% ) we get now?
   - Will we get the same network optimization to AWS in us-east-2 as we get now to Winters?
-  - How should we ensure the Cisco Catalyst 8000V SD-WAN software on AWS is highly available and meets our DR requirements?
+  - How should we design the Cisco Catalyst 8000 SD-WAN architecture on AWS meet the TIERS availability and DR requirements?
   - How does the Cisco Catalyst 8000V SD-WAN software on AWS integrate with our existing network monitoring and management tools?
   - Does our AWS design for the prototype follow the [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/?wa-lens-whitepapers.sort-by=item.additionalFields.sortDate&wa-lens-whitepapers.sort-order=desc&wa-guidance-whitepapers.sort-by=item.additionalFields.sortDate&wa-guidance-whitepapers.sort-order=desc)?
 

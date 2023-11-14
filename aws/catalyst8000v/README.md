@@ -39,7 +39,7 @@ The prototype effort will deliver the following artifacts:
 
 - We expect the prototype to take 3 months.
 - The estimated costs are as follows:
-    - AWS costs: $500 per month maximum.  We will use the AWS sandbox account to run the prototype and use Terraform to destroy the AWS infrastructure when not in use.  
+    - AWS costs: $500 per month maximum.  We will use a AWS sandbox account to for the prototype.  We will use Terraform to easily create and destroy the AWS infrastructure.  
     - Cisco Catalyst 8000V SD-WAN software license: $0.  We will use the Cisco Catalyst 8000V SD-WAN software trial licenses directly from Cisco. For production we will bring our own licenses.
 
 ## Status Update (11/14/2023)

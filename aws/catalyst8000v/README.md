@@ -34,7 +34,23 @@ The prototype effort will deliver the following artifacts:
   - Report with data that compares the prototype performance to the current network performance and bandwidth optimizations
   - Infrastructure as Code, or [Terraform](https://www.terraform.io/) scripts, to build and destroy the AWS infrastructure
   - Configuration as Code, in [Ansible](https://www.ansible.com/), to configure anything on the EC2 instances including but not limited to the Cisco Catalyst Edge software
- 
+
+## Prototype schedule, costs and licensing
+
+- We expect the prototype to take 3 months.
+- The estimated costs are as follows:
+    - AWS costs: $500 per month maximum.  We will use the AWS sandbox account to run the prototype and use Terraform to destroy the AWS infrastructure when not in use.  
+    - Cisco Catalyst 8000V SD-WAN software license: $0.  We will use the Cisco Catalyst 8000V SD-WAN software trial licenses directly from Cisco. For production we will bring our own licenses.
+
+## Status Update (11/14/2023)
+
+- We have been informed by PCM/Rackspace:
+    - That we need will **not** be able to use Terraform to build the environment.  We will need them to build the environment.
+    - They require a PCR and a detailed cost breakdown to build the environment 
+- PCR will have to be started.  The expected time frame is at least 2 months for approval. We will not be able to start the prototype until the PCR is approved.  The earliest time to start is 2023-01-01 at the earliest.
+- We expect costs and time frame to increase since:
+  - Costs will increase since we will not be able to destroy the prototype environment without PCM/Rackspace involvement
+  - Timeframe will increase since we will not be able to use Terraform to build the environment and will have to wait for PCM/Rackspace to build the environment
 
 
 ## Pre-requisites
@@ -44,11 +60,11 @@ The prototype effort will deliver the following artifacts:
 - Cisco Catalyst 8000V SD-WAN software license **(Done!)**:smiley:
   - For both the prototype and production the HHSC networking team will use the Bring Your Own License (BYOL) option to deploy the Cisco Catalyst 8000V software on AWS. See [our documentation](CiscoCatalystLicensing.md) on which Cisco license option we will use once we get access to the AWS MarketPlace AMI.  
 - AWS Marketplace Access **(AWS Policy change required)**:disappointed:
-  - We need to use the [Cisco Catalyst 8000V image for SD-WAN and Routing image](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) from the AWS Marketplace. 
-  - We tried multiple workarounds to get or build AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
+  - We need to use the [Cisco Catalyst 8000V image for SD-WAN and Routing image](https://aws.amazon.com/marketplace/pp/prodview-rohvq2cjd4ccg) from the AWS Marketplace. [Texas procurement rules](https://comptroller.texas.gov/purchasing/publications/procurement-contract.php) forbids AWS Marketplace access since purchasing from it is considered a single source procurement which is forbidden under law. 
+  - 2023-11-01: We tried multiple workarounds to get or build AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
   - We requested an exception to DIR for AWS Marketplace access
-  - DIR approved the exception to allow AWS Marketplace Access on 2023-11-06.
-  - We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the AWS Marketplace.
+  - 2023-11-06: DIR approved the exception to allow AWS Marketplace Access.  We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the AWS Marketplace.
+  - 2023-11-14: Rackspace said that they will not allow the policy change for AWS Marketplace access.  They want to create the EC2 instances from the AWS Marketplace AMI.  They also said we need to create a PCR to get the environments built.
 
 
 ## High-Level Design

@@ -63,7 +63,8 @@ The proof of concept effort will deliver the following artifacts:
   - 2023-11-01: We tried multiple workarounds to get or build AMI image without AWS Marketplace access.  None of them worked.  See [our documentation](./MarketplaceAccess.md) for details. 
   - We requested an exception to DIR for AWS Marketplace access
   - 2023-11-06: DIR approved the exception to allow AWS Marketplace Access.  We need PCM/Rackspace to modify their AWS policies to allow our AWS sandbox account to use the AWS Marketplace.
-  - 2023-11-14: Rackspace said that they will not allow the policy change for AWS Marketplace access.  They want to create the EC2 instances from the AWS Marketplace AMI.  They also said we need to create a PCR to get the environments built.
+  - 2023-11-14: Rackspace said that they will not allow the policy change for AWS Marketplace access. ls
+   They want to create the EC2 instances from the AWS Marketplace AMI.  They also said we need to create a PCR to get the environments built.
 
 
 ## High-Level Design

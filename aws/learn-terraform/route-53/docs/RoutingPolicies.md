@@ -46,3 +46,11 @@
 ![Latency Route Policy](images/latency-route-policy.png)
 
 
+## [Failover Routing](./RoutingPolicyFailover.md)
+
+
+## [Geolocation Routing](./RoutingPolicyGeolocation.md)
+
+## [Geoproximity Routing](./RoutingPolicyGeoproximity.md)
+
+## [Multivalue Answer Routing](./RoutingPolicyMultivalue.md)

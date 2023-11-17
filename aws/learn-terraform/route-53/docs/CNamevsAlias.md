@@ -5,7 +5,7 @@
 
 - CNAME
     - Points a hostname to another hostname (app.mydomain.com => blabla.anything.com)
-    - Only for non-root domain (aka.something.example.com)
+    - Only for non-root domain (aka. something.example.com)
 
 
 - Alias

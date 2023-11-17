@@ -1,6 +1,6 @@
 # Health Checks - Monitor and Endpoint
 
-- About 15 global health checkers with check the endpoint health
+- About 15 global health checkers will check the endpoint health
     - Healthy/Unhealthy Threshold - 3 (default)
     - Interval - 30 seconds (can set to 10 sec - higher cost)
     - Supported protocols: HTTP, HTTPS, TCP
@@ -16,3 +16,19 @@
 - Configure your router/firewall to allow incoming traffic from the Route 53 health checkers
 
 ![Health checks](images/health-checks.png)
+
+## Calculated Health Checks
+
+- Calculated health checks let you check the health of your resources as a group
+- You can use OR, AND, or NOT
+- Can monitor up to 256 resources in a single health check
+- Specify how many of the health checks need to pass to make the parent pass
+- Usage: perform maintenance to your website without causing all health checks to fail
+
+## Health Checks - Private Hosted Zones
+- Route 53 health checkers are outside the VPC
+- They can't access private endpoints (private VPC or on-premise resource)
+
+- You can create a CloudWatch Metric and associate a CloudWatch Alarm, then create a Health Check that checks the alarm itself
+
+![Alt text](images/health-check-cloudwatch.png)

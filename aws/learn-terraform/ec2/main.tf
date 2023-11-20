@@ -84,7 +84,7 @@ resource "aws_security_group" "web_srv_sg" {
 
 
 
-# Create the first web server
+# Create a web server
 resource "aws_instance" "web_server_one" {
   ami                         = data.aws_ami.latest_amzn2_ami.id
   instance_type               = local.instance_type

@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Encrypt and Descrypt a file using KMS
+# Encrypt and Decrypt a file using the KMS Key created by Terraform
 source ./variables.zsh
 
 # delete the tmp files

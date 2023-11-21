@@ -10,4 +10,4 @@
     - And other optional services
 
 
-![GuardDuty Architecture](image.png)
+![GuardDuty Architecture](images/guardduty-architecture.png)

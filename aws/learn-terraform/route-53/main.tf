@@ -30,7 +30,7 @@ locals {
 
 module "ec2_us_east_1" {
   providers = {
-    aws = aws.us_east_1
+    aws = aws.us_east_2
   }
   source = "./modules/ec2"
 }

@@ -1,9 +1,18 @@
+
+# Define a list of local variables
+locals {
+  instance_type = "t2.micro"
+}
+
+// get the default vpc id
 data "aws_vpc" "default" {
+  provider = aws.alternative
   default = true
 
 }
-
+// get all subnets ids in the default vpc
 data "aws_subnets" "subnets" {
+  provider = aws.alternative
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
@@ -11,17 +20,11 @@ data "aws_subnets" "subnets" {
 }
 
 
-output "vpc_id" {
-  value = data.aws_vpc.default.id
-}
-output "subnet_ids" {
-  value = data.aws_subnets.subnets.ids
-}
 
-/*
-# Create a security group for my web serversyes
+# Create a security group for my web server
 resource "aws_security_group" "web_srv_sg" {
-  vpc_id = var.vpc_id
+  provider =  aws.alternative
+  vpc_id = data.aws_vpc.default.id
   name   = "websrvsg"
   ingress {
     from_port   = 80
@@ -46,16 +49,39 @@ resource "aws_security_group" "web_srv_sg" {
 }
 
 
+# Get the Latest Amazon Linux 2 ARM AMI
+data "aws_ami" "latest_amzn2_ami" {
+  provider = aws.alternative
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-kernel-5.10-hvm-*-gp2"] # this kernel is shown in the console quickstart
+    #values = ["amzn2-ami-hvm-*-gp2"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name = "architecture"
+    #values = ["arm64"]
+    values = ["x86_64"]
+  }
+}
+
 
 # Create a web server
-resource "aws_instance" "web_server_one" {
+resource "aws_instance" "websrv_one" {
+  provider                    = aws.alternative
+  subnet_id                   = data.aws_subnets.subnets.ids[0]
   ami                         = data.aws_ami.latest_amzn2_ami.id
-  instance_type               = var.instance_type
-  user_data                   = file("scripts/ec2-user-data.sh")
-  subnet_id                   = var.subnet_id
+  instance_type               = local.instance_type
+  user_data                   = file("${path.module}/scripts/ec2-user-data.sh")
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.web_srv_sg.id]
-  key_name                    = aws_key_pair.ssh-public-key.key_name
-
+  #key_name                    = var.ssh_key_name
 }
-*/
+

@@ -9,3 +9,6 @@ Amazon RDS Overview
     - Oracle
     - Microsoft SQL Server
     - Aurora (AWS Proprietary database)
+
+Reference
+https://tutorialsdojo.com/amazon-relational-database-service-amazon-rds/

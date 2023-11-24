@@ -1,22 +1,23 @@
-# Amazon Route 53 DNS Failover Prototype
+# Amazon Route 53 Failover Prototype
 
-This is prototype is used to simulate a Route 53 DNS failover. It uses Terraform to create the infrastructure and shell scripts to create a failure of the EC2 instance in the primary region.  The goal is to understand how Route 53 DNS failover works and what configuration parameters are needed to make it work.
+This prototype is uses Route 53 DNS failover policies to test a failover across two AWS regions. It uses Terraform to create the infrastructure and shell scripts to cause a failure of the primary region EC2 instance.  When the failure occurs the Route 53 health check recognize the failure and return the records for the EC2 in the secondary region. The goal is to understand how Route 53 DNS failover works and how the configuration parameters affect the failover time.
 
 
 The Terraform creates:
-- Two EC2 instances, with a web server, in these two AWS regions
+- Two EC2 instances, with a web server installed, in two AWS regions
     - Primary: Ohio (us-east-2) 
     - Secondary: Oregon (us-west-2)
 - Two Elastic IP addresses for each of the EC2 instances
 - Two Route 53 alias records for each of the EC2 elastic ip addresses with the same name of ```failover.tribeoffive.com```
-- Two Route 53 health checks that point to each of the EC2 instance Elastic IP addresses
+- Two Route 53 health checks that point to the EC2 instance Elastic IP addresses
 - ./scripts/variables.sh which includes the instance id of the primary regions EC2 instance and is used for the stop and start scripts
+
 
 ![Alt text](docs/images/terraform-architecture.png)
 
-Once the Terraform is applied, you these scripts simular a failure and recovery
-- ```./scripts/stop-primary.sh``` - Stops the primary EC2 instance to simulate a failure
-- ```./scripts/start-primary.sh``` - Starts the primary EC2 instance to simulate a recovery
+Once the Terraform is applied, these scripts simulate a failure and recovery
+- ```./scripts/stop-primary.sh``` - Stops the EC2 instance in the primary region to simulate a failure
+- ```./scripts/start-primary.sh``` - Starts the EC2 instance in the secondary region to simulate a recovery
 
 
 ## Setup Prerequisites
@@ -24,16 +25,18 @@ Once the Terraform is applied, you these scripts simular a failure and recovery
 - An AWS account 
 - AWS CLI installed
 - Terraform 5.0 or greater installed
+- An existing default VPC with a public subnet 
 - An existing Route 53 Hosted Zone for your domain. 
-I purchased a domain from GoDaddy.  GoDaddy is my registrar and I use Route 53 for my DNS service.   [How to use GoDaddy as the registrar and to Route 53 as the DNS service?](docs/GoDaddyToRoute53.md).  In the Terraform I lookup my existing hosted zone using this:
+    - GoDaddy is my registrar and I use Route 53 for my DNS service.   [How to use GoDaddy as the registrar and to Route 53 as the DNS service?](docs/GoDaddyToRoute53.md). 
+    - The Terraform will lookup my existing Route 53 hosted zone:
     ``` terraform
-    # Get the existing Route53 hosted zone
+    # Get the existing Route53 Hosted zone
     data "aws_route53_zone" "selected" {
         name         = var.hostedzone_name # set to tribeoffive.com
         private_zone = false
     }
     ```
-You can also modify the Terraform to create our own hosted zone.  See the [Terraform Route 53 Zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) documentation for more information.
+You could also use Terraform to create our own hosted zone.  See the [Terraform Route 53 Zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) documentation for more information.
 
 ## Steps to use the prototype
 

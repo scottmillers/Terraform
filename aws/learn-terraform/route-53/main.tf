@@ -1,7 +1,7 @@
 /*
-    The terraform will
-    Create 2 EC2 instances with web servers in two regions
-    Register their public IP addresses on Route53
+    This terraform will
+    Create 2 EC2 instances with web servers in two different regions
+    Register their public IP addresses on Route53 using different routing policies
 
 */
 # Define the AWS provider with aliases for each region
@@ -15,57 +15,136 @@ provider "aws" {
   region = "us-west-2"
 }
 
-
+# Existing Route 53 Hosted Zone. 
 locals {
-  hostedzone_name = "tribeoffive.info." # My existing Route 53 Hosted Zone. 
+  hostedzone_name = "tribeoffive.info."
 }
 
+# Create a EC2 in us-east-2
 module "ec2_us_east_2" {
   providers = {
     aws.alternative = aws.us_east_2
   }
-  ssh_key_name  = aws_key_pair.ssh-public-key.key_name
-  source          = "./modules/ec2"
+  source = "./modules/ec2"
 }
 
 
-/*
+# Create a EC2 in us-west-2
 module "ec2_us_west_2" {
   providers = {
     aws.alternative = aws.us_west_2
   }
-  ssh_public_key  = tls_private_key.ssh.public_key_openssh 
-  source          = "./modules/ec2"
+  source = "./modules/ec2"
 }
-*/
 
-# Load my existing hosted zone
+
+# Get the existing Route53 hosted zone
 data "aws_route53_zone" "selected" {
   name         = local.hostedzone_name
   private_zone = false
 }
 
+# Example of a Failover(Disaster recovery) across two Regions
 
-# Create a Hosted Zone record for my useast2_websrv
-resource "aws_route53_record" "useast2_websrv" {
+# Record for the primary domain
+resource "aws_route53_record" "us_east_2" {
   zone_id = data.aws_route53_zone.selected.zone_id
-  name    = "useast2.${data.aws_route53_zone.selected.name}"
+  name    = "failover"
   type    = "A"
-  ttl     = "300"
+  ttl     = 60
+  failover_routing_policy {
+    type = "PRIMARY"
+  }
+  set_identifier  = "useast2"
+  records         = [module.ec2_us_east_2.public_ip]
+  health_check_id = aws_route53_health_check.us_east_2.id
+}
+
+
+# Health check for the primary domain
+resource "aws_route53_health_check" "us_east_2" {
+  ip_address        = module.ec2_us_east_2.public_ip
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = 5
+  request_interval  = 30
+}
+
+
+# Record for the secondary domain
+resource "aws_route53_record" "us_west_2" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "failover"
+  type    = "A"
+  ttl     = 60
+  failover_routing_policy {
+    type = "SECONDARY"
+  }
+
+  set_identifier  = "uswest2"
+  records         = [module.ec2_us_west_2.public_ip]
+  health_check_id = aws_route53_health_check.us_west_2.id
+}
+
+
+# Health check for the secondary domain
+resource "aws_route53_health_check" "us_west_2" {
+  ip_address        = module.ec2_us_west_2.public_ip
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = 3
+  request_interval  = 30
+}
+
+
+
+
+# Example of a Simple Record for us-east-2 web server
+/*resource "aws_route53_record" "simple" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "simple.${data.aws_route53_zone.selected.name}"
+  type    = "A"
+  ttl     = 300
+  records = [module.ec2_us_east_2.public_ip]
+}
+*/
+
+
+# Example of a Weighted Records across two Regions
+/*
+resource "aws_route53_record" "weighted_us_east_2" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "weighted"
+  type    = "A"
+  ttl     = 3
+  weighted_routing_policy {
+    weight = 70    
+  }
+  set_identifier = "useast2"
+  
   records = [module.ec2_us_east_2.public_ip]
 }
 
-/*
-resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.selected.zone_id 
-  name    = "dev.${data.aws_route53_zone.selected.name}"
+resource "aws_route53_record" "weighted_us_west_2" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "weighted"
   type    = "A"
-  alias {
-    name                   = var.alb_dns
-    zone_id                = var.zone_id
-    evaluate_target_health = false
+  ttl     = 3
+  weighted_routing_policy {
+    weight = 30    
   }
+  set_identifier = "uswest2"
+  
+  records = [module.ec2_us_west_2.public_ip]
 }
 */
+
+
+
+
+
+
 
 

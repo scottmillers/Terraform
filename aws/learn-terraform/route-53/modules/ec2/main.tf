@@ -4,6 +4,11 @@ locals {
   instance_type = "t2.micro"
 }
 
+# Get the region from the provider
+data "aws_region" "current" {
+  provider = aws.alternative
+}
+
 // get the default vpc id
 data "aws_vpc" "default" {
   provider = aws.alternative
@@ -73,6 +78,8 @@ data "aws_ami" "latest_amzn2_ami" {
 }
 
 
+
+
 # Create a web server
 resource "aws_instance" "websrv_one" {
   provider                    = aws.alternative
@@ -80,8 +87,21 @@ resource "aws_instance" "websrv_one" {
   ami                         = data.aws_ami.latest_amzn2_ami.id
   instance_type               = local.instance_type
   user_data                   = file("${path.module}/scripts/ec2-user-data.sh")
-  associate_public_ip_address = true
+  #associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.web_srv_sg.id]
-  #key_name                    = var.ssh_key_name
+  #key_name                    = var.ssh_public_key
+}
+
+# Create an Elastic IP address
+resource "aws_eip" "websrv_eip" {
+  provider = aws.alternative
+  domain = "vpc"
+}
+
+# Associate the Elastic IP address with the web server instance
+resource "aws_eip_association" "websrv_eip_assoc" {
+  provider        = aws.alternative
+  instance_id     = aws_instance.websrv_one.id
+  allocation_id   = aws_eip.websrv_eip.id
 }
 

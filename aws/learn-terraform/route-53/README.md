@@ -129,4 +129,4 @@ You could also use Terraform to create our own hosted zone.  See the [Terraform 
     $ curl failover.tribeoffive.info
     <h1>Hello world from ip-172-31-27-33.us-east-2.compute.internal in AZ us-east-2b </h1>
     ```
-12. Success!  You have simulated a failure and recovery of a Route 53 DNS failover.
+12. Success!  You have simulated a failure and recovery using Route 53.

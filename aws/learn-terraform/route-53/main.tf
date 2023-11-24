@@ -15,10 +15,6 @@ provider "aws" {
   region = "us-west-2"
 }
 
-# Existing Route 53 Hosted Zone. 
-locals {
-  hostedzone_name = "tribeoffive.info."
-}
 
 # Create a EC2 in us-east-2
 module "ec2_us_east_2" {
@@ -40,7 +36,7 @@ module "ec2_us_west_2" {
 
 # Get the existing Route53 hosted zone
 data "aws_route53_zone" "selected" {
-  name         = local.hostedzone_name
+  name         = var.hostedzone_name
   private_zone = false
 }
 

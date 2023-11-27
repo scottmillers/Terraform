@@ -1,6 +1,7 @@
 # AWS Firewall Manager
 
 - Manage rules in all accounts of an AWS Organization
+- You can enable AWS WAF rules, AWS Shield Advanced protection, security groups, AWS Network Firewall rules, and Amazon Route 53 Resolver DNS Firewall rules.
 
 - Security policy: common set of security rules
     - WAF rules (ALB, API Gateway, CloudFront

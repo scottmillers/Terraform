@@ -31,4 +31,12 @@ Auto Scaling Group (ASG) are behind a load balancer
     - SSH Key Pair
     - IAM Roles for your EC2 Instances
     - Network Settings
--
+
+## Auto Scaling Lifecycle
+
+
+
+
+## References
+
+https://tutorialsdojo.com/aws-auto-scaling/

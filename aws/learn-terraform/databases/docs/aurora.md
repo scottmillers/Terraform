@@ -12,5 +12,31 @@
 - Aurora Machine Learning: integrate with SageMaker, use SQL to make predictions
 - Aurora Database Cloning: new cluster from existing one, faster than backup/restore, good for testing, dev, etc.
 - Use Cases: same as RDS, but with less maintenance/ more flexibility/ more performance/ more features
-- 
+
+
+## Aurora Endpoints
+
+- Use endpoints to map each connection to the correct instance or group of instances
+- For clusters with DB instances of different capacities or configuration, you can connect ot custom endpoints associated with different subnets of DB instances
+- Types of Endpoints
+    - Cluster Endpoint or Writer Endpoint: connects to the current primary instance for the cluster
+    - Reader Endpoint: connects to one of the available read replicas for the cluster
+    - Custom Endpoint: connects to a specific DB instance or group of DB instances defined by you
+
+![Alt text](image.png)
+
+## Aurora Events from MySQL DB cluster
+
+
+- Invoke a Lambda function when an Aurora DB cluster event occurs using lambda_sync or lambda async
+- Capture data changes when a row in a table is modified
+
+## References
+
+https://tutorialsdojo.com/amazon-aurora/
+
+Endpoint:
+https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.Endpoints.html
+
+
 

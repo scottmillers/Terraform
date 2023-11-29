@@ -19,3 +19,8 @@
     - TTL - amount of time the record cached at DNS Resolvers or in web browsers
 - Route 53 supports the following DNS record types:
     - A/AAAA/CNAME/NS and many more
+
+
+## References
+
+https://tutorialsdojo.com/amazon-route-53/

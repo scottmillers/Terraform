@@ -25,7 +25,23 @@
     - Partition Key + Sort Key: composite primary key, composed of two attributes, first is partition key, second is sort key, used to organize data within a partition
 - Secondary Index: lets you query the data in the table using an alternate key, in addition to queries against the primary key
 
+![Alt text](image.png)
+
+## Partition Keys and Performance
+
+- Partition keys portion of the tables's primary key determines the logical partitions in which a tables's data is stored
+- This affects the underlying physical partitions
+- Therefore a partition key design is important for performance
+- In general, a good partition key has a large number of distinct values, with a random distribution across partitions
 
 
 References
 https://tutorialsdojo.com/amazon-dynamodb/
+
+https://www.youtube.com/watch?v=3ZOyUNIeorU
+
+Partition Keys and Data Distribution:
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-uniform-load.html
+
+https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/
+

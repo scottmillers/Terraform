@@ -9,6 +9,8 @@
 
 - Mostly meant for RDS integration
 
+![Alt text](images/secrets-manager.png)
+
 ## Multi-Region Secrets
 
 - Replicate Secrets across multiple AWS Regions

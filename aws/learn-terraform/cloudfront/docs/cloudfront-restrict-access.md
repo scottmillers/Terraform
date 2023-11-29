@@ -4,7 +4,7 @@
 
 To do this:
 
-- Require the users access your content by using CloudFront URLs
+- Require the users access your content by using CloudFront URLs, not Amazon S3 URLs. You do this by setting up a origin access identity (OAI) for your Amazon S3 bucket.
 - CloudFront signed URLs and signed cookies provide a way to control who can access your content
 
 ![Alt text](images/cloudfront-access.png)

@@ -60,5 +60,19 @@
 
 ![Alt text](images/security-groups.png)
 
+## References
+
+Overview
+https://youtu.be/UBl5dw59DO8
+
+Cheat Sheet
+https://tutorialsdojo.com/aws-elastic-load-balancing-elb/
+
+https://aws.amazon.com/elasticloadbalancing/features
+
+https://aws.amazon.com/elasticloadbalancing/faqs/
+
+
+
 
 

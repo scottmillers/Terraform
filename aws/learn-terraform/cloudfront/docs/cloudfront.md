@@ -31,4 +31,10 @@
 - Origin Groups: setting determines whether CloudFront distributes requests across multiple origins or sends all requests to a single origin
 
 
-- 
+## References
+
+https://tutorialsdojo.com/amazon-cloudfront/
+
+S3 Pre-signed URLs vs CloudFront Signed URLs vs Origin Access Identity (OAI)
+
+https://tutorialsdojo.com/s3-pre-signed-urls-vs-cloudfront-signed-urls-vs-origin-access-identity-oai/

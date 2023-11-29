@@ -1,4 +1,4 @@
-#AWS Web Application Firewall
+# AWS Web Application Firewall
 
 Protects web applications from common web exploits that could affect application availability, compromise security, or consume excessive resources.
 
@@ -8,10 +8,19 @@ Can be deployed on:
 - Application Load Balancer
 - CloudFront
 - API Gateway
-- AppSync GraphQL API
-- Cognito User Pool
 
-## WAF Rules
+
+## WAF Conditions, Rules, and Web ACLs
+
+Conditions define the basic characteristics that you want WAF to watch for in the web request
+
+Rule Types:
+- Regular rules - use only conditions to target specific requests
+- Rate-based rules - count occurrences of events and block requests if they exceed a threshold
+
+Web ACLs are containers for rules and rule groups
+- Used to define actions for each rule - allow, block, or count
+
 
 Define Web ACL (Web Access Control List) Rules:
 - IP Set: up to 10,000 ip addresses
@@ -25,3 +34,10 @@ Web ACL are Regional except for CloudFront
 - WAF does not support the Network Load Balancer (Layer 4)
 - We can use Global Accelerator to have a fixed IP address for our WAF
 - Then we can attach WAF to the Application load balancer in the same region
+
+## References
+https://tutorialsdojo.com/aws-waf/
+
+https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-type-rate-based.html
+
+https://aws.amazon.com/waf/faqs/

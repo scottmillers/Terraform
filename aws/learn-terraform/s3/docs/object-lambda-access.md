@@ -8,4 +8,4 @@
     - Resizing and watermarking images on the fly using caller-specific details, such as a user who requested the object
 
 
-    ![S3 Object Lambda ](images/object-lamba-access.png)
+    ![S3 Object Lambda ](images/object-lambda-access.png)

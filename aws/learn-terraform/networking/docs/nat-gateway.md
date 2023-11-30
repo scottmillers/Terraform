@@ -10,11 +10,18 @@
 - 5 Gbps of bandwidth, can be increased to 100 Gbps
 - No security groups to manage/required
 
-# NAT Gateway with High Availability
+![Alt text](images/nat-gateway.png)
 
-- NAT Gateway is resilienent within a single Availability Zone
+## NAT Gateway with High Availability
+
+- NAT Gateway is resilient within a single Availability Zone
 - Must create multiple NAT Gateways in multiple Availability Zones for high availability
 - There is no cross-AZ failover for NAT Gateways
 
 
-![NAT Gateway](images/nat-gateway.png)
+![NAT Gateway](images/nat-gateway-ha.png)
+
+## NAT Gateway vs NAT Instance
+
+![Alt text](images/natgateway-vs-natinstance.png)
+

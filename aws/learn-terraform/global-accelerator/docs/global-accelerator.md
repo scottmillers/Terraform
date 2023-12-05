@@ -21,3 +21,8 @@
     - only 2 external IP need to be whitelisted
     - DDoS protection thanks to AWS Shield
 
+
+- Global Accelerator uses Anycast IP addresses which are announced from multiple AWS edge locations
+- Unicast IP addresses are announced from a single edge location
+
+![Alt text](image.png)

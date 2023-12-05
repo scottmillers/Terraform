@@ -6,6 +6,11 @@ You should have been been sent two emails from me
 - The first provides your account name and explains how to login to my AWS sandbox account 
 - The second is your temporary password.  The first time you login you will have to change your password.  
 
+https://588459062833.signin.amazon.com/console
+
+https://signin.aws.amazon.com/oauth?redirect_uri=https%3A%2F%2Faws.amazon.com%2Fmarketplace%2Fmanagement%2Fsignin%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Faws-mp-seller-management-portal&response_type=code&iam_user=true&account=588459062833&code_challenge=YHcBxGTJbeJC2UW1wTwZ4qiS_eL5dYlwD37tNY8mae8&code_challenge_method=SHA-256&flowStarted=1
+
+
 ## Using AWS Omics Ready2Run Workflows
 One logged in you can find the AWS HealthOmics service by typing in "omics" in the search bar.  
 

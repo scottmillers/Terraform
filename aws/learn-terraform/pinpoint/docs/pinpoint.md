@@ -10,4 +10,4 @@
     - In SNS & SES you managed each messages's audience, content, and delivery schedule
     - In Amazon Pinpoint, you create message templates, delivery schedules, highly-targeted segments, and full campaigns
 
-    ![Alt text](image.png)
+    ![Alt text](images/pinpoint.png)

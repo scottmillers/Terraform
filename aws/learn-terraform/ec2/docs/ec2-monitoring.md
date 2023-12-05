@@ -3,6 +3,7 @@
 By default EC2 instances monitor the following metrics:
 - CPU Utilization
 - Network utilization
+- Disk performance
 - Disk I/O
 
 Certain metrics like:
@@ -13,6 +14,9 @@ Certain metrics like:
 - Log collection
 
 Can be monitored by installing the CloudWatch agent on the EC2 instance.
+
+- Cloudwatch sends data to CloudWatch every 5 minutes by default.
+- You can also enable detailed monitoring to collect data in 1-minute periods
 
 ## References
 

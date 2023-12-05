@@ -91,7 +91,7 @@ resource "aws_iam_group_policy_attachment" "attach_iam_cloudwatchlogsfullaccess"
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
-
+/*
 # Attached EC2 Container Registry Full Access
 # Used for workflow container images access
 resource "aws_iam_group_policy_attachment" "attach_iam_ecrfullaccess" {
@@ -111,7 +111,7 @@ resource "aws_iam_group_policy_attachment" "attach_iam_resourcegroupsandtagedito
   group      = aws_iam_group.bioinformatics_group.name
   policy_arn = "arn:aws:iam::aws:policy/ResourceGroupsandTagEditorFullAccess"
 }
-
+*/
 
 # Create the service role for HealthOmics
 # The service role is used by the AWS HealthOmics service to run workflows on your behalf.
@@ -141,27 +141,27 @@ resource "aws_iam_policy" "omics_service_role_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-       {
-        Action   = [
+      {
+        Action = [
           "omics:*",
           "ram:AcceptResourceShareInvitation",
           "ram:GetResourceShareInvitations"
         ],
         Resource = "*"
-        Effect = "Allow"
-      },   
+        Effect   = "Allow"
+      },
       {
-       Action = "s3:*",
-       Resource = [
+        Action = "s3:*",
+        Resource = [
           "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}}",
           "arn:aws:s3:::${data.aws_s3_bucket.existing_bioinformatics_bucket.bucket}/*",
           "arn:aws:s3:::omics-us-east-1",
           "arn:aws:s3:::omics-us-east-1/*",
         ]
-       Effect = "Allow",
+        Effect = "Allow",
       },
       {
-        Action =  [
+        Action = [
           "logs:CreateLogStream",
           "logs:DescribeLogStreams",
           "logs:PutLogEvents"

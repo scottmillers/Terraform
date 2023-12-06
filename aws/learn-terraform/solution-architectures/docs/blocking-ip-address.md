@@ -30,5 +30,9 @@ NLB's are similar to ALB. The only difference is that NLB's don't do connection 
 
 ## Blocking an IP address - ALB, CloudFront, WAF
 
+![Alt text](images/block-ip-address-cloudfront.png)
 
+- WAF on CloudFront will filter the IP addresses at the edge
+- The ALB will only allow incoming cloudfront public IPs to be allowed so the **NACL** will not help block IPs
+- If you want to block IP's from a country you can use Geo Restriction
 

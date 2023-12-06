@@ -6,6 +6,10 @@
 - We have been successful running the NVIDIA Parabricks Germline HaplotypeCaller WGS for up to 50X as of August 2023 
 - As of November 1 2023, we are unable to run the workflow with the same account permissions, and the same data
 
+## Solution
+- AWS confirmed there was a problem with the HealthOmics R2R NVIDIA workflows
+- AWS fixed the problem and I was informed on 11/202023 that the workflows were working again
+
 ## What is the error?
 
 Here is the console error message for the workflow run:

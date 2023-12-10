@@ -7,3 +7,11 @@
 - Helpful when you want to share large datasets with other AWS accounts
 
 - The requester must be authenticated in AWS (cannot be anonymous)
+
+## References
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysExamples.html
+
+https://tutorialsdojo.com/amazon-s3/

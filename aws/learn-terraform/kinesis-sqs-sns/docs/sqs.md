@@ -20,3 +20,18 @@ How should the company re-design its architecture to address this requirement?
 
 
 ![Alt text](images/question-sqs.png)
+
+
+### Question 2
+A company has a web-based order processing system that is currently using a standard queue in Amazon SQS. The IT Manager noticed that there are a lot of cases where an order was processed twice. This issue has caused a lot of trouble in processing and made the customers very unhappy. The manager has asked you to ensure that this issue will not recur.
+
+What can you do to prevent this from happening again in the future? (Select TWO.)
+
+- Replace the Amazon SQS and instead use Amazon Simple Workflow Service (SWF) to manage the order processing.
+- Use the Amazon SQS FIFO (First-In-First-Out) queue instead of the standard queue.
+
+
+
+
+
+

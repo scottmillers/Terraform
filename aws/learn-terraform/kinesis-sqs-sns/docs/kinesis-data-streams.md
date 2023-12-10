@@ -1,5 +1,6 @@
 # AWS Kinesis Data Streams
 
+![Alt text](images/kinesis-data-stream-overview.png)
 ![Alt text](images/kinesis-data-stream.png)
 
 Producers

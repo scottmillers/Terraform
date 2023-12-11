@@ -13,6 +13,10 @@
 - Can range in size from 4 GiB to 16 TiB
 - Can provision 100 IOPS up to 64,000 IOPS per volume on Nitro system instances and up to 32,000 IOPS per volume on other instances
 
+
+
+
+
 ## References
 
 https://tutorialsdojo.com/amazon-ebs/

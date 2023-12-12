@@ -9,48 +9,14 @@ resource "aws_iam_group" "bioinformatics_group" {
   name = "bioinformatics-group"
 }
 
-# Policy to allow a user to all AWS HealthOmics API actions and pass service roles to AWS HealthOmics
-# https://docs.aws.amazon.com/omics/latest/dev/permissions-user.html
-/*resource "aws_iam_policy" "omics_policy" {
-  name        = "BioinformaticsOmicsPolicy"
-  description = "Allow Bioinformatics full access to AWS HealthOmics"
-  # Policy definition
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = [
-          "omics:*"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      },
-      {
-        Action = [
-          "iam:PassRole"
-        ],
-        Effect   = "Allow",
-        Resource = "*",
-        Condition = {
-          StringEquals = {
-            "iam:PassedToService" : "omics.amazonaws.com"
-          }
-        }
-      }
-    ]
-  })
-}
-*/
 
 
-# Attach HealthOmics poliy to the group
-/*resource "aws_iam_group_policy_attachment" "attach_omics" {
+# Attach Omics FullAccess Policy to the Group
+# To allow creation of MFA and Access Keys in the console
+resource "aws_iam_group_policy_attachment" "attach_omics_full_access" {
   group      = aws_iam_group.bioinformatics_group.name
-  policy_arn = aws_iam_policy.omics_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonOmicsFullAccess"
 }
-*/
-
-
 
 
 # Attach IAM read only access to the group
@@ -65,14 +31,6 @@ resource "aws_iam_group_policy_attachment" "attach_iam_readonly_access" {
 resource "aws_iam_group_policy_attachment" "attach_iam_change_password" {
   group      = aws_iam_group.bioinformatics_group.name
   policy_arn = "arn:aws:iam::aws:policy/IAMUserChangePassword"
-}
-
-
-# Attach Omics FullAccess Policy to the Group
-# To allow creation of MFA and Access Keys in the console
-resource "aws_iam_group_policy_attachment" "attach_omics_full_access" {
-  group      = aws_iam_group.bioinformatics_group.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonOmicsFullAccess"
 }
 
 

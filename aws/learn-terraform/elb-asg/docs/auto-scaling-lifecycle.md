@@ -1,4 +1,10 @@
-# EC2 Auto Scaling Lifecycle Hooks
+# EC2 Auto Scaling Lifecycle 
+
+
+![Alt text](images/lifecycle.png)
+
+
+## Auto Scaling Lifecycle Hooks
 
 - Lifecycle hooks enable you to perform custom actions by pausing instances as an Auto Scaling group launches or terminates them.
 - Examples include:

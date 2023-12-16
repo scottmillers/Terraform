@@ -33,6 +33,9 @@
 
 ## References
 
+https://youtu.be/iwS1h7rLNBQ
+
+
 https://tutorialsdojo.com/amazon-aurora/
 
 Endpoint:

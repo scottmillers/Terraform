@@ -48,6 +48,8 @@
     - HTTP, HTTPS, TCP, SSL (secure TCP) 
 - Application Load Balancer (v2 - new generation) 2016
     - HTTP, HTTPS, websocket
+    - Supports weighted targets like Route53
+    
 - Network Load Balancer (v2 - new generation) 2017
     - TCP, TLS (secure TCP), UDP
 - Gateway Load Balancer (v2 - new generation) 2020
@@ -71,6 +73,10 @@ https://tutorialsdojo.com/aws-elastic-load-balancing-elb/
 https://aws.amazon.com/elasticloadbalancing/features
 
 https://aws.amazon.com/elasticloadbalancing/faqs/
+
+https://aws.amazon.com/blogs/aws/new-application-load-balancer-simplifies-deployment-with-weighted-target-groups/
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html
 
 
 

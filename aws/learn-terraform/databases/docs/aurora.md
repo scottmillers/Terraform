@@ -31,6 +31,22 @@
 - Invoke a Lambda function when an Aurora DB cluster event occurs using lambda_sync or lambda async
 - Capture data changes when a row in a table is modified
 
+## Aurora Failures
+
+- If you have Replica in the same AZ when failing over, Amazon Aurora flips the canonical name (CNAME) from your DB Instance to point at the healthy replica.
+- If you are running Aurora serverless and the DB instance or AZ become unavailable, Aurora will automatically recreated the DB instance in a different AZ
+- If you don't have a replica and are not running serverless, aurora will attempt to create a new DB Instance in the same AZ as the original instance
+
+
+## Practice Test 5, Question 53
+
+A top investment bank is in the process of building a new Forex trading platform. To ensure high availability and scalability, you designed the trading platform to use an Elastic Load Balancer in front of an Auto Scaling group of On-Demand EC2 instances across multiple Availability Zones. For its database tier, you chose to use a single Amazon Aurora instance to take advantage of its distributed, fault-tolerant, and self-healing storage system.
+
+In the event of system failure on the primary database instance, what happens to Amazon Aurora during the failover?
+
+Answer: Amazon Aurora will attempt to create a new DB Instance in the same Availability Zone as the original instance and is done on a best-effort basis
+
+
 ## References
 
 https://youtu.be/iwS1h7rLNBQ

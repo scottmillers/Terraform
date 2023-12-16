@@ -48,15 +48,15 @@
 - Then you need to create a secret in Secrets Manager
 
 
-References
+## References
+
+https://tutorialsdojo.com/amazon-elastic-kubernetes-service-eks/
+
 https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_csi_driver.html
 
 https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html
 
 https://docs.aws.amazon.com/eks/latest/userguide/security.html
 
-Cheatsheet
-
-https://tutorialsdojo.com/amazon-elastic-kubernetes-service-eks/
 
 https://tutorialsdojo.com/aws-secrets-manager/

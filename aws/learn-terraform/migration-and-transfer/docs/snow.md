@@ -23,7 +23,7 @@
 
 ## Comparison
 
-![Comparison](images/storage-compare.png)
+![Comparison](images/snow-compare.png)
 
 
 ## AWS OpsHub

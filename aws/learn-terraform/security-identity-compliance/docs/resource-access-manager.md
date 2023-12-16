@@ -15,3 +15,9 @@ Steps to share resources with RAM:
 5. Review and create
 
 ![Resource Access Manager](images/resourceaccessmanager.png)
+
+## References
+
+https://tutorialsdojo.com/aws-resource-access-manager/
+
+https://docs.aws.amazon.com/ram/latest/userguide/what-is.html

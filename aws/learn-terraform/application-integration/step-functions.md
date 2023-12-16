@@ -24,3 +24,8 @@
     ## How Step Functions Work
 
     ![Alt text](images/step-functions.png)
+
+    ## References
+
+    https://tutorialsdojo.com/aws-step-functions/
+    

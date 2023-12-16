@@ -1,7 +1,12 @@
 # Amazon EKS
 
-A managed service that allows you to run Kubernetes on AWS without installing, operating, or maintaining your own Kubernetes control plane or nodes.
+- A managed service that allows you to run Kubernetes on AWS without installing, operating, or maintaining your own Kubernetes control plane or nodes.
 
+- Integration with various AWS services to provide scalability and security for your applications:
+    - Amazon ECR for container images
+    - Elastic Load Balancing for load distribution
+    - IAM for authentication
+    - Amazon VPC for isolation
 
 ## Scaling EKS
 

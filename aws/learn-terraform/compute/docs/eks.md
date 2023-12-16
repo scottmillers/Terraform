@@ -3,6 +3,22 @@
 A managed service that allows you to run Kubernetes on AWS without installing, operating, or maintaining your own Kubernetes control plane or nodes.
 
 
+## Scaling EKS
+
+
+Amazon EKS supports two autoscaling products:
+
+- Karpeneter
+
+Karpenter is a flexible, high-performance Kubernetes cluster autoscaler that launches appropriately sized compute resources, like Amazon EC2 instances, in response to changing application load. It integrates with AWS to provision compute resources that precisely match workload requirements.
+
+- Cluster Autoscaler
+
+The Kubernetes Cluster Autoscaler automatically adjusts the number of nodes in your cluster when pods fail or are rescheduled onto other nodes. The Cluster Autoscaler uses Auto Scaling groups.
+
+The Kubernetes Horizontal Pod Autoscaler automatically scales the number of Pods in a deployment, replication controller, or replica set based on that resource's CPU utilization. This can help your applications scale out to meet increased demand or scale in when resources are not needed, thus freeing up your nodes for other applications. When you set a target CPU utilization percentage, the Horizontal Pod Autoscaler scales your application in or out to try to meet that target.
+
+
 ## EKS Security
 
 - By default, IAM users and roles do not have permission to create or modify Amazon EKS resources
@@ -19,10 +35,21 @@ Amazon Elastic Kubernetes Service (Amazon EKS) is used by an e-commerce company 
 
 Which of the following would meet the requirements with the LEAST amount of operational overhead? (Select TWO.)
 
+Answer:
+
+- Install the Kubernetes Metrics Server to the Amazon EKS cluster and activate the Horizontal Pod Autoscaler (HPA)
+- Setup Karpenter to automatically adjust the number of nodes in the Amazon EKS cluster when pods fail or are rescheduled onto other nodes
+
+
+
 
 ## Reference
 
 https://tutorialsdojo.com/amazon-elastic-kubernetes-service-eks/
+
+https://docs.aws.amazon.com/eks/latest/userguide/horizontal-pod-autoscaler.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
 
 https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html#aws-auth-configmap
 

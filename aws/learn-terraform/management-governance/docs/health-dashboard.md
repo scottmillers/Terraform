@@ -1,9 +1,21 @@
 # AWS Health
 
-- AWS Health is a service that provides alerts and remediation guidance when AWS is experiencing events that may impact you.
-- You can use AWS Eventbridge to route AWS Health events to your own systems for automated remediation.
+- Provides ongoing visibility into the state of your AWS resources, services, and accounts.
+- The service delivers alerts and notifications triggered by changes in the health of AWS resources.
+
+- The AWS Health Dashboard organizes issues in three groups:
+    - Open and recent issues – restricted to issues whose start time is within the last seven days.
+    - Scheduled changes – contains items that are ongoing or upcoming.
+    - Other notifications – restricted to issues whose start time is within the last seven days.
 
 ![Alt text](images/account-events.png)
+
+
+# Use Cases
+
+- ACM certificate expiration
+
+![Alt text](images/health-certificate-expire.png)
 
 ## References
 

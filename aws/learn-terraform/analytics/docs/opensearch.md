@@ -1,6 +1,6 @@
 # AWS OpenSearch 
 
-- Amazon OpenSearch lets you search, analyze, and visualize your data in real-time. This service manages the capacity, scaling, patching, and administration of your Elasticsearch clusters for you, while still giving you direct access to the Elasticsearch APIs.
+- Amazon OpenSearch lets you **search, analyze, and visualize** your data in real-time. This service manages the capacity, scaling, patching, and administration of your Elasticsearch clusters for you, while still giving you direct access to the Elasticsearch APIs.
 
 - The service offers open-source Elasticsearch APIs, managed Kibana, and integrations with Logstash and other AWS Services. This combination is often coined as the ELK Stack.
 
@@ -18,3 +18,5 @@
 ## References
 
 https://tutorialsdojo.com/amazon-opensearch-service/
+
+https://docs.aws.amazon.com/opensearch-service/latest/developerguide/walkthrough.html#walkthrough-analysis

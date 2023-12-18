@@ -1,8 +1,9 @@
 # Amazon DynamoDB
 
 - AWS proprietary technology, managed serverless NoSQL database, millisecond latency
-- Capacity modes: provisioned capacity with optional auto-scaling or on-demand capacity
-- Can replace ElasticCache as a key/value store (storing session data for example, using TTL feature)
+- Capacity modes: 
+    - Provisioned capacity with optional auto-scaling or on-demand capacity
+    - Can replace ElasticCache as a key/value store (storing session data for example, using TTL feature)
 - Highly Available, Multi-AZ by default, Read and Writes are decoupled, transaction capability
 - DAX cluster for read cache, microsecond read latency
 - Security, authentication and authorization is done through IAM

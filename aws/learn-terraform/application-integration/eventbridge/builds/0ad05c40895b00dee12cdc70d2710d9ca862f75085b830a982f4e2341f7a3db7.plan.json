@@ -1,0 +1,1 @@
+{"filename": "builds/0ad05c40895b00dee12cdc70d2710d9ca862f75085b830a982f4e2341f7a3db7.zip", "runtime": "nodejs20.x", "artifacts_dir": "builds", "build_plan": [["zip", "src/log-schedule-events", null]]}

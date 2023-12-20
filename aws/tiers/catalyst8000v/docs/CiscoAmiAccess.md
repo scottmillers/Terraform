@@ -1,5 +1,5 @@
 ![Cisco Logo](images/cisco.png)
-# How to deploy a EC2 Instance using the Cisco Catalyst 8000V for SD-WAN & Routing AMI from the AWS Marketplace
+# How to deploy a EC2 Instance from the Cisco Catalyst 8000V AMI in the AWS Marketplace
 
 - I received a new Sandbox account on 2023-12-20.   
 - I was able to start the EC2 instance with the Cisco Catalyst 8000V for SD-WAN & Routing from the AMI Catalog

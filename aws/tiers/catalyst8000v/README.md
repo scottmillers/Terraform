@@ -37,14 +37,19 @@ The proof of concept effort will deliver the following artifacts:
 ## Schedule, costs and licensing
 
 - We expect the proof of concept to take 3 months.
-- The estimated costs are as follows:
-    - AWS costs: $500 per month maximum.  We will use a AWS sandbox account.  We will use Terraform to create the AWS infrastructure when needed, and destroy the AWS infrastructure, when not needed.  
-    - Cisco Catalyst 8000V SD-WAN software license: $0.  We will use the Cisco Catalyst 8000V SD-WAN trial licenses directly from Cisco. For production we will bring our own licenses.
+- The infrastructure estimated costs we estimated at the largest EC2 instance sizes for the proof of concept.  We will use a small instance.  The costs will be less than estimated.
+- We will Bring our Own License (BYOL) for the Cisco Catalyst 8000V SD-WAN software
+    
+
+## Status Update (12/20/2023)
+
+- PCR has been approved
+- We have a new dedicated sandbox account funded by the project
+- I was able to [create a new EC2 instance from the Cisco 8000V Marketplace AMI](./docs/CiscoAmiAccess.md)
 
 ## Status Update (11/14/2023)
 
 - We have been informed by PCM/Rackspace:
-    - That we need will **not** be able to use Terraform to build the environment.  We will need them to build the environment.
     - They require a PCR and a detailed cost breakdown to build the environment 
 - A new PCR will have to be started.  The time frame is at 1-2 months for approval. We will not be able to start until the PCR is approved.  Therefore the project start is moved to 2023-01-01.
 - The Project will be impacted: 

@@ -19,6 +19,41 @@ module "lambda" {
 
   source_path = "src/log-schedule-events"
 
+  use_existing_cloudwatch_log_group = true
+
+}
+
+module "eventbridge" {
+  source = "terraform-aws-modules/eventbridge/aws"
+
+  bus_name = "my-bus"
+
+  rules = {
+    orders = {
+      description   = "Capture all order data"
+      event_pattern = jsonencode({ "source" : ["myapp.orders"] })
+      enabled       = true
+    }
+  }
+
+  targets = {
+    orders = [
+      {
+        name            = "send-orders-to-sqs"
+        arn             = aws_sqs_queue.queue.arn
+        dead_letter_arn = aws_sqs_queue.dlq.arn
+      },
+    
+      {
+        name = "log-orders-to-cloudwatch"
+        arn  = aws_cloudwatch_log_group.this.arn
+      }
+    ]
+  }
+
+  tags = {
+    Name = "my-bus"
+  }
 }
 
 
@@ -28,4 +63,13 @@ module "lambda" {
 ##################
 resource "random_pet" "this" {
   length = 2
+}
+
+
+resource "aws_cloudwatch_log_group" "this" {
+  name = "/aws/events/${random_pet.this.id}"
+
+  tags = {
+    Name = "${random_pet.this.id}-log-group"
+  }
 }

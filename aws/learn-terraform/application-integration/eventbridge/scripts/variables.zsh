@@ -1,3 +1,0 @@
-LAMBDA=key-mammoth-lambda
-
-

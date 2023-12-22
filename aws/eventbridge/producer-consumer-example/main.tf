@@ -5,13 +5,14 @@ provider "aws" {
   # skip_metadata_api_check     = true
   #skip_region_validation      = true
   #skip_credentials_validation = true
+  # https://github.com/aws-samples/amazon-eventbridge-producer-consumer-example/blob/master/template.yaml
 }
 
 # Producer
-module "atmProducerLambda" {
+module "lambda_producer" {
   source                   = "terraform-aws-modules/lambda/aws"
   version                  = "~> 6.0"
-  function_name            = "atmProducer"
+  function_name            = "atm-producer"
   handler                  = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime                  = "nodejs18.x"
   source_path              = "src/atmProducer"
@@ -21,40 +22,86 @@ module "atmProducerLambda" {
       effect    = "Allow",
       actions   = ["events:PutEvents"],
       resources = ["arn:aws:events:us-east-1:588459062833:event-bus/default"]
+      #resources = [module.eventbridge.eventbridge_bus_arn] 
     },
   }
 
 }
 
-# Consumer Case1 
-module "atmConsumerCase1Lambda" {
+# Consumer 1
+module "lambda_consumer1" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atmConsumerCase1Fn"
+  function_name = "atm-consumer-1"
   handler       = "handler.case1Handler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs18.x"
   source_path   = "src/atmConsumer"
+  allowed_triggers = {
+    EventBridgeRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = module.eventbridge.eventbridge_rule_arns["consumer1"]
+    }
+  }
 }
 
-# Consumer Case2 
-module "atmConsumerCase2Lambda" {
+module "eventbridge" {
+  source               = "terraform-aws-modules/eventbridge/aws"
+  create_bus           = true
+  bus_name = "atm-transaction-bus"
+  #attach_cloudwatch_policy = true
+  cloudwatch_target_arns   = [aws_cloudwatch_log_group.this.arn]
+  rules = {
+    consumer1 = {
+      description = "Approved Transactions "
+      event_pattern = jsonencode(
+        {
+          "source" : ["custom.myATMapp"],
+      })
+    }
+  }
+
+  targets = {
+    consumer1 = [
+      {
+        name = "Send Approved Transaction to Lambda Consumer Case 1"
+        arn  = module.lambda_consumer1.lambda_function_arn
+      }
+    ]
+    
+  }
+}
+/*
+# Consumer 2
+module "lambda_consumer2" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atmConsumerCase2Fn"
+  function_name = "atm-consumer-2"
   handler       = "handler.case2Handler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs18.x"
   source_path   = "src/atmConsumer"
+  allowed_triggers = {
+    EventBridgeRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = module.eventbridge.eventbridge_rule_arns["consumer2"]
+    }
+  }
 }
 
 
-# Consumer Case3 
-module "atmConsumerCase3Lambda" {
+# Consumer 3
+module "lambda_consumer3" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atmConsumerCase3Fn"
+  function_name = "atm-consumer-3"
   handler       = "handler.case3Handler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs18.x"
   source_path   = "src/atmConsumer"
+  allowed_triggers = {
+    EventBridgeRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = module.eventbridge.eventbridge_rule_arns["consumer3"]
+    }
+  }
 
 }
 
@@ -62,22 +109,22 @@ module "eventbridge" {
   source               = "terraform-aws-modules/eventbridge/aws"
   create_bus           = false
   attach_lambda_policy = true
-  lambda_target_arns   = [module.atmConsumerCase1Lambda.lambda_function_arn,module.atmConsumerCase2Lambda.lambda_function_arn,module.atmConsumerCase3Lambda.lambda_function_arn]
+  lambda_target_arns   = [module.lambda_consumer1.lambda_function_arn,module.lambda_consumer2.lambda_function_arn,module.lambda_consumer3.lambda_function_arn]
   rules = {
-    atmConsumerCase1 = {
-      description = "Approved Transactions"
+    consumer1 = {
+      description = "Approved Transactions "
       event_pattern = jsonencode(
         {
           "source" : ["custom.myATMapp"],
       })
     }
 
-    atmConsumerCase2 = {
-      description = "New York Transactions"
+    consumer2 = {
+      description = "Location New York Transactions"
       event_pattern = jsonencode(
         {
           "source" : ["custom.myATMapp"],
-          "detailtype" : ["transaction"],
+          "detail-type" : ["transaction"],
           "detail" : {
             "location" : {
               "prefix" : ["NY-"]
@@ -85,12 +132,12 @@ module "eventbridge" {
           }
       })
     }
-    atmConsumerCase3 = {
+    consumer3 = {
       description = "Not Approved Transactions"
       event_pattern = jsonencode(
         {
           "source" : ["custom.myATMapp"],
-          "detailtype" : ["transaction"],
+          "detail-type" : ["transaction"],
           "detail" : {
             "result" : { "anything-but" : ["approved"] }
           }
@@ -99,28 +146,29 @@ module "eventbridge" {
   }
 
   targets = {
-    atmConsumerCase1 = [
+    consumer1 = [
       {
         name = "Send Approved Transaction to Lambda Consumer Case 1"
-        arn  = module.atmConsumerCase1Lambda.lambda_function_arn
+        arn  = module.lambda_consumer1.lambda_function_arn
       }
     ]
-    atmConsumerCase2 = [
+    consumer2 = [
       {
         name = "Send Approved Transaction to Lambda Consumer Case 2"
-        arn  = module.atmConsumerCase2Lambda.lambda_function_arn
+        arn  = module.lambda_consumer2.lambda_function_arn
       }
     ]
 
-    atmConsumerCase3 = [
+    consumer3 = [
       {
         name = "Send Not Approved Transaction to Lambda Consumer Case 3"
-        arn  = module.atmConsumerCase3Lambda.lambda_function_arn
+        arn  = module.lambda_consumer3.lambda_function_arn
       }
 
     ]
   }
 }
+*/
 
 // Create a lambda function
 // https://registry.terraform.io/modules/terraform-aws-modules/lambda/aws/latest

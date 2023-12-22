@@ -13,7 +13,7 @@ locals {
     ## variables for the ZSH shell scripts
     ##
     
-    LAMBDA=${module.lambda.lambda_function_name}
+    LAMBDA=${module.atmProducerLambda.lambda_function_name}
     
 
   EOT

@@ -1,15 +1,14 @@
 {
   "name": "producer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Send Events to EventBridge",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "James Beswick, AWS Serverless",
+  "author": "Scott Miller",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1518.0"
+    "@aws-sdk/client-eventbridge": "^3.478.0"
   }
 }

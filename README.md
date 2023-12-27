@@ -1,8 +1,11 @@
 
-# My Terraform Code
-[Terraform](https://www.terraform.io/) automates your infrastructure deployments using code.   
+# Terraform to deploy infrastructure 
+[Terraform](https://www.terraform.io/) automates your infrastructure deployments using code. 
 
-This repository contains my Terraform code for AWS and Azure. 
+This repository contains my Terraform code to deploy infrastructure on AWS and Azure. 
+
+## AWS
+
 
 ## Azure
 

@@ -2,10 +2,10 @@ provider "aws" {
   region = var.region
 
   # Make it faster by skipping something
-  # skip_metadata_api_check     = true
-  #skip_region_validation      = true
-  #skip_credentials_validation = true
-  # https://github.com/aws-samples/amazon-eventbridge-producer-consumer-example/blob/master/template.yaml
+  skip_metadata_api_check     = true
+  skip_region_validation      = true
+  skip_credentials_validation = true
+
 }
 
 // Get the default event bus
@@ -14,7 +14,7 @@ data "aws_cloudwatch_event_bus" "default" {
 }
 
 
-// Lambda to 
+// Used to generate the events
 module "lambda_producer" {
   source                   = "terraform-aws-modules/lambda/aws"
   version                  = "~> 6.0"
@@ -33,7 +33,7 @@ module "lambda_producer" {
 
 }
 
-//  Consumer 1
+// Lambda to get events from an EventBridge rule and sends the output to cloudwatch
 module "lambda_consumer1" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
@@ -44,7 +44,7 @@ module "lambda_consumer1" {
 
 }
 
-// Alias are required by the Terraform EventBridge module
+// A Lambda alias is required by the Terraform EventBridge module
 module "lambda_consumer1_alias" {
   source           = "terraform-aws-modules/lambda/aws//modules/alias"
   refresh_alias    = false
@@ -61,7 +61,7 @@ module "lambda_consumer1_alias" {
 
 }
 
-// Consumer 2
+// Lambda to get events from an EventBridge rule and sends the output to cloudwatch
 module "lambda_consumer2" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
@@ -72,6 +72,7 @@ module "lambda_consumer2" {
 }
 
 
+// A Lambda alias is required by the Terraform EventBridge module
 module "lambda_consumer2_alias" {
   source           = "terraform-aws-modules/lambda/aws//modules/alias"
   refresh_alias    = false
@@ -88,7 +89,7 @@ module "lambda_consumer2_alias" {
 
 }
 
-// Consumer 3
+// Lambda to get events from an EventBridge rule and sends the output to cloudwatch
 module "lambda_consumer3" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
@@ -98,7 +99,7 @@ module "lambda_consumer3" {
   source_path   = "src/atm-consumers"
 }
 
-
+// A Lambda alias is required by the Terraform EventBridge module
 module "lambda_consumer3_alias" {
   source           = "terraform-aws-modules/lambda/aws//modules/alias"
   refresh_alias    = false
@@ -128,7 +129,11 @@ module "eventbridge" {
       event_pattern = jsonencode(
         {
           "source" : ["custom.myATMapp"],
-      })
+          "detail-type" : ["transaction"],
+          "detail" : {
+            "result" : ["approved"]
+          }
+        })
     }
     consumer2 = {
       description = "Location New York Transactions"

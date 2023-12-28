@@ -79,5 +79,6 @@ Once the Terraform is applied, you can produce events using the `./scripts/produ
 4. Install the AWS EventBridge SDK
     ``` bash
     $ npm install @aws-sdk/client-eventbridge # installs the aws eventbridge sdk
+    $npm install @aws-sdk/lib-dynamodb
     ```
 

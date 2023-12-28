@@ -8,9 +8,31 @@ provider "aws" {
 
 }
 
-// Get the default event bus
-data "aws_cloudwatch_event_bus" "default" {
-  name = "default"
+
+resource "aws_dynamodb_table" "approved_transaction_table" {
+  name           = "Approved"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 2
+  write_capacity = 2
+  hash_key       = "Account" # uses this as the partion key
+  range_key = "Time"
+
+  attribute {
+    name = "Account"
+    type = "S"
+  }
+
+  attribute {
+    name = "Time"
+    type = "S"
+  }
+
+ 
+  ttl {
+    attribute_name = "TimeToExist"
+    enabled        = false
+  }
+
 }
 
 
@@ -20,7 +42,7 @@ module "lambda_producer" {
   version                  = "~> 6.0"
   function_name            = "atm-producer"
   handler                  = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
-  runtime                  = "nodejs18.x"
+  runtime                  = "nodejs20.x"
   source_path              = "src/atm-producer"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
@@ -33,7 +55,7 @@ module "lambda_producer" {
 
 }
 
-// Lambda to get events from an EventBridge rule and sends the output to cloudwatch
+// Lambda to get events from EventBridge
 module "lambda_consumer1" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
@@ -41,6 +63,18 @@ module "lambda_consumer1" {
   handler       = "handler.case1Handler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
   source_path   = "src/atm-consumers"
+  attach_policy_statements = true # required to attach policy statement
+  policy_statements = {
+    dynamodb = {
+      effect = "Allow"
+      actions = [
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem"
+      ],
+      resources = [aws_dynamodb_table.approved_transaction_table.arn]
+    }
+  }
 
 }
 
@@ -62,7 +96,7 @@ module "lambda_consumer1_alias" {
 }
 
 // Lambda to get events from an EventBridge rule and sends the output to cloudwatch
-module "lambda_consumer2" {
+/*module "lambda_consumer2" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
   function_name = "atm-consumer-2"
@@ -114,6 +148,13 @@ module "lambda_consumer3_alias" {
     }
   }
 }
+*/
+
+
+// Get the default event bus
+data "aws_cloudwatch_event_bus" "default" {
+  name = "default"
+}
 
 
 module "eventbridge" {
@@ -135,6 +176,7 @@ module "eventbridge" {
           }
         })
     }
+    /*
     consumer2 = {
       description = "Location New York Transactions"
       event_pattern = jsonencode(
@@ -161,6 +203,7 @@ module "eventbridge" {
           }
       })
     }
+    */
   }
 
 
@@ -171,6 +214,7 @@ module "eventbridge" {
         arn  = module.lambda_consumer1_alias.lambda_alias_arn
       }
     ]
+    /*
     consumer2 = [
       {
         name = "Send Approved Transaction to Lambda Consumer Case 2"
@@ -184,6 +228,7 @@ module "eventbridge" {
       }
 
     ]
+    */
   }
 }
 

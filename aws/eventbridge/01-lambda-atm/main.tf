@@ -27,12 +27,12 @@ resource "aws_dynamodb_table" "approved_transaction_table" {
     type = "S"
   }
 
- 
+ /*
   ttl {
     attribute_name = "TimeToExist"
     enabled        = false
   }
-
+*/
 }
 
 

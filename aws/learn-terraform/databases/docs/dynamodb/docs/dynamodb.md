@@ -26,7 +26,7 @@
     - Partition Key + Sort Key: composite primary key, composed of two attributes, first is partition key, second is sort key, used to organize data within a partition
 - Secondary Index: lets you query the data in the table using an alternate key, in addition to queries against the primary key
 
-![Alt text](image.png)
+![Alt text](images/dynamodb-core.png)
 
 ## Partition Keys and Performance
 

@@ -12,11 +12,11 @@ exports.case1Handler = async (event) => {
     const dynamoDbClient = new DynamoDBClient({ region });
     const docClient = DynamoDBDocumentClient.from(dynamoDbClient);
  
-
-    const account = event.account;
-    const time = event.time;
+    // Extract the data for insertion into DB
+    const account = event.detail.account;
+    const time = event.detail.time;
     const data = JSON.stringify(event, null, 2)
-    
+
     const command = new PutCommand({
       TableName: "Approved",
       Item: {
@@ -28,12 +28,12 @@ exports.case1Handler = async (event) => {
     
     console.log(data);
 
+    // Insert into DB
     const response = await docClient.send(command);
 
     console.log(response);
+
     return response;
-
-
   } catch (error) {
     console.error(error);
     return error;

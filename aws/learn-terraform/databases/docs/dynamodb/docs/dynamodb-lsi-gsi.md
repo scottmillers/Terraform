@@ -1,0 +1,1 @@
+# DynamoDB - Local Secondary Indexes (LSI) and Global Secondary Indexes (GSI)

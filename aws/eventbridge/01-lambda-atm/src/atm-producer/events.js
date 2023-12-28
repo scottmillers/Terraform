@@ -5,10 +5,10 @@ module.exports.params = {
       Source: 'custom.myATMapp',
       EventBusName: 'default',
       DetailType: 'transaction',
-      Time: new Date(),
-
       // Main event body
       Detail: JSON.stringify({
+        account: '9999999999999999',
+        time: '2023-12-27T05:01:42Z',
         action: 'withdrawal',
         location: 'MA-BOS-01',
         amount: 300,
@@ -24,10 +24,10 @@ module.exports.params = {
       Source: 'custom.myATMapp',
       EventBusName: 'default',
       DetailType: 'transaction',
-      Time: new Date(),
-
       // Main event body
       Detail: JSON.stringify({
+        account: '0000000000000000',
+        time: '2023-12-30T05:01:20Z',
         action: 'withdrawal',
         location: 'NY-NYC-001',
         amount: 20,
@@ -43,10 +43,10 @@ module.exports.params = {
       Source: 'custom.myATMapp',
       EventBusName: 'default',
       DetailType: 'transaction',
-      Time: new Date(),
-
       // Main event body
       Detail: JSON.stringify({
+        account: '0000000000000000',
+        time: '2023-12-28T05:01:27Z',
         action: 'withdrawal',
         location: 'NY-NYC-002',
         amount: 60,

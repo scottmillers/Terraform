@@ -15,6 +15,8 @@ locals {
     
     LAMBDA=${module.lambda_producer.lambda_function_name}
     APPROVED_TRANSACTION_TABLE=${aws_dynamodb_table.approved_transaction_table.name}
+    NY_TRANSACTION_TABLE=${aws_dynamodb_table.newyork_transaction_table.name}
+    FAILED_TRANSACTION_TABLE=${aws_dynamodb_table.failed_transaction_table.name}
 
   EOT
 

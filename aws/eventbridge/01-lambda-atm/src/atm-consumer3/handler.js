@@ -1,17 +1,8 @@
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
 
-exports.case1Handler = async (event, context) => {
-  return await putItem(event, "ApprovedTransactions")  
-}
-
-exports.case2Handler = async (event) => {
-  return await putItem(event, "NewYorkTransactions")  
-}
-
-
-exports.case3Handler = async (event) => {
-  return await putItem(event, "FailedTransactions")
+exports.lambdaHandler = async (event, context) => {
+  return await putItem(event, "FailedTransactions")  
 }
 
 

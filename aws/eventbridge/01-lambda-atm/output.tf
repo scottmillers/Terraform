@@ -6,7 +6,7 @@ output "default_event_bus_arn" {
 output "lambda_consumer1_alias_arn" {
   value = module.lambda_consumer1_alias.lambda_alias_arn
 }
-/*
+
 
 output "lambda_consumer2_alias_arn" {
   value = module.lambda_consumer2_alias.lambda_alias_arn
@@ -16,5 +16,5 @@ output "lambda_consumer2_alias_arn" {
 output "lambda_consumer3_alias_arn" {
   value = module.lambda_consumer3_alias.lambda_alias_arn
 }
-*/
+
 

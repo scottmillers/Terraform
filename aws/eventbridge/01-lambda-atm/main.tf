@@ -10,7 +10,7 @@ provider "aws" {
 
 
 resource "aws_dynamodb_table" "approved_transaction_table" {
-  name           = "Approved"
+  name           = "ApprovedTransactions"
   billing_mode   = "PROVISIONED"
   read_capacity  = 2
   write_capacity = 2
@@ -26,13 +26,45 @@ resource "aws_dynamodb_table" "approved_transaction_table" {
     name = "Time"
     type = "S"
   }
+}
 
- /*
-  ttl {
-    attribute_name = "TimeToExist"
-    enabled        = false
+
+resource "aws_dynamodb_table" "newyork_transaction_table" {
+  name           = "NewYorkTransactions"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 2
+  write_capacity = 2
+  hash_key       = "Account" # uses this as the partion key
+  range_key = "Time"
+
+  attribute {
+    name = "Account"
+    type = "S"
   }
-*/
+
+  attribute {
+    name = "Time"
+    type = "S"
+  }
+}
+
+resource "aws_dynamodb_table" "failed_transaction_table" {
+  name           = "FailedTransactions"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 2
+  write_capacity = 2
+  hash_key       = "Account" # uses this as the partion key
+  range_key = "Time"
+
+  attribute {
+    name = "Account"
+    type = "S"
+  }
+
+  attribute {
+    name = "Time"
+    type = "S"
+  }
 }
 
 
@@ -60,9 +92,9 @@ module "lambda_consumer1" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
   function_name = "atm-consumer-1"
-  handler       = "handler.case1Handler" # Assumes file name is index and handler is called handler
+  handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumers"
+  source_path   = "src/atm-consumer1"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
     dynamodb = {
@@ -96,13 +128,25 @@ module "lambda_consumer1_alias" {
 }
 
 // Lambda to get events from an EventBridge rule and sends the output to cloudwatch
-/*module "lambda_consumer2" {
+module "lambda_consumer2" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
   function_name = "atm-consumer-2"
-  handler       = "handler.case2Handler" # Assumes file name is index and handler is called handler
+  handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumers"
+  source_path   = "src/atm-consumer2"
+  attach_policy_statements = true # required to attach policy statement
+  policy_statements = {
+    dynamodb = {
+      effect = "Allow"
+      actions = [
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem"
+      ],
+      resources = [aws_dynamodb_table.newyork_transaction_table.arn]
+    }
+  }
 }
 
 
@@ -128,9 +172,21 @@ module "lambda_consumer3" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
   function_name = "atm-consumer-3"
-  handler       = "handler.case3Handler" # Assumes file name is index and handler is called handler
+  handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumers"
+  source_path   = "src/atm-consumer3"
+  attach_policy_statements = true # required to attach policy statement
+  policy_statements = {
+    dynamodb = {
+      effect = "Allow"
+      actions = [
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem"
+      ],
+      resources = [aws_dynamodb_table.failed_transaction_table.arn]
+    }
+  }
 }
 
 // A Lambda alias is required by the Terraform EventBridge module
@@ -148,7 +204,7 @@ module "lambda_consumer3_alias" {
     }
   }
 }
-*/
+
 
 
 // Get the default event bus
@@ -176,7 +232,7 @@ module "eventbridge" {
           }
         })
     }
-    /*
+    
     consumer2 = {
       description = "Location New York Transactions"
       event_pattern = jsonencode(
@@ -190,6 +246,7 @@ module "eventbridge" {
           }
       })
     }
+
     consumer3 = {
       description = "Not Approved Transactions"
       event_pattern = jsonencode(
@@ -203,7 +260,7 @@ module "eventbridge" {
           }
       })
     }
-    */
+   
   }
 
 
@@ -214,7 +271,7 @@ module "eventbridge" {
         arn  = module.lambda_consumer1_alias.lambda_alias_arn
       }
     ]
-    /*
+
     consumer2 = [
       {
         name = "Send Approved Transaction to Lambda Consumer Case 2"
@@ -228,7 +285,7 @@ module "eventbridge" {
       }
 
     ]
-    */
+   
   }
 }
 

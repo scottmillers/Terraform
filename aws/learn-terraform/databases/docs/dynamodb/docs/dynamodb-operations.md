@@ -55,4 +55,5 @@ Reading Data - Scan
 - Limit impact using Limit or reduce the size of the result and pause
 - For faster performance, use parallel scans
 - Can use ProjectionExpression and FilterExpression (no changes to RCU) 
+- Supports pagination using -max-items and -starting-token as part of the scan command
 

@@ -1,6 +1,7 @@
 # Amazon DynamoDB
 
 - AWS proprietary technology, managed serverless NoSQL database, millisecond latency
+- Maximum item size: 400KB
 - Capacity modes: 
     - Provisioned capacity with optional auto-scaling or on-demand capacity
     - Can replace ElasticCache as a key/value store (storing session data for example, using TTL feature)

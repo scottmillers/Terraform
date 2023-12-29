@@ -1,0 +1,16 @@
+{
+  "name": "lambda-url-to-html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy" : "lambda-build upload -r us-east-1 lambda-url-to-html"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.130",
+    "@types/node": "^20.10.5",
+    "esbuild-register": "^3.5.0"
+  }
+}

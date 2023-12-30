@@ -23,7 +23,7 @@ source $MYDIR/variables.zsh
 #aws dynamodb execute-statement \
 #    --statement "SELECT COUNT * FROM $APPROVED_TRANSACTION_TABLE WHERE Account IN ['0000000000000000','9999999999999999']" 
    
-record_count=$(aws dynamodb scan --table-name $APPROVED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
+record_count=$(aws dynamodb scan --region $REGION --table-name $APPROVED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 2 ]; then
     echo "$APPROVED_TRANSACTION_TABLE count of $record_count is correct!"
@@ -31,7 +31,7 @@ else
     echo "Fail"
 fi
 
-record_count=$(aws dynamodb scan --table-name $NY_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
+record_count=$(aws dynamodb scan --region $REGION --table-name $NY_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 2 ]; then
     echo "$NY_TRANSACTION_TABLE count of $record_count is correct!"
@@ -39,7 +39,7 @@ else
     echo "Fail"
 fi
 
-record_count=$(aws dynamodb scan --table-name $FAILED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
+record_count=$(aws dynamodb scan --region $REGION --table-name $FAILED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 1 ]; then
     echo "$FAILED_TRANSACTION_TABLE count of $record_count is correct!"

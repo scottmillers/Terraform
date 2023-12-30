@@ -1,11 +1,12 @@
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
 
 exports.lambdaHandler = async (event, context) => {
-  return await PutEventInTable(event, "ApprovedTransactions")
+  return await putItem(event, "ApprovedTransactions")
 }
 
 
-async function PutEventInTable(event, tableName) {
+async function putItem(event, tableName) {
   try {
     // Get the lambda region from environment variable
     const region = process.env.AWS_REGION || 'us-east-1';
@@ -42,6 +43,9 @@ async function PutEventInTable(event, tableName) {
     return error;
   }
 }
+
+
+
 
 
 

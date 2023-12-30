@@ -38,7 +38,7 @@ Once the Terraform is applied, these scripts simulate a failure and recovery
     ```
 You could also use Terraform to create our own hosted zone.  See the [Terraform Route 53 Zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) documentation for more information.
 
-## Steps to use the prototype
+## Steps to Install and Run
 
 1. Run the Terraform to create the infrastructure.
     ``` bash

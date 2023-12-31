@@ -72,10 +72,10 @@ resource "aws_dynamodb_table" "failed_transaction_table" {
 module "lambda_producer" {
   source                   = "terraform-aws-modules/lambda/aws"
   version                  = "~> 6.0"
-  function_name            = "atm-producer"
+  function_name            = "producer"
   handler                  = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime                  = "nodejs20.x"
-  source_path              = "src/atm-producer"
+  source_path              = "src/producer"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
     eventbridge = {
@@ -91,10 +91,10 @@ module "lambda_producer" {
 module "lambda_consumer1" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atm-consumer-1"
+  function_name = "consumer1"
   handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumer1"
+  source_path   = "src/consumer1"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
     dynamodb = {
@@ -131,10 +131,10 @@ module "lambda_consumer1_alias" {
 module "lambda_consumer2" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atm-consumer-2"
+  function_name = "consumer2"
   handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumer2"
+  source_path   = "src/consumer2"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
     dynamodb = {
@@ -171,10 +171,10 @@ module "lambda_consumer2_alias" {
 module "lambda_consumer3" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
-  function_name = "atm-consumer-3"
+  function_name = "consumer3"
   handler       = "handler.lambdaHandler" # Assumes file name is index and handler is called handler
   runtime       = "nodejs20.x"
-  source_path   = "src/atm-consumer3"
+  source_path   = "src/consumer3"
   attach_policy_statements = true # required to attach policy statement
   policy_statements = {
     dynamodb = {

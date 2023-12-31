@@ -1,5 +1,6 @@
-# Generate Data using Faker
+# Generate ATM Transaction Data using Faker
 
+This code generates fake data using [Faker](https://fakerjs.dev/). The data is used to simulate ATM transactions.
 
 ## Steps to Run:
 1. Create a directory and use it as the working directory:

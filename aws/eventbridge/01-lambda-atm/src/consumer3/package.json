@@ -1,7 +1,7 @@
 {
-  "name": "atm-consumer1",
+  "name": "consumer3",
   "version": "1.0.0",
-  "description": "Write to DynamoDb",
+  "description": "Write Failed Transactions to the DynamoDB Failed Transaction Table",
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

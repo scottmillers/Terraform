@@ -1,7 +1,7 @@
 {
   "name": "lambda-url-to-html",
   "version": "1.0.0",
-  "description": "",
+  "description": "Example of a Typescript AWS Lambda function",
   "main": "index.js",
   "scripts": {
     "deploy" : "lambda-build upload -r us-east-1 lambda-url-to-html"

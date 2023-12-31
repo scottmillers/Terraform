@@ -3,4 +3,4 @@
 const main = async function() {
   await require('./handler').lambdaHandler()
 }
-main()
+main();

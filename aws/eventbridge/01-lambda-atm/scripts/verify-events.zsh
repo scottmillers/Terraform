@@ -26,24 +26,24 @@ source $MYDIR/variables.zsh
 record_count=$(aws dynamodb scan --region $REGION --table-name $APPROVED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 2 ]; then
-    echo "$APPROVED_TRANSACTION_TABLE count of $record_count is correct!"
+    echo "Success! $APPROVED_TRANSACTION_TABLE count is $record_count"
 else
-    echo "Fail"
+    echo "Fail! $APPROVED_TRANSACTION_TABLE count is $record_count. It should be 2"
 fi
 
 record_count=$(aws dynamodb scan --region $REGION --table-name $NY_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 2 ]; then
-    echo "$NY_TRANSACTION_TABLE count of $record_count is correct!"
+    echo "Success! $NY_TRANSACTION_TABLE count is $record_count"
 else
-    echo "Fail"
+    echo "Fail! $NY_TRANSACTION_TABLE count is $record_count. It should be 2"
 fi
 
 record_count=$(aws dynamodb scan --region $REGION --table-name $FAILED_TRANSACTION_TABLE --select "COUNT" --output text --query "Count")
 
 if [ "$record_count" -eq 1 ]; then
-    echo "$FAILED_TRANSACTION_TABLE count of $record_count is correct!"
+    echo "Success! $FAILED_TRANSACTION_TABLE count is $record_count"
 else
-    echo "Fail"
+    echo "Fail! $FAILED_TRANSACTION_TABLE count is $record_count. It should be 1"
 fi
 

@@ -1,9 +1,10 @@
 {
-  "name": "atm-consumer2",
+  "name": "consumer1",
   "version": "1.0.0",
-  "description": "Write to DynamoDb",
+  "description": "Write Approved Transactions to the DynamoDB Approved Table",
   "main": "handler.js",
   "scripts": {
+    "start" : "node run-local.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Scott Miller",

@@ -55,19 +55,14 @@ In the AWS Console if I create a Lambda function, publish a version, create an a
 
 Ok so let's give it the correct permission. 
 
-10. Go to the alias permission tab select Add Permissions to the Resource based policy
-  ![Alt text](images/add-resource-based-policy.png)
+10. Go to the alias permission tab select Add Permissions 
+![Alt text](images/add-resource-based-policy.png)
 
 
 11. Select Add Permissions
-  ![Alt text](images/add-permissions.png)
-
-
-
-  You will see an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
-  
-
-  If I change the Statement ID to a different name I can save it. But when I try to test the function URL I get the same error message. 
+![Alt text](images/add-permissions.png)
+You will see an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
+If I change the Statement ID to a different name I can save it. But when I try to test the function URL I get the same error message. 
 
     ``` json
     {

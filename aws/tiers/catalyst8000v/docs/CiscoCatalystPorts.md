@@ -1,4 +1,4 @@
-![Cisco Logo](docs/images/cisco.png)
+![Cisco Logo](images/cisco.png)
 # AWS firewall ports 
 
 Should be assumed safe regardless of port - IP addresses:

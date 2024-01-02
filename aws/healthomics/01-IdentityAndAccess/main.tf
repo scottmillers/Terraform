@@ -46,10 +46,31 @@ resource "aws_iam_group_policy_attachment" "attach_s3_read_only" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
+# Attach the pricing:GetProducts to avoid having the console error
+resource "aws_iam_policy" "pricing_get_product" {
+  name        = "OmicsConsolePricingGetProducts"
+  description = "Allow pricing:GetProducts to avoid a console error"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = "pricing:GetProducts",
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Attach the Pricing read for the Bioinformatics to the group
+resource "aws_iam_group_policy_attachment" "attach_pricing" {
+  group      = aws_iam_group.bioinformatics_group.name
+  policy_arn = aws_iam_policy.pricing_get_product.arn
+}
 
 # Policy to allow the Bioinformatics team full access to their bucket
 resource "aws_iam_policy" "bioinformatics_s3_bucket_policy" {
-  name        = "BioinformaticsOmicsS3Policy"
+  name        = "OmicsAllowS3Access"
   description = "Allow Bioinformatics access to their S3 bucket"
   policy = jsonencode({
     Version = "2012-10-17",

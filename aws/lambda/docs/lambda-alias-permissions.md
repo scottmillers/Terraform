@@ -58,6 +58,7 @@ Ok so let's give it the correct permission.
 10. Go to the alias permission tab select Add Permissions to the Resource based policy
   ![Alt text](images/add-resource-based-policy.png)
 
+
 11. Select Add Permissions
   ![Alt text](images/add-permissions.png)
 

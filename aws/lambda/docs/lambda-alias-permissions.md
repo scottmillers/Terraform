@@ -2,7 +2,7 @@
 
 ## Problem
 
-In the AWS Console if I create a Lambda function, publish a version, create an alias to the version, and then create a function URL None as the Authentication I get an error message when I try to test the function URL.  Any resource based policies that I add to the alias are added to the lambda function, not the alias.  I am not able to add or modify any resource based policy for the alias.
+In the AWS Console if I create a Lambda function, publish a version, create an alias to the version, and then create a function URL with None as the Authentication I get an error message when I try to access the function URL. 
 
 ## Steps to reproduce:
 

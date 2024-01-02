@@ -60,7 +60,7 @@ In the AWS Console if I create a Lambda function, publish a version, create an a
 
 
 11. Select Add Permissions
- 
+  ![Alt text](images/add-permissions.png)
   You will see an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
   If I change the Statement ID to a different name I can save it. But when I try to test the function URL I get the same error message. 
   ``` json

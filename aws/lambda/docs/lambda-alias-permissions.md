@@ -61,6 +61,8 @@ Ok so let's give it the correct permission.
 11. Select Add Permissions
   ![Alt text](images/add-permissions.png)
 
+
+
   You will see an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
   
 

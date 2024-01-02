@@ -38,11 +38,12 @@ In the AWS Console if I create a Lambda function, publish a version, create an a
 7. Create a Function URL for the Alias
   ![Alt text](images/function-url.png)
 
-8. Select the Auth type to None and create the URL
+8. Select the Auth type to NONE and create the URL
   ![Alt text](images/auth.png)
 
 
    You get a message that you must allow lambda:invokeFunctionUrl permissions to all principles(*)
+ 
   ![Alt text](images/warning.png)
 
 9. Test the function URL.  You will see a error:
@@ -60,7 +61,7 @@ Ok so let's give it the correct permission.
 11. Select Add Permissions
   ![Alt text](images/add-permissions.png)
 
-  I get an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
+  You will see an error message that says "The statement id (FunctionURLAllowPublicAccess) provided already exits.  Please provide a new statement id, or remove the existing statement"
   
 
   If I change the Statement ID to a different name I can save it. But when I try to test the function URL I get the same error message. 
@@ -82,7 +83,7 @@ To verify:
 1. Go to the lambda function and select the Permissions tab
   ![Alt text](images/lambda-permissions.png)
 
-  Notice that the FunctionURLAllowPublicAccess policy is attached to the lambda function, not the alias.  This is why you get the error message when you try to add the same policy to the alias.  The alias is not the resource that the policy is attached to.  The lambda function is the resource that the policy is attached to. 
+  Notice that the FunctionURLAllowPublicAccess policy is attached to the lambda function, not the alias.  This is why you get the error message when you try to add the same policy to the alias.  The policy is added to the Lambda function not the alias.
 
 2. If you view the policy you will see that it is attached to the lambda function not the alias
   ``` json  
@@ -110,11 +111,12 @@ The policy line `arn:aws:lambda:us-east-1:588459062833:function:myFunction` is t
 
 I can't find a way in the console to add the policy to the alias.  I can only add it to the lambda function.  
 
-## Possible Explanation
+## Why is the happening?
 
-- I have to use the CLI to give permission to the alias.  I can't do it in the console.
-- There is a bug in the console.  It should allow me to add the policy to the alias.
-- Something else?
+I don't know.  I have a few ideas:
+1) I have to use the CLI to give permission to the alias.  I can't do it in the console.
+2) There is a bug in the console.  It should allow me to add the policy to the alias.
+3) Something else?
 
 
 

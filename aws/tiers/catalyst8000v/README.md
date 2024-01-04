@@ -41,11 +41,14 @@ The proof of concept effort will deliver the following artifacts:
 - We will Bring our Own License (BYOL) for the Cisco Catalyst 8000V SD-WAN software
     
 
+## Status Update (01/03/2024)
+- Problem: I am unable to create a new EC2 instance from the Cisco 8000V Marketplace AMI in the Ohio (us-east-2) region. Here are the [Steps to reproduce](CiscoAmiAccessProblem.md)
+
 ## Status Update (12/20/2023)
 
 - PCR has been approved
 - We have a new dedicated sandbox account funded by the project
-- I was able to [create a new EC2 instance from the Cisco 8000V Marketplace AMI](./docs/CiscoAmiAccess.md)
+- Success. I was able to create a new EC2 instance from the Cisco 8000V Marketplace AMI in the Virginia(us-east-1) region.  Here are the [Steps to reproduce](./02-Marketplace-Launch/docs/CiscoAmiAccess.md).
 
 ## Status Update (11/14/2023)
 
@@ -76,7 +79,7 @@ The proof of concept effort will deliver the following artifacts:
 
 The following diagram shows a draft of the high-level design for the production system.
 
-![AWS High-Level architecture](docs/images/design-high.svg)
+![AWS High-Level architecture](images/design-high.svg)
 
  
 

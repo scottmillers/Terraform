@@ -1,7 +1,7 @@
 ![Cisco Logo](images/cisco.png)
 # Cisco 8000v Catalyst Network
 
-![Alt text](images/network-diagram.png)
+
 
 
 This diagram is from 

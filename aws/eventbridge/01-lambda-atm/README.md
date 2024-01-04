@@ -1,7 +1,7 @@
-# AWS EventBridge Prototype
+# AWS EventBridge Filter Prototype
 
 
-This prototype use the EventBridge rules to put ATM transactions into different Dynamodb tables.  
+This prototype use EventBridge to filter ATM transactions and depending on the EventBridge rule put the transaction into different Dynamodb tables.  
 
 ![Alt text](docs/images/architecture.svg)
 

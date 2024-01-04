@@ -4,18 +4,18 @@
 
 ## Overview
 - I received a new Sandbox account on December 20 2023
-- The sandbox account has been subscribed to the AWS Marketplace Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI in the Virginia(us-east-1) region
+- The AWS Marketplace Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI has been subscribed to in the Virginia(us-east-1) region
 - I can create a EC2 instance from the Cisco 8000V image in the Virginia(us-east-1) region
 - TIERS will be hosted in the Ohio (us-east-2) region
 
 ## Problem
 
-- The sandbox account has not be subscribed to the AWS Marketplace Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI in the Ohio(us-east-2) region
+- The AWS Marketplace Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI has not been subscribed to in the Ohio(us-east-2) region
 - I cannot create a EC2 instance from the Cisco 8000V image in the Ohio(us-east-2) region
 
 
 ## Solution
-- Rackspace needs to subscribe me to the Cisco SD-WAN Image in Ohio(us-east-2) so that I can create test the Cisco 8000V in the Ohio(us-east-2) region and the Virginia(us-east-1) region
+- Rackspace needs to subscribe to the Cisco SD-WAN Image in Ohio(us-east-2) so that I can test the Cisco 8000V in the Ohio(us-east-2) region and the Virginia(us-east-1) region
 
 ## Steps to Reproduce the Problem</a>
 

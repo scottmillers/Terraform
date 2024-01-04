@@ -1,4 +1,4 @@
-![Cisco Logo](docs/images/cisco.png)
+![Cisco Logo](images/cisco.png)
 # Cisco Catalyst 8000V SD-WAN on AWS
 
 ## Problem Statement

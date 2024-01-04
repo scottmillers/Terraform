@@ -6,8 +6,6 @@
 -	The [Cisco Catalyst 8000v documentation for AWS](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/overview.html) says to use the AMI from the AWS Marketplace
 -	Texas Division of Information Resources, and their cloud service provider Rackspace, does not allow us to use the AWS Marketplace
 
-    ![Marketplace Error](images/marketplaceerror.png)
-
 ## Solution
 
 We received a DIR exception to use the AWS Marketplace on 2023-11-06.  We will receive a new Sandbox from Rackspace that will include access to the Cisco Catalyst 8000v software AMI from the AWS Marketplace. 

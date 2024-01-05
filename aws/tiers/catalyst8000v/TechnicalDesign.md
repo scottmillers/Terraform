@@ -3,9 +3,18 @@
 
 This document describes the design for the Cisco Catalyst 8000V SD-WAN on AWS Proof of Concept.  
 
-## Cisco Service Controller and Service Node
 
-### Instance Types
+
+## Instance Types
+
+We will start with 3 EC2 instances.  They are:
+- The Cisco 8000V Service Controller 
+  This instance will be created from the Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI(Ver 17.13.01a ) in the AWS Marketplace
+- The Cisco Service Node 
+  This instance will be created from the Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI(Ver 17.13.01a ) in the AWS Marketplace
+- TIERS Web Server
+  This instance is to simulate the TIERS main web server.  It will use a Amazon Linux image with a simple web server installed. 
+
 
 All EC2 instances will start out as **c5n.large**. The technical specs for this instance type are:
 - 2 vCPU
@@ -13,17 +22,17 @@ All EC2 instances will start out as **c5n.large**. The technical specs for this 
 - 5.3 GiB memory
 - Up to 25 Gigabit network performance
 
-Unlike the c5 or c5d, which can use up to eight queues for packet processing, the C5n Elastic Network Interface (ENI) can make use of up to 32 queues, giving C5n instances a high amount of network bandwidth — up to 100 Gbps on the c5.18xlarge.
+Unlike the c5 or c5d instance types, which can use up to eight queues for packet processing, the C5n Elastic Network Interface (ENI) can make use of up to 32 queues, giving C5n instances a high amount of network bandwidth — up to 100 Gbps on the c5.18xlarge.
 
-We will adjust the instance type as needed to meet the performance requirements of the Cisco Catalyst 8000v Service Controller and Service Node.
+We will adjust the instance type as needed to meet our performance requirements.
 
 This [Cisco documentation](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/deploy-c8000v-on-amazon-web-services.html#task_1084927)  list the supported instance types. 
 
-### Storage Requirements
+## Storage Requirements
 
-When you create an EC2 instance from the Cisco AMI the root volume uses a 16 GiB unencrypted gp2 volume.  This cannot be changed.  For the Service Controller and Node I will add a 2TB gp3 EBS volumes for the software.
+When you create an EC2 instance from the Cisco AMI the root volume uses a 16 GiB unencrypted gp2 volume.  This cannot be changed.  For the Cisco Service Controller and Node I will add a 2TB gp3 EBS volume.
 
-### Network Bandwidth Requirements
+## Network Bandwidth Requirements
 
 We need 10 Gbps of bandwidth for the Service Controller and Service Node.  The c5n.large instance type provides up to 25 Gbps of network performance.  However, this [AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) says "Baseline bandwidth for single-flow traffic is limited to 5 Gbps when instances are not in the same cluster placement group. To reduce latency and increase single-flow bandwidth, try one of the following:
 - Use a cluster placement group to achieve up to 10 Gbps bandwidth for instances within the same placement group.
@@ -32,14 +41,14 @@ We need 10 Gbps of bandwidth for the Service Controller and Service Node.  The c
 
 This means we need to might need to create a cluster placement group for the Service Controller and Service Node.  Further research required.
 
-### Static IP Addresses
+## Static IP Addresses
 
 The Cisco Service Controller and Service Node will each have an Internet facing static ip address using an Elastic IP address. These Elastic IP addresses will remain even if the EC2 instance is stopped or terminated.
 
 The Cisco Service Controller and Service Node will also use static internal IP addresses for their private interfaces.  
 
 
-### Network Security Rules
+## Network Security Rules
 
 The following diagram shows the security rules for the Cisco 8000v Service Controller, Service Node and the TIERS web server.
 
@@ -73,4 +82,12 @@ The Cisco 8000v Service Node needs the Network Rules in the table below in addit
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | SCI  | Cisco Controller to Cisco Node   |  Service Node |  Service Controller  |  Yes/Yes  |  All  |  All  |  All  | Traffic in Private Subnet  |  
 
+
+## Monitoring & Logging
+
+@TODO
+
+## Disaster Recovery and Failover
+
+@TODO
 

@@ -1,5 +1,5 @@
 ![Cisco Logo](images/cisco.png)
-# Cisco Catalyst 8000V SD-WAN on AWS
+# Proof of Concept - Cisco Catalyst 8000V SD-WAN on AWS 
 
 ## Problem Statement
 -	We use the Cisco Catalyst 8000V SD-WAN to optimize TIERS network traffic
@@ -39,10 +39,13 @@ The proof of concept effort will deliver the following artifacts:
 - We expect the proof of concept to take 3 months.
 - The infrastructure estimated costs we estimated at the largest EC2 instance sizes for the proof of concept.  We will use a small instance.  The costs will be less than estimated.
 - We will Bring our Own License (BYOL) for the Cisco Catalyst 8000V SD-WAN software
-    
 
 ## Status Update (01/03/2024)
-- Problem: I am unable to create a new EC2 instance from the Cisco 8000V Marketplace AMI in the Ohio (us-east-2) region. Here are the [Steps to reproduce](CiscoAmiAccessProblem.md)
+ 
+
+## Status Update (01/03/2024)
+- Problem: I am unable to create a new EC2 instance from the Cisco 8000V Marketplace AMI in the Ohio (us-east-2) region using the AWS Console. Here are the [Steps to reproduce](CiscoAmiAccessProblem.md)
+- Solution: The AWS Console has a bug.  Rackspace opened a support ticket.  We can create the instance through the AWS CLI or Terraform.  We have a workround.  We will continue with the proof of concept.
 
 ## Status Update (12/20/2023)
 

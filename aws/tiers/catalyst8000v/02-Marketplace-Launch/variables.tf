@@ -67,7 +67,7 @@ variable "aws_ami_id_cisco8000v_byol" {
 #}
 
 ######################################
-# Network VPC EC2's
+# Cisco8000v Controller addresses
 ######################################
 variable "controller_vpn0_privateip_address" {
   default = "100.101.0.4"
@@ -87,19 +87,33 @@ variable "controller_sci_privateip_address" {
 }
 
 variable "controller_instance_type" {
-  default = "t3.medium"
+  default = "c5n.large"
 }
 
+######################################
+# Cisco8000v Node addresses
+######################################
+variable "node_vpn0_privateip_address" {
+  default = "100.101.0.10"
+}
+
+variable "node_sci_privateip_address" {
+  default = "100.101.0.11"
+}
+
+variable "node_instance_type" {
+  default = "c5n.large"
+}
 
 
 ######################################
 # Network VPC Security Groups
 ######################################
-variable "ssh_allow_cidr" { # allow ssh from anywhere. needs to be modified!
+variable "vpn0_ssh_allow_cidr" { # allow ssh from anywhere. needs to be modified!
   default = "0.0.0.0/0"
 }
 
-variable "https_allow_cidr" { # allow https from anywhere.  needs to be modified!
+variable "vpn0_http_allow_cidr" { # allow https from anywhere.  only for web server. needs to be modified!
   default = "0.0.0.0/0"
 }
 

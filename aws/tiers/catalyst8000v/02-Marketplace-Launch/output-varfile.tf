@@ -18,6 +18,8 @@ locals {
 
     CONTROLLER_IP="${aws_instance.controller.public_ip}"
 
+    NODE_IP="${aws_instance.node.public_ip}"
+
     WEBSERVER_IP="${aws_instance.webserver.public_ip}"
   EOT
 

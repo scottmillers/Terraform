@@ -66,21 +66,35 @@ variable "aws_ami_id_cisco8000v_byol" {
 # default = "ami-0f1ab0f93d85e0877"  # Cisco-C8K-17.13.01a in us-east-1
 #}
 
-
+######################################
+# Network VPC EC2's
+######################################
 variable "controller_vpn0_privateip_address" {
   default = "100.101.0.4"
 }
+
+variable "controller_vpn1_privateip_address" {
+  default = "100.101.0.5"
+}
+
+variable "controller_vpn30_privateip_address" {
+  default = "100.101.0.6"
+}
+
+
+variable "controller_sci_privateip_address" {
+  default = "100.101.0.7"
+}
+
 variable "controller_instance_type" {
   default = "t3.medium"
 }
 
 
 
-variable "aws_instance_type_cisco8000v_node" {
-  default = "t3.medium"
-}
-
-
+######################################
+# Network VPC Security Groups
+######################################
 variable "ssh_allow_cidr" { # allow ssh from anywhere. needs to be modified!
   default = "0.0.0.0/0"
 }
@@ -89,6 +103,21 @@ variable "https_allow_cidr" { # allow https from anywhere.  needs to be modified
   default = "0.0.0.0/0"
 }
 
+
+######################################
+# Production VPC EC2's
+######################################
+variable "webserver_vpn0_privateip_address" {
+  default = "10.0.0.4"
+}
+
+variable "webserver_vpn1_privateip_address" {
+  default = "10.0.0.5"
+}
+
+variable "webserver_instance_type" {
+  default = "t3.medium"
+}
 
 
 

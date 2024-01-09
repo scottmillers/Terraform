@@ -16,7 +16,9 @@ locals {
     REMOTE_USER="${var.ec2_username}"
     PRIVATE_KEY_FILE="private_key.pem"
 
-    CISCO8000V_CONTROLLER_IP="${aws_instance.controller.public_ip}"
+    CONTROLLER_IP="${aws_instance.controller.public_ip}"
+
+    WEBSERVER_IP="${aws_instance.webserver.public_ip}"
   EOT
 
 }

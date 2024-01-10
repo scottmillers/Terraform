@@ -2,7 +2,11 @@
 
 ## Problem
 
-In the AWS Console if I create a Lambda function, publish a version, create an alias to the version, and then create a function URL with None as the Authentication I get an error message when I try to access the function URL. 
+In the AWS Console if I create a Lambda function, publish a version, create an alias to the version, and then create a function URL with None as the Authentication I get an error message when I try to access the function URL.
+
+## Solution
+
+AWS fixed the problem.
 
 ## Steps to reproduce:
 

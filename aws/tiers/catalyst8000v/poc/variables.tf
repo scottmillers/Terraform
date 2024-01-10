@@ -13,6 +13,30 @@ variable "aws_az1" {
   default = "us-east-2a"
 }
 
+variable "bucket_prefix" { # use this a prefix in descriptions of resources, which will be prepended to the name of all ressources. Example "Demo Branch1 Subnet-1 Mgmt"
+  default = "POC"
+}
+
+
+// the public key for all instances
+variable "aws_key_pair_name" {
+  default = "poc-key-pair" # Public key for EC2 instances
+}
+
+
+variable "controller_eip_tag" {
+  default = "Controller VPN0 Elastic IP"
+}
+
+
+variable "node_eip_tag" {
+  default = "Node VPN0 Elastic IP"
+}
+
+
+variable "webserver_eip_tag" {
+  default = "WebServer VPN0 Elastic IP"
+}
 
 
 variable "network_vpc_cidr" {
@@ -41,22 +65,17 @@ variable "production_subnetb_cidr" {
 }
 
 
-variable "bucket_prefix" { # use this a prefix in descriptions of resources, which will be prepended to the name of all ressources. Example "Demo Branch1 Subnet-1 Mgmt"
-  default = "Test"
-}
-
-// the public key for the controller instance
-variable "aws_key_pair_name" {
-  default = "my-key-pair" # Public key for EC2 instance
-}
 
 variable "ec2_username" {
   default = "ec2-user" # Default EC2 username for SSH
 }
 
+######################################
+# AMI's
+######################################
 
-variable "aws_ami_id_awslinux2023" {
-  default = "ami-0ee4f2271a4df2d7d" # AWS Linux 2023 in us-east-2 
+variable "aws_ami_id_awslinux2" {
+  default = "ami-011ab7c70f5b5170a" # Amazon Linux 2 Kernel 5.10 AMI 2.0.20231218.0 x86_64 HVM gp2 in us-east-2
 }
 variable "aws_ami_id_cisco8000v_byol" {
   default = "ami-073d0f81e96822a78" # Cisco-C8K-17.13.01a in us-east-2

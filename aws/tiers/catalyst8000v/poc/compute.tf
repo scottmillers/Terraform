@@ -1,13 +1,41 @@
+######################################
+# Existing Elastic IP's and Keys
+######################################
+
+
+data "aws_eip" "controller_vpn0" {
+  filter {
+    name   = "tag:Name"
+    values = [var.controller_eip_tag]
+  }
+}
 
 
 
+data "aws_eip" "node_vpn0" {
+  filter {
+    name   = "tag:Name"
+    values = [var.node_eip_tag]
+  }
+}
+
+
+data "aws_eip" "webserver_vpn0" {
+  filter {
+    name   = "tag:Name"
+    values = [var.webserver_eip_tag]
+  }
+}
+
+
+data "aws_key_pair" "public_key" {
+  key_name = var.aws_key_pair_name
+}
 
 
 ######################################
 # Cisco Catalyst8000V Controller EC2
 ######################################
-
-
 
 # Create the Security group for VPN0
 resource "aws_security_group" "controller_vpn0" {
@@ -45,7 +73,11 @@ resource "aws_network_interface" "controller_vpn0" {
   }
 }
 
-
+# Associate the existing EIP with the NIC
+resource "aws_eip_association" "controller_vpn0_eip_assoc" {
+  allocation_id = data.aws_eip.controller_vpn0.id  # 
+  network_interface_id = aws_network_interface.controller_vpn0.id   
+}
 
 
 # Create the Security Group for Controller to Web Server 
@@ -136,13 +168,6 @@ resource "aws_network_interface" "controller_sci" {
 }
 
 
-# Create an Elastic IP for VPN0 
-resource "aws_eip" "controller_vpn0" {
-  network_interface = aws_network_interface.controller_vpn0.id
-  tags = {
-    Name = "${var.bucket_prefix} Controller VPN0 Elastic IP"
-  }
-}
 
 # Create a EBS volume for controller data
 resource "aws_ebs_volume" "controller_data" {
@@ -157,7 +182,7 @@ resource "aws_ebs_volume" "controller_data" {
 
 # Create the Controller instance
 resource "aws_instance" "controller" {
-  ami               = var.aws_ami_id_awslinux2023
+  ami               = var.aws_ami_id_awslinux2
   instance_type     = var.controller_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1
@@ -235,6 +260,12 @@ resource "aws_network_interface" "node_vpn0" {
 }
 
 
+# Associate the existing EIP with the VPN0 NIC
+resource "aws_eip_association" "node_vpn0_eip_assoc" {
+  allocation_id = data.aws_eip.node_vpn0.id  
+  network_interface_id = aws_network_interface.node_vpn0.id
+}
+
 # Create the Node interface to the Controller
 resource "aws_network_interface" "node_sci" {
   subnet_id         = aws_subnet.network_a.id
@@ -247,14 +278,6 @@ resource "aws_network_interface" "node_sci" {
   }
 }
 
-
-# Create an Elastic IP for VPN0-WAN NIC
-resource "aws_eip" "node_vpn0" {
-  network_interface = aws_network_interface.node_vpn0.id
-  tags = {
-    Name = "${var.bucket_prefix} Node VPN0 Elastic IP"
-  }
-}
 
 
 # Create a EBS volume for node data
@@ -270,7 +293,7 @@ resource "aws_ebs_volume" "node_data" {
 
 # Create the Cisco Node instance
 resource "aws_instance" "node" {
-  ami               = var.aws_ami_id_awslinux2023
+  ami               = var.aws_ami_id_awslinux2
   instance_type     = var.node_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1
@@ -352,6 +375,12 @@ resource "aws_network_interface" "webserver_vpn0" {
 }
 
 
+# Associate the existing EIP with the VPN0 NIC
+resource "aws_eip_association" "webserver_vpn0_eip_assoc" {
+  allocation_id = data.aws_eip.webserver_vpn0.id
+  network_interface_id = aws_network_interface.webserver_vpn0.id
+}
+
 
 resource "aws_security_group" "webserver_vpn1" {
   vpc_id = aws_vpc.production.id
@@ -397,17 +426,9 @@ resource "aws_network_interface" "webserver_vpn1" {
   }
 }
 
-
-# Attach an Webserver Elastic IP for VPN0-WAN NIC
-resource "aws_eip" "webserver_vpn0" {
-  network_interface = aws_network_interface.webserver_vpn0.id
-  tags = {
-    Name = "${var.bucket_prefix} WebServer VPN0 Elastic IP"
-  }
-}
 # Create the Production Web Server
 resource "aws_instance" "webserver" {
-  ami               = var.aws_ami_id_awslinux2023
+  ami               = var.aws_ami_id_awslinux2
   instance_type     = var.webserver_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1

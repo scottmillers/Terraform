@@ -42,15 +42,15 @@ On my work AWS account:
     ``` 
 
 
-My guess is if any AMI is created from an original AWS Marketplace AMI's it cannot be copied to another account. This is a restriction of the AWS Marketplace licensing. My hypothesis is something gets embedded in all AMI's created from the AWS Marketplace original which enforces this restriction
+AWS confirmed that a AMI created from an original AWS Marketplace AMI's cannot be copied to another account. This is a restriction of the AWS Marketplace licensing. 
 
 ### <a name="newami"></a> Create a new AMI from the Cisco Catalyst 8000v software images  
 
 We have licenses and access to the Cisco 8000V software. This workaround is to create the AMI from the Cisco 8000V software images using [AWS VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html).
 
 Steps:
-1. Setup the [AWS infrastructure and permissions](./01-Build-AMI/) for VM Import/Export **(Success!)**:smiley:
-2. Create the [scripts to import the Cisco 8000V image](./01-Build-AMI/scripts).  This Cisco software has images in ova, bin and iso formats.  I have container.json files for each one **(Success)**:smiley:
+1. Setup the [AWS infrastructure and permissions](../build-ami) for VM Import/Export **(Success!)**:smiley:
+2. Create the [scripts to import the Cisco 8000V image](../build-ami/scripts).  This Cisco software has images in ova, bin and iso formats.  I have container.json files for each one **(Success)**:smiley:
 3. Try to import the Cisco 8000v image **(Fail!)**:disappointed:
 
  ```console

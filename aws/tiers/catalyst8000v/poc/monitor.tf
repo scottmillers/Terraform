@@ -49,7 +49,6 @@ resource "aws_iam_role_policy" "flow_log_policy" {
 # Create a cloud logwatch for the flow log
 resource "aws_cloudwatch_log_group" "network" {
   name = "/aws/vpc/network_flow_log"
-  skip_destroy = false   ## destroy on terraform destroy
 }
 
 # Create the flow-log
@@ -58,6 +57,7 @@ resource "aws_flow_log" "network" {
   log_destination = aws_cloudwatch_log_group.network.arn
   traffic_type    = "ALL"
   vpc_id          = aws_vpc.network.id
+  depends_on = [ aws_flow_log.network ]  # adding this to delete the log group with the flow_log
 }
 
 

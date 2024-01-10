@@ -1,5 +1,6 @@
 #!/bin/bash
-# Use this to mount the data volume on the Cisco Catalyst 8000v controller and node
+# Use this to mount the data volume 
+# Tested with Amazon Linux 2.  Doesn't work on Amazon Linux2023
 yum update -y
 
 # Install necessary utilities, if not already installed

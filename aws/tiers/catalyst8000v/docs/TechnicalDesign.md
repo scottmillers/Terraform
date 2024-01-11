@@ -3,7 +3,6 @@
 
 This is the design for the Cisco Catalyst 8000V SD-WAN on AWS Proof of Concept.  
 
-The [overview document](../README.md) describes the goals and outcomes for the proof of concept. 
 
 ## High Level Design
 

@@ -182,7 +182,7 @@ resource "aws_ebs_volume" "controller_data" {
 
 # Create the Controller instance
 resource "aws_instance" "controller" {
-  ami               = var.aws_ami_id_awslinux2
+  ami               = var.controller_instance_ami
   instance_type     = var.controller_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1
@@ -293,7 +293,7 @@ resource "aws_ebs_volume" "node_data" {
 
 # Create the Cisco Node instance
 resource "aws_instance" "node" {
-  ami               = var.aws_ami_id_awslinux2
+  ami               = var.node_instance_ami
   instance_type     = var.node_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1
@@ -428,7 +428,7 @@ resource "aws_network_interface" "webserver_vpn1" {
 
 # Create the Production Web Server
 resource "aws_instance" "webserver" {
-  ami               = var.aws_ami_id_awslinux2
+  ami               = var.webserver_instance_ami
   instance_type     = var.webserver_instance_type
   key_name          = var.aws_key_pair_name
   availability_zone = var.aws_az1

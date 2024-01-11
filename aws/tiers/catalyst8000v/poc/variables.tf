@@ -84,12 +84,26 @@ variable "production_subnetb_cidr" {
 # AMI's
 ######################################
 
+
 variable "aws_ami_id_awslinux2" {
   default = "ami-011ab7c70f5b5170a" # Amazon Linux 2 Kernel 5.10 AMI 2.0.20231218.0 x86_64 HVM gp2 in us-east-2
 }
 variable "aws_ami_id_cisco8000v_byol" {
   default = "ami-073d0f81e96822a78" # Cisco-C8K-17.13.01a in us-east-2
 }
+
+variable "controller_instance_ami" {
+  default = "ami-073d0f81e96822a78"
+}
+
+variable "node_instance_ami" {
+  default = "ami-073d0f81e96822a78"
+}
+
+variable "webserver_instance_ami" {
+  default = "ami-011ab7c70f5b5170a"
+}
+
 
 #variable aws_ami_id_cisco8000vbyol {
 # default = "ami-0f1ab0f93d85e0877"  # Cisco-C8K-17.13.01a in us-east-1

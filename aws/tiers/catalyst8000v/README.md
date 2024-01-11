@@ -1,7 +1,9 @@
 ![Cisco Logo](docs/images/cisco.png)
 # Proof of Concept - Cisco Catalyst 8000V SD-WAN on AWS 
 
-This document is an overview of the purpose and goals for the Cisco Catalyst 8000V SD-WAN on AWS Proof of Concept.
+This document is a business justification for the Cisco Catalyst 8000V on AWS Proof of Concept.  
+
+The technical design can be found in the [design document](docs/TechnicalDesign.md) 
 
 ## Problem Statement
 -	We use the Cisco Catalyst 8000V SD-WAN to optimize TIERS network traffic
@@ -56,9 +58,6 @@ The proof of concept effort will deliver the following artifacts:
   
 
 
-## Design
-
-The detailed technical design can be found here in the [Technical Design document](docs/TechnicalDesign.md) 
  
 
 

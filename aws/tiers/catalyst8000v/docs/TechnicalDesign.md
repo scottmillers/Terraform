@@ -9,16 +9,16 @@ The [proof of concept overview document](../README.md) provides information on t
 
 ![High Level Design](images/design-high.svg)
 
-The diagram above shows the high level design for the proof of concept.  The Cisco Edge 8000V SD-WAN is composed of two components:
-- Cisco 8000V Service Controller
-- Cisco 8000V Service Node
+The diagram above shows the high level design .  The Cisco Edge 8000V SD-WAN is composed of two components:
+- Cisco 8000V Controller
+- Cisco 8000V Node
 
 ## Instance Types
 
 We will use 3 EC2 instances.  They are:
-- The Cisco 8000V Service Controller
+- The Cisco 8000V Controller
     - This instance will be created from the Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI(Ver 17.13.01a ) in the AWS Marketplace
-- The Cisco Service Node 
+- The Cisco Node 
     - This instance will be created from the Cisco Catalyst 8000V for SD-WAN & Routing BYOL AMI(Ver 17.13.01a ) in the AWS Marketplace
 - TIERS Web Server
     - This instance is to simulate the TIERS main web server.  It will use the latest Amazon Linux image with a simple web server installed. 
@@ -30,15 +30,15 @@ All EC2 instances will start out as **c5n.large**. The technical specs for this 
 - 5.3 GiB memory
 - Up to 25 Gigabit network performance
 
-I will adjust the instance type as needed to meet our performance requirements.
+I will adjust the instance type as needed based on the performance.
 
 This [Cisco documentation](https://www.cisco.com/c/en/us/td/docs/routers/C8000V/AWS/deploying-c8000v-on-amazon-web-services/deploy-c8000v-on-amazon-web-services.html#task_1084927)  list the supported instance types. 
 
 ## Instance Storage
 
-When you create an EC2 instance from the Cisco 8000V AMI in the AWS Marketplace the root volume uses a 16 GiB unencrypted gp2 volume.  This cannot be changed.  
+The Cisco 8000V AMI in the AWS Marketplace will create a 16 GiB  gp2 EBS volume.  This cannot be changed.  
 
-The Cisco Service Controller and Node I will attach a 2TB gp3 EBS volume.
+I will attach a 2TB gp3 EBS volume to both the Controller and Node.
 
 ## Network Bandwidth Requirements
 
@@ -49,18 +49,20 @@ The c5n.large instance type provides up to 25 Gbps of network performance.  Howe
 - Set up multiple paths between two endpoints to achieve higher bandwidth with Multipath TCP (MPTCP).
 - Configure ENA Express for eligible instances within the same subnet to achieve up to 25 Gbps between those instances.
 
-We might need to create a cluster placement group for the Service Controller and Service Node.  Further research is required when we start to optimize the network performance.
+We might need to create a cluster placement group for the Service Controller and Service Node.  Further research is required.
  
 
 
 ## Network Interfaces and Security Rules
 
 The following diagram shows the EC2 instances and their network interfaces.  
+
 ![Network Interfaces](images/network-ec2-ports.svg)
 
-
-
-The following tables show the CIDR ranges for AWS VPCs & subnets, HHS SDWAN, as well as Cisco Catalyst VManage software.
+The following tables show the CIDR ranges for 
+- AWS VPCs & Subnets
+- HHS SDWAN
+- Cisco Catalyst VManage software
 
 | CIDR Rule #  | Location |  Name | CIDR Ranges  |  Description  | 
 |---|---|---|---|---|
@@ -70,7 +72,7 @@ The following tables show the CIDR ranges for AWS VPCs & subnets, HHS SDWAN, as 
 | 4 | AWS  |  HTTP-SERVERS-A  |  10.0.0.0/25 |  Subnet for TIERS web servers in us-east-1a AZ
 | 5 | HHS SDWAN |  SDWAN-SSH  |  147.80.59.0/24 147.80.194.0/25 160.42.54.0/24 168.32.73.0/24 168.32.140.0/26 |  SDWan SSH access 
 | 6 | HHS SDWAN |  SDWAN-SNMP  |  168.32.73.0/24 147.80.59.0/24 |  SDWan SNMP access 
-| 7 | Cisco VManage |  CISCO-VMANAGE  |  52.160.32.70 52.240.57.109 52.240.57.161 52.249.198.50 20.185.181.82 13.83.131.89 |  VManage remote access
+| 7 | Cisco VManage |  VMANAGE  |  52.160.32.70 52.240.57.109 52.240.57.161 52.249.198.50 20.185.181.82 13.83.131.89 |  VManage remote access
 
 
 
@@ -95,8 +97,8 @@ The following tables shows the security rules for the Cisco 8000V Controller:
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | VPN0 | Controller Management  |  All | Controller  |  Yes/No  |  SSH  |  22  | All | SSH traffic from anywhere for configuration. This is temporary |
 | 1 | VPN0 | Allow all outbound |   Controller |  All  |  No/Yes  |  All  |  All  | All | Traffic from controller to anywhere  |
-| 2 | VPN0 | Controller Management  |  HHS SDWAN |  Controller  |  Yes/No  |  SSH  |  22  | CIDR Rule #5 | Traffic from HHS SDWAN for Operations Team |
-| 3 | VPN0 | Network Management Tools   |  HHS SDWAN |  Controller  |  Yes/No  |  SNMP  |  161-162  | CIDR Rule #6| Traffic from HHS SDWAN for the network management tools | 
+| 2 | VPN0 | Controller Management  |  SDWAN-SSH |  Controller  |  Yes/No  |  SSH  |  22  | CIDR Rule #5 | Traffic from HHS SDWAN for Operations Team |
+| 3 | VPN0 | Network Management Tools   |  SDWAN-SNMP |  Controller  |  Yes/No  |  SNMP  |  161-162  | CIDR Rule #6| Traffic from HHS SDWAN for the network management tools | 
 | 4 | VPN0 | VManage controller configuration   |  VManage |  Controller  |  Yes/No  |  SSH  |  22  | CIDR Rule #7  | Traffic from Cisco VManage for configuration  |
 | 5 | VPN0 |  VManage communication  | VManage |   Controller  |  Yes/No  |  TCP  |  830  | CIDR Rule #7 | Traffic from VManage for System use  |
 | 6 | VPN0 | VManage communication   | VManage  |  Controller  |  Yes/No  |  UDP  |  12346-12445  | CIDR Rule #7  | Traffic from VManage for System use   |
@@ -124,7 +126,7 @@ The following table shows the network interfaces and their static IP addresses:
 
 | Interface Name  | IP |  Type  |  Description  | 
 |---|---|---|---|
-| VPN0 | 18.191.104.100 |  Public  |  Internet. For Cisco VManage & Management | 
+| VPN0 | 18.191.104.100 |  Public  |  Internet. For SDWAN and Cisco VManage access | 
 | VPN0 | 100.101.0.10 |  Private  |  Not Used |  
 | SCI  | 100.101.0.11|  Private  |  To Cisco 8000v Controller |  
 

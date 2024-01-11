@@ -44,7 +44,7 @@ resource "aws_security_group" "controller_vpn0" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = -1
+    protocol    = -1 # means all protocols
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -104,7 +104,7 @@ resource "aws_security_group" "controller_vpn1" {
   }
 }
 
-# Create the Controller VPN1 NIC & VPN30 NIC
+# Create the Controller VPN1 NIC 
 resource "aws_network_interface" "controller_vpn1" {
   subnet_id         = aws_subnet.network_a.id
   private_ips       = [var.controller_vpn1_privateip_address]
@@ -171,7 +171,7 @@ resource "aws_network_interface" "controller_sci" {
 
 # Create a EBS volume for controller data
 resource "aws_ebs_volume" "controller_data" {
-  size              = 2
+  size              = var.controller_ebs_size
   type              = "gp3"
   availability_zone = var.aws_az1
   
@@ -282,7 +282,7 @@ resource "aws_network_interface" "node_sci" {
 
 # Create a EBS volume for node data
 resource "aws_ebs_volume" "node_data" {
-  size              = 2
+  size              = var.node_ebs_size
   type              = "gp3"
   availability_zone = var.aws_az1
   
@@ -389,7 +389,7 @@ resource "aws_security_group" "webserver_vpn1" {
     from_port   = 0
     to_port     = 0
     protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.network_vpc_cidr]
   }
 
   ingress {

@@ -23,20 +23,34 @@ variable "aws_key_pair_name" {
   default = "poc-key-pair" # Public key for EC2 instances
 }
 
+// the username for ssh scripts
+variable "ec2_username" {
+  default = "ec2-user" # Default EC2 username for SSH
+}
 
+######################################
+# Elastic IP lookup tags
+######################################
+
+
+// used to lookup the existing EIP
 variable "controller_eip_tag" {
   default = "Controller VPN0 Elastic IP"
 }
 
-
+// used to lookup the existing EIP
 variable "node_eip_tag" {
   default = "Node VPN0 Elastic IP"
 }
 
-
+// used to lookup the existing EIP
 variable "webserver_eip_tag" {
   default = "WebServer VPN0 Elastic IP"
 }
+
+######################################
+# VPC and Subnet CIDRs
+######################################
 
 
 variable "network_vpc_cidr" {
@@ -66,10 +80,6 @@ variable "production_subnetb_cidr" {
 
 
 
-variable "ec2_username" {
-  default = "ec2-user" # Default EC2 username for SSH
-}
-
 ######################################
 # AMI's
 ######################################
@@ -84,6 +94,32 @@ variable "aws_ami_id_cisco8000v_byol" {
 #variable aws_ami_id_cisco8000vbyol {
 # default = "ami-0f1ab0f93d85e0877"  # Cisco-C8K-17.13.01a in us-east-1
 #}
+
+
+######################################
+# Instance Size and Storage
+######################################
+
+variable "controller_instance_type" {
+  default = "c5n.large"
+}
+
+variable "node_instance_type" {
+  default = "c5n.large"
+}
+
+variable "webserver_instance_type" {
+  default = "t3.medium"
+}
+
+variable "controller_ebs_size" {
+  default = 2048  # 2TB
+}
+
+variable "node_ebs_size" {
+  default = 2048 # 2TB
+}
+
 
 ######################################
 # Cisco8000v Controller addresses
@@ -105,9 +141,7 @@ variable "controller_sci_privateip_address" {
   default = "100.101.0.7"
 }
 
-variable "controller_instance_type" {
-  default = "c5n.large"
-}
+
 
 ######################################
 # Cisco8000v Node addresses
@@ -120,9 +154,6 @@ variable "node_sci_privateip_address" {
   default = "100.101.0.11"
 }
 
-variable "node_instance_type" {
-  default = "c5n.large"
-}
 
 
 ######################################
@@ -148,9 +179,7 @@ variable "webserver_vpn1_privateip_address" {
   default = "10.0.0.5"
 }
 
-variable "webserver_instance_type" {
-  default = "t3.medium"
-}
+
 
 
 

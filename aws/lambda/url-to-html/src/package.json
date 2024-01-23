@@ -15,6 +15,7 @@
     "@types/node": "^20.10.5",
     "@types/sinon": "^17.0.3",
     "esbuild-register": "^3.5.0",
+    "lambda-build": "^1.0.6",
     "mocha": "^10.2.0",
     "sinon": "^17.0.1"
   },

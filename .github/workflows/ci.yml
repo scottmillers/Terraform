@@ -1,3 +1,4 @@
+# This workflow will do a clean install of node dependencies, build the source code and run a set of unit tests
 name: Lambda url-to-html
 on:
   push:
@@ -10,22 +11,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "aws/lambda/url-to-html/src/"
     steps:
     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
     - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
     - run: echo "The working directory is ${{ github.workspace }}"
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v2
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
       with:
-        node-version: "20"
+        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        aws-region: us-east-1 
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
     - name: npm ci
       env:
         CI: true
       run: |
         npm ci 
-      working-directory: "aws/lambda/url-to-html/src/"
     - name: Run the tests
       run: |
         npm test
-      working-directory: "aws/lambda/url-to-html/src/"
+    - name: deploy
+      run: |
+        npm run deploy

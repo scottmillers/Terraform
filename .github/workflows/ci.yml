@@ -2,10 +2,10 @@ name: Lambda url-to-html
 on:
   push:
     paths:
-      - '/terraform/aws/lambda/url-to-html/src/**'
+      - 'aws/lambda/url-to-html/src/**'
   pull_request:
     paths:
-      - '/terraform/aws/lambda/url-to-html/src/**'
+      - 'aws/lambda/url-to-html/src/**'
 
 jobs:
   build:

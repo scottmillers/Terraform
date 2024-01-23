@@ -216,6 +216,24 @@ export const storage = {
 ```
 
 29. Update the unit tests to include the storage handler
+30. Deploy the new function code
+31. Call your function like before but add a name of the file to store the HTML in S3
+```
+https://<your lambda function>.execute-api.<your-region>.on.aws/live?url=https://news.ycombinator.com&name=hackernews
+{
+    "title": "Hacker News",
+    "s3_url": "https://storage-for-lambda-url-to-html.s3.amazonaws.com/hackernews.html"
+}
+```
+32. View the HTML stored in S3
+Open a browser and point to the URL returned in the s3_url field
+33. Now lets add a new function to return the HTML from S3.  Create a new file called get.ts
+```typescript
+34. Go back to the test file and reset the stubs after each run
+You need to import afterEach from mocha and add the following code to the test file
+```typescript
+afterEach(restore)
+```
 
 
 

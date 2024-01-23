@@ -11,21 +11,37 @@ provider "aws" {
 
 /*
   This module creates an S3 bucket for storing objects used by the Lambda function "url-to-html".
-  The bucket is configured with private access control and object ownership set to "ObjectWriter".
-  Versioning is enabled for the bucket, and it can be forcefully destroyed even if it has objects.
+  The bucket is configured public access and has a bucket policy that allows public anonymous read-only 
+  access.  Versioning is enabled for the bucket, and it can be forcefully destroyed even if it has objects.
 */
 module "bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
   bucket = var.bucket_name
-  acl    = "private"
-
+  acl = "public-read"
+  block_public_acls = false # Make it public
+  block_public_policy = false # Make it public
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
   force_destroy = true # delete the bucket even if it has objects
   versioning = {
     enabled = true
   }
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::${var.bucket_name}/*"
+    }
+  ]
+}
+EOF
 }
 
 

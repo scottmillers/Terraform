@@ -1,10 +1,10 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
-import { OutputLocationFilterSensitiveLog, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 const BUCKET = 'storage-for-lambda-url-to-html';
-const s3Client = new S3Client({region: 'us-east-1'});
+const s3Client = new S3Client({});
 
 
 export const storage = {
@@ -18,12 +18,12 @@ export const storage = {
             ContentType: 'text/html',
         });
 
+        console.log(command);
+
         await s3Client.send(command);
         return `https://${BUCKET}.s3.amazonaws.com/${key}`;
     }
 }
-
-
 
 
 interface Input {
@@ -48,6 +48,7 @@ export const handler = async(event: APIGatewayProxyEventV2): Promise<APIGatewayP
         const body = event.queryStringParameters as unknown as Input;
         const res = await axios.get(body.url);
         output.title = cheerio.load(res.data)(`head > title`).text();
+        //output.s3_url ="hello url";
         output.s3_url = await storage.storeHtmlFile(res.data, body.name);
 
     } catch (err) {

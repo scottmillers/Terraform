@@ -21,9 +21,9 @@ locals {
 
     FUNCTION_NAME=${module.lambda.lambda_function_name}
 
-    FUNCTION_ALIAS_NAME=${module.alias.lambda_alias_name}
+    LATEST_ALIAS_URL=${aws_lambda_function_url.test_latest.function_url}
 
-    FUNCTION_ALIAS_URL=${aws_lambda_function_url.live.function_url}
+    LIVE_ALIAS_URL=${aws_lambda_function_url.test_live.function_url}
 
   EOT
 

@@ -53,8 +53,8 @@ Steps:
 6. Create a lambda function called lambda-url-to-html
 7. Add permission to allow the lambda function to write to S3 (In Terraform)
 8. Create an alias called live and point it to $LATEST version (In Terraform)
-9. Install [lambda-build](https://github.com/alexkrkn/lambda-build) to push your code to the lambda function
-```npm install -g lambda-build```
+9. Install [lambda-build](https://github.com/alexkrkn/lambda-build) locally to push your code to the lambda function
+```npm install --save-dev lambda-build```
 10. Get help for lambda-build
 ```lambda-build --help```
 Lambda build will take any typescript file, bundle it to include any npm dependencies and push it to the lambda function
@@ -139,7 +139,7 @@ https://<your lambda function>.execute-api.<your-region>.on.aws/live?url=https:/
 ```npm install --save-dev mocha sinon @types/mocha @types/sinon```
 21. Create a directory under src called test
 22. Create a file called index.test.ts
-23. Add the following code to index.test.ts
+23. Add the following code to index.ts
 ```typescript
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import {describe, it, afterEach} from `mocha`;
@@ -173,7 +173,7 @@ it('should extract and return the page title of a url', async () => {
 "test": "mocha --recursive 'test' --extension ts --exit --require esbuild-register --timeout 20000"
 ```
 25. Run the tests with `npm test`
-26. The problem is the tests depend on the http://example.com web site.  That web site might changes. We can use sinon to stub the axion get request.  We can then execute the function and verify the results match what is in the stub.
+26. We have a problem.  The tests depend on the http://example.com web site.  That web site might changes. We can use sinon to stub the axion get request.  We can then execute the function and verify the results match what is in the stub.
 ```typescript
 
 it('should extract and return the page title of a url', async () => {
@@ -228,12 +228,18 @@ https://<your lambda function>.execute-api.<your-region>.on.aws/live?url=https:/
 32. View the HTML stored in S3
 Open a browser and point to the URL returned in the s3_url field
 33. Now lets add a new function to return the HTML from S3.  Create a new file called get.ts
-```typescript
 34. Go back to the test file and reset the stubs after each run
-You need to import afterEach from mocha and add the following code to the test file
 ```typescript
-afterEach(restore)
+    afterEach(restore)
 ```
+35. Verify the tests work
+36. Create a GitHub action that will:
+- Trigger on any changes in the `aws\lambda\usl-to-html\src` directory
+- Build the code
+- Run the tests
+- Deploy the code to the lambda function
+The code is in the `.github/workflows/ci.yml` file
+37. The code requires you to add the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to the GitHub secrets.  You can get these from the AWS console.
 
 
 

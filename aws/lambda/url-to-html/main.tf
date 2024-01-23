@@ -17,19 +17,22 @@ provider "aws" {
 module "bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
-  bucket = var.bucket_name
-  acl = "public-read"
-  block_public_acls = false # Make it public
-  block_public_policy = false # Make it public
+  bucket                   = var.bucket_name
+  acl                      = "public-read"
+  restrict_public_buckets  = false # Make it public
+  ignore_public_acls       = false # Make it public
+  block_public_acls        = false # Make it public
+  block_public_policy      = false # Make it public
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
-  force_destroy = true # delete the bucket even if it has objects
+  force_destroy            = true # delete the bucket even if it has objects
+
   versioning = {
     enabled = true
   }
-
-  policy = <<EOF
-{
+  attach_policy = true # attach the below
+  policy        = <<EOF
+  {
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -42,6 +45,7 @@ module "bucket" {
   ]
 }
 EOF
+
 }
 
 
@@ -53,17 +57,16 @@ module "lambda" {
   source        = "terraform-aws-modules/lambda/aws"
   version       = "~> 6.0"
   function_name = var.lambda_function_name
+  timeout       = "20" # default timeout is 3 seconds.  Needs more time to download and store page
   handler       = "index.handler"
   runtime       = "nodejs20.x"
   source_path   = "src"
   attach_policy_statements = true
-  policy_statements = {
-    dynamodb = {
-      effect = "Allow"
-      actions = [
-        "s3:FullAccess",
-      ],
-      resources = [module.bucket.s3_bucket_arn]
+  policy_statements  = {
+    s3_allow_all = {
+      effect    = "Allow",
+      actions   = ["s3:*", "s3-object-lambda:*"],
+      resources = ["arn:aws:s3:::${var.bucket_name}/*"]
     }
   }
 }
@@ -81,11 +84,18 @@ module "alias" {
 }
 
 
-resource "aws_lambda_function_url" "live" {
+resource "aws_lambda_function_url" "test_latest" {
   function_name      = module.lambda.lambda_function_name
   authorization_type = "NONE"
-  qualifier = var.lambda_alias_name
 }
+
+
+resource "aws_lambda_function_url" "test_live" {
+  function_name      = module.lambda.lambda_function_name
+  authorization_type = "NONE"
+  qualifier          = var.lambda_alias_name
+}
+
 
 
 

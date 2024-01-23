@@ -1,1 +1,1 @@
-Simple file to trigger a GitHub action
+Simple file to trigger a GitHub action 1

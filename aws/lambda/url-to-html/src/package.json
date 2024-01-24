@@ -4,6 +4,7 @@
   "description": "Example of a Typescript AWS Lambda function",
   "main": "index.js",
   "scripts": {
+    "build": "lambda-build archive -e index.ts",
     "deploy": "lambda-build upload -r us-east-1 lambda-url-to-html",
     "test": "mocha --recursive 'test' --extension ts --exit --require esbuild-register --timeout 20000"
   },

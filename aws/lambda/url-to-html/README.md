@@ -219,7 +219,7 @@ export const storage = {
 30. Deploy the new function code
 31. Call your function like before but add a name of the file to store the HTML in S3
 ```
-https://<your lambda function>.execute-api.<your-region>.on.aws/live?url=https://news.ycombinator.com&name=hackernews
+https://<your lambda function>.execute-api.<your-region>.on.aws/?url=https://news.ycombinator.com&name=hackernews
 {
     "title": "Hacker News",
     "s3_url": "https://storage-for-lambda-url-to-html.s3.amazonaws.com/hackernews.html"

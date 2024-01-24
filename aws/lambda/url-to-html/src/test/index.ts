@@ -23,17 +23,26 @@ afterEach(restore); // restore the stubs after each call
 
 describe('handler', () => {
 
-it('should extract and return the page title of a url', async () => {
+it('should get the html from a url', async () => {
     stub(axios,"get").resolves({ data: `<html><head><title>${title}</title></head></html>` }); // hijack the call to axios
     stub(storage, 'storeHtmlFile').resolves(s3UrlFile);
     const output = await executeLambda("http://example.com",'');
-    strictEqual(output.title, title); // verify the results
     strictEqual(output.s3_url, s3UrlFile); // verify the results
 });
 
 it('should extract and return the page title of a url', async () => {
-    stub(axios, 'get').resolves({data: '<html><head><title>${title}</title></head></html>'});
-    stub(storage, 'storeHtmlFile').resolves(s3UrlFile)
+    const name = `file_name`;
+    const html = `<html><head><title>${title}</title></head></html>`;
+
+    stub(axios, 'get').resolves({data: html}); // mock the get call to return html
+    
+    const storeHtmlStub = stub(storage, `storeHtmlFile`).resolves(s3UrlFile); // mock the s3 storage
+    
+    const output = await executeLambda("http://example.com",name);
+  
+
+    strictEqual(output.title, title); // verify the title
+    strictEqual(storeHtmlStub.calledOnceWith(html, name), true); // verify the storage is called  
 })
 
 

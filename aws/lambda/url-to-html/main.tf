@@ -15,8 +15,7 @@ provider "aws" {
   access.  Versioning is enabled for the bucket, and it can be forcefully destroyed even if it has objects.
 */
 module "bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
-
+  source                   = "terraform-aws-modules/s3-bucket/aws"
   bucket                   = var.bucket_name
   acl                      = "public-read"
   restrict_public_buckets  = false # Make it public
@@ -31,7 +30,7 @@ module "bucket" {
     enabled = true
   }
   attach_policy = true # attach the below
-  policy        = <<EOF
+  policy        = <<-EOF
   {
   "Version": "2012-10-17",
   "Statement": [
@@ -52,17 +51,19 @@ EOF
 
 /*
   This module creates an AWS Lambda function that converts a URL to HTML content.
+  Timeout is increase to 20 seconds to allow time to access web page and store them in S3
 */
 module "lambda" {
-  source        = "terraform-aws-modules/lambda/aws"
-  version       = "~> 6.0"
-  function_name = var.lambda_function_name
-  timeout       = "20" # default timeout is 3 seconds.  Needs more time to download and store page
-  handler       = "index.handler"
-  runtime       = "nodejs20.x"
-  source_path   = "src"
+  source                   = "terraform-aws-modules/lambda/aws"
+  version                  = "~> 7.0.0"
+  function_name            = var.lambda_function_name
+  handler                  = "index.handler"
+  runtime                  = "nodejs20.x"
+  timeout                  = 20
+  create_package           = false
+  local_existing_package   = "src/deploy/latest.zip"
   attach_policy_statements = true
-  policy_statements  = {
+  policy_statements = {
     s3_allow_all = {
       effect    = "Allow",
       actions   = ["s3:*", "s3-object-lambda:*"],
@@ -74,27 +75,36 @@ module "lambda" {
 /*
   This module creates an AWS Lambda function that converts a URL to HTML content.
 */
-module "alias" {
+module "prod_alias" {
   source           = "terraform-aws-modules/lambda/aws//modules/alias"
   refresh_alias    = false
-  name             = var.lambda_alias_name
+  name             = var.lambda_prod_alias_name
   function_name    = module.lambda.lambda_function_name
   function_version = module.lambda.lambda_function_version
 
 }
 
+module "latest_alias" {
+  source           = "terraform-aws-modules/lambda/aws//modules/alias"
+  refresh_alias    = false
+  name             = var.lambda_latest_alias_name
+  function_name    = module.lambda.lambda_function_name
+  function_version = module.lambda.lambda_function_version
+}
 
-resource "aws_lambda_function_url" "test_latest" {
+resource "aws_lambda_function_url" "prod_url" {
   function_name      = module.lambda.lambda_function_name
   authorization_type = "NONE"
+  qualifier          = var.lambda_prod_alias_name
+}
+
+resource "aws_lambda_function_url" "latest_url" {
+  function_name      = module.lambda.lambda_function_name
+  authorization_type = "NONE"
+  qualifier          = var.lambda_latest_alias_name
 }
 
 
-resource "aws_lambda_function_url" "test_live" {
-  function_name      = module.lambda.lambda_function_name
-  authorization_type = "NONE"
-  qualifier          = var.lambda_alias_name
-}
 
 
 

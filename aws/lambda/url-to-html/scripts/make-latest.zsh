@@ -3,9 +3,6 @@
 # 1. Make a version of the latest Lambda function
 # 2. Point the production alias to it
 
-
-
-
 MYDIR="$(dirname "$(readlink -f "$0")")"
 
 source $MYDIR/variables.zsh

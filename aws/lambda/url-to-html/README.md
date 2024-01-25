@@ -1,249 +1,161 @@
-# How to test and develop AWS lambda functions locally
+# Amazon Lambda Prototype
 
-https://www.youtube.com/watch?v=51EAwBDdgio&t=460s
+This prototype is a simple Lambda function that gets the HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
 
-Steps:
+The prototype consists of:
+- Terraform to build the infrastructure and deploy the first version of the Lambda function
+- A Lambda function that gets the HTML from a URL and stores the HTML in a S3 bucket
+- Helper tools:
+    - [Lambda-build](https://github.com/alexkrkn/lambda-build) to build the Typescript code using esbuild and deploy it to AWS
+    - [Mocha](https://mochajs.org/) for Javascript unit tests
+- A GitHub action to deploy the Lambda function whenever there is a change in the src code directory
 
-1. mkdir lambda-url-to-html
-2. Start a new Node project 
-```npm init -y```
-3. Download the types for Lambda, Node and esbuild-register which allows you to run typescript code from Node.js
-```npm install --save-dev  @types/node @types/aws-lambda esbuild-register```
-4. Create a index.ts file and add the following code:
-    ```typescript
-    import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 
-    interface Input {
-        url: string;
-        name: string;
-    }
+The Lambda function came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio) which covers local development and deployment of a Lambda function using Typescript.  The video is a great introduction to Lambda development, testing, and deployment.  I highly recommend it.
 
-    interface Output {
-        title: string;
-        s3_url: string;
-    }
 
-    export const handler = async(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyStructuredResultV2> =>
-    {
-        const body: Output = {
-            title: "hello world",
-            s3_url: "url goes here",
-    };
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(body),
-    }
-    };
+## Terraform
+
+The Terraform creates:
+- A Lambda function called `lambda-url-to-html` that 
+    - Has permission to write to the S3 bucket
+    - Has an increase timeout of 20 seconds
+    - Will deploy the code from the ./src/deploy/latest.zip
+- Two lambda aliases called live and test with each having a different function urls to access the function
+- A S3 bucket called `storage-for-lambda-url-to-html` that allows public read access to the objects in the bucket
+- ./scripts/variables.sh which includes the script variables used by the scripts in that directory
+
+Once the Terraform is applied, these scripts can be used to test it
+- ```./scripts/stop-primary.sh``` - Stops the EC2 instance in the primary region to simulate a failure
+- ```./scripts/start-primary.sh``` - Starts the EC2 instance in the secondary region to simulate a recovery
+
+
+
+## Setup Prerequisites
+
+- An AWS account 
+
+It is highly recommended you use the [Visual Studio Code DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) at the root of the repository.  The instructions below assume you are using the DevContainer.  If not you will need to install the following:
+
+- AWS CLI installed and configure for your account
+- Terraform 5.0 or greater installed
+- Node.js 20.10.0 or greater installed
+
+    
+
+## Steps to install and test the AWS Infrastructure
+
+By default the Terraform will create the infrastructure in the us-east-1 region.  To change the region, edit the variable.tf file and change the region variable.
+
+1. Configure the AWS CLI
+    ``` bash
+    $ aws configure
+    AWS Access Key ID [None]: <your access key>
+    AWS Secret Access Key [None]: <your secret key>
+    Default region name [None]: us-east-1
+    Default output format [None]: json
+    ```
+2. Run the Terraform to create the infrastructure.
+    ``` bash
+    $ terraform init
+    $ terraform apply
+    ```
+3. Run the `scripts/test_live.zsh` script to test the live alias.  The script will run the lambda function using the live alias.  The live alias is configured to use the latest version of the lambda function.  
+    ``` bash
+    $ cd ./scripts
+    $ ./test_live.zsh
+    Success! Response matches the expected value
+    Here is the response:
+    {"title":"Hacker News","s3_url":"https://storage-for-lambda-url-to-html.s3.amazonaws.com/hackernews.html"}
+    ```
+    
+3. Open the link to the S3 bucket in the browser to see the HTML file that was created by the lambda function.
+    Go to  `https://storage-for-lambda-url-to-html.s3.amazonaws.com/hackernews.html` in a browser
+
+You are done.
+
+
+## Package the Lambda function for use by Terraform deployment (Optional)
+
+These steps explain how to create a lambda package that is used by Terraform to deploy the Lambda to AWS
+
+1. Run a shell script to package the lambda function 
+The script will create a new latest.zip file in the src/deploy directory.  This is the zip file used by Terraform when it deploys the lambda function.
+    ``` bash
+    $ cd ./scripts
+    $./package-latest.zsh 
+    added 266 packages, and audited 267 packages in 2s
+
+    36 packages are looking for funding
+    run `npm fund` for details
+
+    found 0 vulnerabilities
+
+    > lambda-url-to-html@1.0.0 build
+    > lambda-build archive -e index.ts
+
+
+ ️  ⚡️ Bundling index.ts
+   ✔ Created archive.zip 2.39 MB
+
+    Success! You can find the latest lambda package in ../src/deploy/latest.zip 
     ```
 
-5. Create a file called run.ts to run the Lambda function locally
-    ```typescript
-    import {handler} from './index';
+2. When you deploy again using Terraform, it will use the latest.zip file in the src/deploy directory to deploy the lambda function.  
 
-    const main = async () => {
-        const res = await handler({} as any);
-        console.log(res);
-    };
+## Deploy the Lambda function using a lambda-build (Optional)
 
-    main();
+These steps explain how to create use lambda-build lambda to deploy the Lambda to AWS
+
+1. If you Lambda function is not in us-east-1 change the region in package.json
+   Open src/package.json.  Change the the us-east-1 to the region of your lambda function.  
+    ``` json
+     "deploy": "lambda-build upload -r us-east-1 lambda-url-to-html",
+    ``` 
+2. Run `npm install` to install the lambda-build package
+    ``` bash
+    $ cd ./src
+    $ npm install
+    added 266 packages, and audited 267 packages in 1s
+
+    36 packages are looking for funding
+    run `npm fund` for details
+
+    found 0 vulnerabilities
     ```
-6. Run the code with the esbuild-register to convert the typescript code to javascript
-```node -r esbuild-register run.ts```
-6. Create a lambda function called lambda-url-to-html
-7. Add permission to allow the lambda function to write to S3 (In Terraform)
-8. Create an alias called live and point it to $LATEST version (In Terraform)
-9. Install [lambda-build](https://github.com/alexkrkn/lambda-build) locally to push your code to the lambda function
-```npm install --save-dev lambda-build```
-10. Get help for lambda-build
-```lambda-build --help```
-Lambda build will take any typescript file, bundle it to include any npm dependencies and push it to the lambda function
-11.  Run lambda-build
-```
-$ cd src
-$ lambda-build upload -r us-east-1 lambda-url-to-html
- Bundling & Uploading ./index.js|ts
-  → Bundle archived 1.31 kB
+3. Run deploy to deploy the lambda function to AWS
+    ``` bash
+    $ npm run deploy
+
+    > lambda-url-to-html@1.0.0 deploy
+    > lambda-build upload -r us-east-1 lambda-url-to-html
+
+
+ ⚡️ Bundling & Uploading ./index.js|ts
+  → Bundle archived 2.39 MB
   → Using region us-east-1
   → Uploading lambda-url-to-html
   ✔ Successfully uploaded lambda-url-to-html
   ✔ Successfully uploaded 1 function(s)
-$
-``` 
-12. Make it easier to deploy by adding a script to package.json
- ```json
-"scripts": {
-    "deploy" : "lambda-build upload -r us-east-1 lambda-url-to-html"
-  },
-  ```
-13. Deploy again with `npm run deploy`
-14. Install a few dependencies
-```npm install --save axios cheerio```
-Axios is a library that allows you to download web pages. Cheerio is a library that allows you to parse HTML and use CSS selectors to find elements.
-15. Change the code in index.ts to use Axios and Cheerio to get the title of the web page
-```typescript
-import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
-import * as cheerio from 'cheerio';
-import axios from 'axios';
+    ```
 
+Success! You have built and uploaded your Lambda function to AWS.
 
+## Deploy the Lambda function using a GitHub action (Optional)
 
-interface Input {
-    url: string;
-    name: string;
-}
+These steps explain how to use a GitHub action to deploy the Lambda to AWS whenever you check in a change to the src directory in GitHub.  The GitHub action will 
+- Build the Lambda function.
+- Run the unit tests
+- Deploy the Lambda function to AWS
 
-interface Output {
-    title: string;
-    s3_url: string;
-}
+1. Open GitHub
+2. Go to the Settings page for your Repo
+3. Under Secrets and Variables create two Secrets called AWS_ACCESS_KEY_ID with the value of your AWS access key and AWS_SECRET_ACCESS_KEY with the value of your AWS secret key
+![Alt text](images/github-action-secrets.png?raw=true "GitHub Action Secrets")
+4. Make a directory called .github/workflows at the root of your repository
+5. Copy the github/workflows/deploy.yml to the .github/workflows directory
+6. Make a change to any file in the src directory and check it in.  
 
-export const handler = async(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyStructuredResultV2> =>
-{
-    const body: Output = {
-        title: "",
-        s3_url: "",
-    };
-
-    try {
-
-        const body = event.queryStringParameters as unknown as Input;
-        const res = await axios.get(body.url);
-        output.title = cheerio.load(res.data)(`head > title`).text();
-
-    } catch (err) {
-        console.error(err);
-    }
-
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify(body),
-    }
-};
-```
-
-16. Upload the version using `npm run deploy`
-17. Open the AWS Console and create a new version of the lambda function
-18. Point the live alias to the new version
-19. Test the function through the live alias URL.  In your browser type in the following URL:
-```
-https://<your lambda function>.execute-api.<your-region>.on.aws/live?url=https://news.ycombinator.com
-{
-    "title": "Hacker News",
-    "s3_url": ""
-}
-```
-
-20.  Now let's setup unit tests.  Install the following dependencies:
-```npm install --save-dev mocha sinon @types/mocha @types/sinon```
-21. Create a directory under src called test
-22. Create a file called index.test.ts
-23. Add the following code to index.ts
-```typescript
-import { APIGatewayProxyEventV2 } from "aws-lambda";
-import {describe, it, afterEach} from `mocha`;
-import {handler, Input, Output } from `../index`;
-
-
-
-const executeLambda = async (url: string, name: string): Promise<Output | null> => {
-    const output = await handler({queryStringParameters: {url, name }});
-    let outputBody: Output | null = null;
-    if (output) {
-        outputBody = JSON.parse(output.body);
-    }
-    return outputBody;
-}
-
-describe('handler', () => {
-
-it('should get the html from a url', async () => {
-    const output = await executeLambda("http://example.com",'');
-    console.log({output});
-})
-
-it('should extract and return the page title of a url', async () => {
-
-})
-})
-```
-24. Add the following code to package.json in the scripts section
-```json
-"test": "mocha --recursive 'test' --extension ts --exit --require esbuild-register --timeout 20000"
-```
-25. Run the tests with `npm test`
-26. We have a problem.  The tests depend on the http://example.com web site.  That web site might changes. We can use sinon to stub the axion get request.  We can then execute the function and verify the results match what is in the stub.
-```typescript
-
-it('should extract and return the page title of a url', async () => {
-    const title = "This is the title of example.com";
-    stub(axios,"get").resolves({ data: `<html><head><title>${title}</title></head></html>` }) // hijack the call to axios
-    const output = await executeLambda("http://example.com",'');
-    strictEqual(output.title, title); // verify the results
-    //console.log({output});
-})
-
-```
-
-27. Now lets add the code to upload the HTML to S3.  Install the following dependencies:
-```npm install --save @aws-sdk/client-s3```
-28. Update the code in index.ts to upload the HTML to S3
-```typescript
-
-import { OutputLocationFilterSensitiveLog, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-
-const BUCKET = 'lambda-url-to-html';
-const s3Client = new S3Client({region: 'us-east-1'});
-
-
-export const storage = {
-
-    storeHtmlFile: async (content: string, name: string): Promise<string> => {
-        const key = `${name}.html`;
-        const command = new PutObjectCommand({
-            Bucket: BUCKET,
-            Key: key,
-            Body: Buffer.from(content),
-            ContentType: 'text/html',
-        });
-
-        await s3Client.send(command);
-        return `https://${BUCKET}.s3.amazonaws.com/${key}`;
-    }
-}
-
-```
-
-29. Update the unit tests to include the storage handler
-30. Deploy the new function code
-31. Call your function like before but add a name of the file to store the HTML in S3
-```
-https://<your lambda function>.execute-api.<your-region>.on.aws/?url=https://news.ycombinator.com&name=hackernews
-{
-    "title": "Hacker News",
-    "s3_url": "https://storage-for-lambda-url-to-html.s3.amazonaws.com/hackernews.html"
-}
-```
-32. View the HTML stored in S3
-Open a browser and point to the URL returned in the s3_url field
-33. Now lets add a new function to return the HTML from S3.  Create a new file called get.ts
-34. Go back to the test file and reset the stubs after each run
-```typescript
-    afterEach(restore)
-```
-35. Verify the tests work
-36. Create a GitHub action that will:
-- Trigger on any changes in the `aws\lambda\usl-to-html\src` directory
-- Build the code
-- Run the tests
-- Deploy the code to the lambda function
-The code is in the `.github/workflows/ci.yml` file
-37. The code requires you to add the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to the GitHub secrets.  You can get these from the AWS console.
-
-
-
-
-
-
+The GitHub action will run and deploy the Lambda function to AWS.  You can see the results of the GitHub action by going to the Actions tab in GitHub.
 

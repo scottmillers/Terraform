@@ -1,6 +1,6 @@
 #!/bin/zsh
 # Script will:
-# 1. Call the Production alias lambda with parameters
+# 1. Call the live alias lambda with parameters
 # 2. Verify the results are what is expected
 
 MYDIR="$(dirname "$(readlink -f "$0")")"
@@ -20,6 +20,8 @@ response=$(curl -s "$url")
 # Compare the response with the expected value
 if [[ "$response" == "$expected_response" ]]; then
     echo "Success! Response matches the expected value"
+    echo "Here is the response:"
+    echo $response
 else
     echo "Fail! Response does not match the expected value"
 fi

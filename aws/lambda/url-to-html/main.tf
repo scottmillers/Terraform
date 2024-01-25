@@ -75,10 +75,10 @@ module "lambda" {
 /*
   This module creates an AWS Lambda function that converts a URL to HTML content.
 */
-module "prod_alias" {
+module "live_alias" {
   source           = "terraform-aws-modules/lambda/aws//modules/alias"
   refresh_alias    = false
-  name             = var.lambda_prod_alias_name
+  name             = var.lambda_live_alias_name
   function_name    = module.lambda.lambda_function_name
   function_version = module.lambda.lambda_function_version
 
@@ -92,10 +92,10 @@ module "latest_alias" {
   function_version = module.lambda.lambda_function_version
 }
 
-resource "aws_lambda_function_url" "prod_url" {
+resource "aws_lambda_function_url" "live_url" {
   function_name      = module.lambda.lambda_function_name
   authorization_type = "NONE"
-  qualifier          = var.lambda_prod_alias_name
+  qualifier          = var.lambda_live_alias_name
 }
 
 resource "aws_lambda_function_url" "latest_url" {

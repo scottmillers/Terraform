@@ -46,16 +46,32 @@ export const handler = async(event: APIGatewayProxyEventV2): Promise<APIGatewayP
     try {
 
         const body = event.queryStringParameters as unknown as Input;
+
+
+        // Uncomment for validation 
+        if (    !body.name || !body.url) {
+            throw Error(`name and url are required`);
+        }
+         
+
         const res = await axios.get(body.url);
         output.title = cheerio.load(res.data)(`head > title`).text();
         //output.s3_url ="hello url";
         output.s3_url = await storage.storeHtmlFile(res.data, body.name);
 
     } catch (err) {
-        console.error(err);
+            console.error(err);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: err.message }),
+            };
     }
 
-
+    return {
+            statusCode: 200,
+            body: JSON.stringify(output),
+    };
+       
     return {
         statusCode: 200,
         body: JSON.stringify(output),

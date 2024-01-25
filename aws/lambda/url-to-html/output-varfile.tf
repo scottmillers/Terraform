@@ -15,8 +15,8 @@ locals {
         
     S3_BUCKET_DOMAIN_NAME=${module.bucket.s3_bucket_bucket_domain_name}
 
-    PROD_ALIAS_NAME=${aws_lambda_function_url.prod_url.qualifier}
-    PROD_ALIAS_URL=${aws_lambda_function_url.prod_url.function_url}
+    LIVE_ALIAS_NAME=${aws_lambda_function_url.live_url.qualifier}
+    LIVE_ALIAS_URL=${aws_lambda_function_url.live_url.function_url}
 
     LATEST_ALIAS_NAME=${aws_lambda_function_url.latest_url.qualifier}
     LATEST_ALIAS_URL=${aws_lambda_function_url.latest_url.function_url}

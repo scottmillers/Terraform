@@ -8,8 +8,8 @@ variable "lambda_function_name" {
   default = "lambda-url-to-html"
 }
 
-variable "lambda_prod_alias_name" {
-  default = "prod"
+variable "lambda_live_alias_name" {
+  default = "live"
 }
 
 variable "lambda_latest_alias_name" {

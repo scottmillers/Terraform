@@ -24,9 +24,13 @@ afterEach(restore); // restore the stubs after each call
 describe('handler', () => {
 
 it('should get the html from a url', async () => {
-    stub(axios,"get").resolves({ data: `<html><head><title>${title}</title></head></html>` }); // hijack the call to axios
-    stub(storage, 'storeHtmlFile').resolves(s3UrlFile);
-    const output = await executeLambda("http://example.com",'');
+    const name = `file_name`;
+
+    stub(axios,"get").resolves({ data: `<html><head><title>${title}</title></head></html>` }); // hijack the call to axios get
+    stub(storage, 'storeHtmlFile').resolves(s3UrlFile); //hijack the call for the return url
+    
+    const output = await executeLambda("http://example.com",name);
+    
     strictEqual(output.s3_url, s3UrlFile); // verify the results
 });
 

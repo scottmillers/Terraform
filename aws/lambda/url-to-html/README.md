@@ -11,8 +11,9 @@ The prototype consists of:
 - A GitHub action to deploy the Lambda function whenever there is a change in the src code directory
 
 
-The Lambda function came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio) which covers local development and deployment of a Lambda function using Typescript.  The video is a great introduction to Lambda development, testing, and deployment.  I highly recommend it.
+The Lambda function came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio). The video is a great introduction to Lambda development, testing, and deployment using TypeScript.  I highly recommend it.
 
+If you want to learn how to build, test and deploy the Lambda function from scratch you can watch the video or use my [step-by-step instructions](BuildLambdaFromScratch.md).
 
 
 ## Terraform
@@ -26,9 +27,6 @@ The Terraform creates:
 - A S3 bucket called `storage-for-lambda-url-to-html` that allows public read access to the objects in the bucket
 - ./scripts/variables.sh which includes the script variables used by the scripts in that directory
 
-Once the Terraform is applied, these scripts can be used to test it
-- ```./scripts/stop-primary.sh``` - Stops the EC2 instance in the primary region to simulate a failure
-- ```./scripts/start-primary.sh``` - Starts the EC2 instance in the secondary region to simulate a recovery
 
 
 
@@ -44,7 +42,7 @@ It is highly recommended you use the [Visual Studio Code DevContainer](https://c
 
     
 
-## Steps to install and test the AWS Infrastructure
+## Steps to build and verify the AWS Infrastructure
 
 By default the Terraform will create the infrastructure in the us-east-1 region.  To change the region, edit the variable.tf file and change the region variable.
 

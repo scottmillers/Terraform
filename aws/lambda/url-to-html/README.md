@@ -1,4 +1,4 @@
-# Amazon Lambda Prototype
+# AWS Lambda Prototype
 
 This prototype is a simple Lambda function that gets HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
 

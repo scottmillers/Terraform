@@ -1,6 +1,6 @@
 # AWS Lambda Prototype
 
-This prototype is a simple Lambda function that gets HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
+This prototype deploys a simple Lambda function that gets HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
 
 The prototype consists of:
 - Terraform to build the infrastructure and deploy the Lambda function
@@ -27,7 +27,7 @@ The Terraform creates:
     - Will use the package in ./src/deploy/latest.zip to deploy the Lambda function
 - Two lambda aliases called live and test.  Each alias with each have a different function urls to access the function
 - A S3 bucket called `storage-for-lambda-url-to-html`.  The S3 bucket permissions allow public read access to all objects in the bucket
-- A ./scripts/variables.sh file which includes the output from Terraform to create variables used by the shell scripts in that directory
+- A `./scripts/variables.sh` file which Terraform will create.  It contains variables used by the shell scripts in that directory
 
 
 

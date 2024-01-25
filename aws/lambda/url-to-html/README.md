@@ -76,7 +76,7 @@ By default the Terraform will create the infrastructure in the us-east-1 region.
 You are done.
 
 
-## Package the Lambda function to be deployed by Terraform (Optional)
+## Deploy the Lambda function using Terraform (Optional)
 
 These steps explain how to create a package that is used by Terraform to deploy the Lambda
 function.

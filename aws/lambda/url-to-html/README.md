@@ -1,31 +1,33 @@
 # Amazon Lambda Prototype
 
-This prototype is a simple Lambda function that gets the HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
+This prototype is a simple Lambda function that gets HTML from a URL and stores it in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
 
 The prototype consists of:
-- Terraform to build the infrastructure and deploy the first version of the Lambda function
+- Terraform to build the infrastructure and deploy the Lambda function
 - A Lambda function that gets the HTML from a URL and stores the HTML in a S3 bucket
 - Helper tools:
     - [Lambda-build](https://github.com/alexkrkn/lambda-build) to build the Typescript code using esbuild and deploy it to AWS
     - [Mocha](https://mochajs.org/) for Javascript unit tests
-- A GitHub action to deploy the Lambda function whenever there is a change in the src code directory
+- A GitHub action to deploy the Lambda function whenever there is a change in the Lambda src code directory
 
 
-The Lambda function came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio). The video is a great introduction to Lambda development, testing, and deployment using TypeScript.  I highly recommend it.
+The Lambda function example came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio). The video is a great introduction to Lambda development, testing, and deployment using Node and TypeScript.  I highly recommend it.
 
 If you want to learn how to build, test and deploy the Lambda function from scratch you can watch the video or use my [step-by-step instructions](BuildLambdaFromScratch.md).
 
 
 ## Terraform
 
+The Terraform builds the infrastructure for the Lambda function and deploys the first version of the Lambda function.
+
 The Terraform creates:
 - A Lambda function called `lambda-url-to-html` that 
     - Has permission to write to the S3 bucket
-    - Has an increase timeout of 20 seconds
-    - Will deploy the code from the ./src/deploy/latest.zip
-- Two lambda aliases called live and test with each having a different function urls to access the function
-- A S3 bucket called `storage-for-lambda-url-to-html` that allows public read access to the objects in the bucket
-- ./scripts/variables.sh which includes the script variables used by the scripts in that directory
+    - Has a timeout of 20 seconds
+    - Will use the package in ./src/deploy/latest.zip to deploy the Lambda function
+- Two lambda aliases called live and test.  Each alias with each have a different function urls to access the function
+- A S3 bucket called `storage-for-lambda-url-to-html`.  The S3 bucket permissions allow public read access to all objects in the bucket
+- A ./scripts/variables.sh file which includes the output from Terraform to create variables used by the shell scripts in that directory
 
 
 
@@ -34,7 +36,7 @@ The Terraform creates:
 
 - An AWS account 
 
-It is highly recommended you use the [Visual Studio Code DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) at the root of the repository.  The instructions below assume you are using the DevContainer.  If not you will need to install the following:
+It is highly recommended you use the [Visual Studio Code DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) at the root of this repository.  The instructions below assume you are using the DevContainer.  If you don use the DevContainer you will need to install the following:
 
 - AWS CLI installed and configure for your account
 - Terraform 5.0 or greater installed
@@ -44,7 +46,7 @@ It is highly recommended you use the [Visual Studio Code DevContainer](https://c
 
 ## Steps to build and verify the AWS Infrastructure
 
-By default the Terraform will create the infrastructure in the us-east-1 region.  To change the region, edit the variable.tf file and change the region variable.
+By default the Terraform will create the infrastructure in the us-east-1 region.  To use a different region, edit the variable.tf file and change the region variable.
 
 1. Configure the AWS CLI
     ``` bash

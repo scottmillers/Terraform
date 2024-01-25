@@ -8,11 +8,11 @@ This repository contains my Terraform code to deploy infrastructure on AWS and A
 ## AWS
 
 - [Route53 Failover Prototype ](./aws/route53)
-   This prototype uses Route 53 DNS failover policies to test a failover across two AWS regions. It uses Terraform to create the infrastructure and shell scripts to cause a failure of the primary region EC2 instance.  When the failure occurs the Route 53 health check recognize the failure and return the records for the EC2 in the secondary region. The goal is to understand how Route 53 DNS failover works and how the configuration parameters affect the failover time.
+   This prototype uses Route 53 DNS failover policies to test failover across two AWS regions. It uses Terraform to create the infrastructure and shell scripts to cause a failure of the primary region EC2 instance.  When the failure occurs the Route 53 health check recognize the failure and return the records for the EC2 in the secondary region. The goal is to understand how Route 53 DNS failover works and how the configuration parameters affect the failover time.
 - [EventBridge Filter Prototype](./aws/eventbridge/01-lambda-atm)
     This prototype use EventBridge to filter ATM transactions and depending on what is in the payload EventBridge will put the transaction into different Dynamodb tables. 
 - [Lambda URL to HTML Prototype](./aws/lambda/url-to-html)
-    This prototype uses a Lambda function to get the HTML from a URL and return the page title.  The lambda function is a node function written in Typescript.  The function is deployed using terraform. The function is deployed using a live alias.  The function is tested using Mocha and Sinon.  The function is also deployed using a GitHub action whenever there is a change.  
+    This prototype uses a Lambda function to get the HTML from a URL and store it in a S3 bucket.  The lambda function is a Node function written in Typescript.  The Lambda function can be deployed in different ways and the prototype explores those options.  
 - [CloudFront Example ](./aws/cloudfront)
 - [S3 Lifecycle Example ](./aws/s3/life-cycle)
 

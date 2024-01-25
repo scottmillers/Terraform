@@ -76,9 +76,10 @@ By default the Terraform will create the infrastructure in the us-east-1 region.
 You are done.
 
 
-## Package the Lambda function for use by Terraform deployment (Optional)
+## Package the Lambda function to be deployed by Terraform (Optional)
 
-These steps explain how to create a lambda package that is used by Terraform to deploy the Lambda to AWS
+These steps explain how to create a package that is used by Terraform to deploy the Lambda
+function.
 
 1. Run a shell script to package the lambda function 
 The script will create a new latest.zip file in the src/deploy directory.  This is the zip file used by Terraform when it deploys the lambda function.
@@ -94,10 +95,8 @@ The script will create a new latest.zip file in the src/deploy directory.  This 
 
     > lambda-url-to-html@1.0.0 build
     > lambda-build archive -e index.ts
-
-
- ️  ⚡️ Bundling index.ts
-   ✔ Created archive.zip 2.39 MB
+    ⚡️ Bundling index.ts
+    ✔ Created archive.zip 2.39 MB
 
     Success! You can find the latest lambda package in ../src/deploy/latest.zip 
     ```
@@ -109,11 +108,11 @@ The script will create a new latest.zip file in the src/deploy directory.  This 
 These steps explain how to create use lambda-build lambda to deploy the Lambda to AWS
 
 1. If you Lambda function is not in us-east-1 change the region in package.json
-   Open src/package.json.  Change the the us-east-1 to the region of your lambda function.  
+   Open `src/package.json`.  Change the the us-east-1 to the region of your lambda function.  
     ``` json
      "deploy": "lambda-build upload -r us-east-1 lambda-url-to-html",
     ``` 
-2. Run `npm install` to install the lambda-build package
+2. Run `npm install` to install the dependencies
     ``` bash
     $ cd ./src
     $ npm install
@@ -124,7 +123,7 @@ These steps explain how to create use lambda-build lambda to deploy the Lambda t
 
     found 0 vulnerabilities
     ```
-3. Run deploy to deploy the lambda function to AWS
+3. Deploy the function to AWS
     ``` bash
     $ npm run deploy
 

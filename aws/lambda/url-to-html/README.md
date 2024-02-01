@@ -10,7 +10,7 @@ Table of Contents
     - [Steps to Build the Infrastructure with Terraform](#steps-to-build-the-infrastructure-with-terraform) 
 - [Lambda Deployment Options](#lambda-deployment-options)
     - [Deploy the Lambda function using Terraform](#deploy-the-lambda-function-using-terraform)
-    - [Deploy the Lambda function using a lambda-build](#deploy-the-lambda-function-using-a-lambda-build)
+    - [Deploy the Lambda function using lambda-build](#deploy-the-lambda-function-using-lambda-build)
     - [Deploy the Lambda function using a GitHub action](#deploy-the-lambda-function-using-a-github-action)
 - [The Lambda Function](#the-lambda-function)
     - [Run the Lambda Unit Tests](#run-the-lambda-unit-tests)
@@ -112,9 +112,9 @@ The script will create a new latest.zip file in the src/deploy directory.  This 
 
 2. When you deploy again using Terraform, it will use the latest.zip file in the src/deploy directory to deploy the lambda function.  
 
-### Deploy the Lambda function using a lambda-build 
+### Deploy the Lambda function using lambda-build 
 
-These steps explain how to create use lambda-build lambda to deploy the Lambda to AWS
+These steps explain how to use lambda-build to deploy the Lambda to AWS
 
 1. If your Lambda function is not in us-east-1 change the region in package.json
    In your editor go to the src folder and open package.json.  Change the the us-east-1 to the region of your lambda function.  

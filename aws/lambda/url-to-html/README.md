@@ -252,15 +252,15 @@ Steps:
         */  
     ``` 
    Save the file   
-3. Deploy the new Lambda function code
+4. Deploy the new Lambda function code
     ``` bash
     $ cd src
     $ npm run deploy
     ```
 
-4. Run the `scripts/test-live.zsh` again.
-All tests will pass.  Why?  The  script that you ran in Step 1 created a version of the latest Lambda function and pointed the live alias to it.  The live alias still points to that version.  To fix it make a new version of the Lambda function from $latest and point the live alias to it.
-5. Run the script to create a new version of the Lambda function
+5. Run the `scripts/test-live.zsh` again.
+    All tests will pass.  Why?  The  script that you ran in Step 1 created a version of the latest Lambda function and pointed the live alias to it.  The live alias still points to that version.  To fix it make a new version of the Lambda function from $latest and point the live alias to it.
+6. Run the script to create a new version of the Lambda     function
     ``` bash
     $  ./scripts/make-latest-live.zsh
     {
@@ -269,12 +269,12 @@ All tests will pass.  Why?  The  script that you ran in Step 1 created a version
     "FunctionVersion": "10",
     "Description": "",
     "RevisionId": "0a794987-56f7-4d2c-ad91-864fd40c8044"
-    }
+    } 
     ```
-  Now the live alias points to the version 10 of the Lambda function.
+    Now the live alias points to the version 10 of the Lambda function.
 6. Run the `scripts/test-live.zsh` again.
-Notice it fails.  Why? You pointed the live alias to the version you just deployed which contains the validation code.  Validation is good.  So you need to fix the test. This is done in the next script.
+    It fails.  Why? You pointed the live alias to the version you just deployed. That has the validation code.  Validation is good.  So you need to fix the test. This is done in the next script.
 7. Run the `scripts/test-live-new.zsh` 
-All tests will pass.  These tests include the name for the file in the query string.
+    The test pass.  These tests include a name for the file in the query string so the validation checks pass.
 
 

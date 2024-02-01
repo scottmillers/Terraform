@@ -242,12 +242,12 @@ Steps:
 
 3. Modify the Lambda source 
    Open the `src/index.ts` file and uncomment out this line to enforce validation of the query string parameters
-       ```
-        /* Uncomment for validation 
-        if (    !body.name || !body.url) {
-            throw Error(`name and url are required`);
-        }
-        */  
+    ```
+    /* Uncomment for validation 
+    if (    !body.name || !body.url) {
+        throw Error(`name and url are required`);
+    }
+    */  
     ``` 
    Save the file   
 4. Deploy the new Lambda function code

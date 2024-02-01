@@ -28,16 +28,14 @@ This describes what the Terraform does and how to run the Terraform to build the
 
 ### Terraform
 
-The Terraform builds the infrastructure for the Lambda function and deploys the first version.
-
 The Terraform creates:
-- A Lambda function called `lambda-url-to-html` that 
+- A [Lambda function](#the-lambda-function) called `lambda-url-to-html` that 
     - Has permission to write to the S3 bucket
     - Has a timeout of 20 seconds
-    - Is packaged in `./src/deploy/latest.zip` for Terraform to deploy
+    - Is packaged in `./src/deploy/latest.zip` so Terraform can deploy
 - Two lambda aliases called live and test.  Each alias with each have a different public function urls to access the function
-- A S3 bucket called `storage-for-lambda-url-to-html`.  The S3 bucket permissions allow public read access to all objects in the bucket
-- The `./scripts/variables.sh` file.  The file contains variables used by the shell scripts
+- A S3 bucket called `storage-for-lambda-url-to-html`.  The S3 bucket permissions allow the lambda to write to it also also public read access to all objects in the bucket
+- The `./scripts/variables.sh` file.  The file contains the variables used by the shell scripts
 
 ### Setup Prerequisites to Run the Terraform
 

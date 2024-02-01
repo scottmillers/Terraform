@@ -1,6 +1,8 @@
 # AWS Lambda Deployment Prototype
 
-This is a prototype for a Lambda function that gets the HTML from a URL that you specify. It will store it in a file in a S3 bucket. It will return a URL to the location on the S3 bucket where the HTML is stored.
+This is a prototype to explore different ways to deploy an AWS Lambda function.
+
+The Lambda function will get HTML from a URL that you specify. It will store the HTML in a file on a S3 bucket.  It will return the location on the S3 bucket where the HTML is stored.
 
 Table of Contents
 - [Build and verify the Infrastructure](#build-and-verify-the-infrastructure)

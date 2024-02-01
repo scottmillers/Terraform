@@ -1,8 +1,7 @@
 # AWS Lambda Deployment Prototype
 
-This is a prototype to explore different ways to deploy an AWS Lambda function.
-
-The Lambda function will get HTML from a URL that you specify. It will store the HTML in a file on a S3 bucket.  It will return the location on the S3 bucket where the HTML is stored.
+This is a prototype to explore different ways to deploy an AWS Lambda function written in Node.js with TypeScript.  
+The three deployment options are deploying through terraform, using lambda-build, and using a GitHub action.  
 
 Table of Contents
 - [Build and verify the Infrastructure](#build-and-verify-the-infrastructure)

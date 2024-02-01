@@ -1,0 +1,1 @@
+Setting to make Draw.io have a white background in VSCode dark mode

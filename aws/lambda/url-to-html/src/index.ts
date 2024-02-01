@@ -49,10 +49,10 @@ export const handler = async(event: APIGatewayProxyEventV2): Promise<APIGatewayP
 
 
         // Uncomment for validation 
-        if (    !body.name || !body.url) {
+       /* if (    !body.name || !body.url) {
             throw Error(`name and url are required`);
         }
-         
+        */ 
 
         const res = await axios.get(body.url);
         output.title = cheerio.load(res.data)(`head > title`).text();

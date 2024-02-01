@@ -1,52 +1,55 @@
-# AWS Lambda Prototype
+# AWS Lambda Deployment Prototype
+
+This is a prototype for a Lambda function that gets the HTML from a URL that you specify. It will store it in a file in a S3 bucket. It will return a URL to the location on the S3 bucket where the HTML is stored.
+
+Table of Contents
+- [Build and verify the Infrastructure](#build-and-verify-the-infrastructure)
+    - [Terraform](#terraform)
+    - [Setup Prerequisites to Run the Terraform](#setup-prerequisites-to-run-the-terraform)
+    - [Steps to Build the Infrastructure with Terraform](#steps-to-build-the-infrastructure-with-terraform) 
+- [Lambda Deployment Options](#lambda-deployment-options)
+    - [Deploy the Lambda function using Terraform](#deploy-the-lambda-function-using-terraform)
+    - [Deploy the Lambda function using a lambda-build](#deploy-the-lambda-function-using-a-lambda-build)
+    - [Deploy the Lambda function using a GitHub action](#deploy-the-lambda-function-using-a-github-action)
+- [The Lambda Function](#the-lambda-function)
+    - [Run the Lambda Unit Tests](#run-the-lambda-unit-tests)
+    - [Deploy Multiple Versions of the Lambda function](#deploy-multiple-versions)
 
 
-![Alt text](docs/images/architecture.svg)
-This prototype uses Terraform to build the infrastructure and deploy a Lambda function.  You call the Lambda function through a public URL and pass it input parameters. The Lambda function gets the HTML from a URL you provided and stores the HTML in a S3 bucket.  The lambda function is a Node.js function written in Typescript.
-
-The prototype consists of:
-- Terraform to build the infrastructure and deploy the Lambda function
-- A Lambda function that gets the HTML from a URL and stores it in a S3 bucket
-- Helper tools:
-    - [Lambda-build](https://github.com/alexkrkn/lambda-build) to build the Typescript code using esbuild and deploy it to AWS
-    - [Mocha](https://mochajs.org/) for Javascript unit tests
-- A GitHub action to deploy the Lambda function whenever there is a change in the Lambda src code directory
+ 
 
 
-The Lambda function came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio). The video is a great introduction to Lambda development, testing, and deployment using Node and TypeScript.  I highly recommend it.
+## Build and verify the Infrastructure
 
-If you want to learn how to build, test and deploy the Lambda function from scratch you can watch the video or use my [step-by-step instructions](BuildLambdaFromScratch.md).
+ Terraform is used to build the infrastructure and deploy the first version of the Lambda function.  
 
+This describes what the Terraform does and how to run the Terraform to build the infrastructure.
 
-## Terraform
+### Terraform
 
-The Terraform builds the infrastructure for the Lambda function and deploys the first version of the Lambda function.
+The Terraform builds the infrastructure for the Lambda function and deploys the first version.
 
 The Terraform creates:
 - A Lambda function called `lambda-url-to-html` that 
     - Has permission to write to the S3 bucket
     - Has a timeout of 20 seconds
-    - Will use the package in ./src/deploy/latest.zip to deploy the Lambda function
-- Two lambda aliases called live and test.  Each alias with each have a different function urls to access the function
+    - Is packaged in `./src/deploy/latest.zip` for Terraform to deploy
+- Two lambda aliases called live and test.  Each alias with each have a different public function urls to access the function
 - A S3 bucket called `storage-for-lambda-url-to-html`.  The S3 bucket permissions allow public read access to all objects in the bucket
 - The `./scripts/variables.sh` file.  The file contains variables used by the shell scripts
 
-
-
-
-## Setup Prerequisites
+### Setup Prerequisites to Run the Terraform
 
 - An AWS account 
 
-It is highly recommended you use the [Visual Studio Code DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) at the root of this repository.  The instructions below assume you are using the DevContainer.  If you don use the DevContainer you will need to install the following:
+I recommended you use the [Visual Studio Code DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) at the root of this repository.  The instructions below assume you are using the DevContainer.  If you don use the DevContainer you will need to install the following:
 
 - AWS CLI installed and configure for your account
 - Terraform 5.0 or greater installed
 - Node.js 20.10.0 or greater installed
 
-    
 
-## Steps to build and verify the AWS Infrastructure
+### Steps to Build the Infrastructure with Terraform
 
 By default the Terraform will create the infrastructure in the us-east-1 region.  To use a different region, edit the variable.tf file and change the region variable.
 
@@ -78,12 +81,12 @@ By default the Terraform will create the infrastructure in the us-east-1 region.
 
 You are done.
 
-## Deployment Options
+## Lambda Deployment Options
 
-The next sections explain how to deploy the Lambda function using different methods.  You only need to do one of the deployment options. 
+The next sections explain how to deploy the Lambda function using different methods.  You only need to do one of the deployment options.
 
 
-### Deploy the Lambda function using Terraform (Optional)
+### Deploy the Lambda function using Terraform
 
 These steps explain how to create a package that is used by Terraform to deploy the Lambda
 function.
@@ -110,12 +113,12 @@ The script will create a new latest.zip file in the src/deploy directory.  This 
 
 2. When you deploy again using Terraform, it will use the latest.zip file in the src/deploy directory to deploy the lambda function.  
 
-### Deploy the Lambda function using a lambda-build (Optional)
+### Deploy the Lambda function using a lambda-build 
 
 These steps explain how to create use lambda-build lambda to deploy the Lambda to AWS
 
-1. If you Lambda function is not in us-east-1 change the region in package.json
-   Open `src/package.json`.  Change the the us-east-1 to the region of your lambda function.  
+1. If your Lambda function is not in us-east-1 change the region in package.json
+   In your editor go to the src folder and open package.json.  Change the the us-east-1 to the region of your lambda function.  
     ``` json
      "deploy": "lambda-build upload -r us-east-1 lambda-url-to-html",
     ``` 
@@ -148,9 +151,9 @@ These steps explain how to create use lambda-build lambda to deploy the Lambda t
 
 Success! You have built and uploaded your Lambda function to AWS.
 
-### Deploy the Lambda function using a GitHub action (Optional)
+### Deploy the Lambda function using a GitHub action
 
-These steps explain how to use a GitHub action to deploy the Lambda to AWS whenever you check in a change to the src directory in GitHub.  The GitHub action will 
+These steps explain how to use a GitHub action. With GitHub actions whenever you have any changes to th e src directory a GitHub action can be triggered.  The GitHub action will build and to deploy the Lambda. The GitHub action will 
 - Build the Lambda function.
 - Run the unit tests
 - Deploy the Lambda function to AWS
@@ -166,17 +169,60 @@ These steps explain how to use a GitHub action to deploy the Lambda to AWS whene
 The GitHub action will run and deploy the Lambda function to AWS.  You can see the results of the GitHub action by going to the Actions tab in GitHub.
 
 
-## Steps the to change the live alias (Optional)
+
+## The Lambda Function
+
+
+The Lambda function gets the HTML from a URL that you specify. It will store it in a file in a S3 bucket. It will return a URL to the location on the S3 bucket where the HTML is stored.
+
+
+![Alt text](docs/images/architecture.svg)
+
+1. You call the Lambda function with a url and in the query string you pass it a url for the web site you want to get the HTML and the name for the file to store in the S3 bucket.
+2. The Lambda function gets the HTML page and store it in the S3 bucket.
+3. The Lambda function returns the URL to the location on the S3 bucket where the HTML is stored
+4. You call the URL to get the HTML page from the S3 bucket 
+
+The Lambda function code and unit test focus came from this [YouTube video](https://www.youtube.com/watch?v=51EAwBDdgio). The video is a great introduction to Lambda development, testing, and deployment using Node and TypeScript.  I highly recommend it.
+
+### Run the Lambda Unit Tests
+
+You can run the Unit tests locally. The unit tests are written in Mocha, and use [Sinonjs](https://sinonjs.org/) to stub the calls, and [Node assert](https://nodejs.org/api/assert.html) for comparison.   
+
+To run the tests, run the following command from the `src` directory.
+
+``` bash
+$ npm run test
+> lambda-url-to-html@1.0.0 test
+> mocha --recursive 'test' --extension ts --exit --require esbuild-register --timeout 20000
+
+
+
+  handler
+    ✔ should get the html from a url
+    ✔ should extract and return the page title of a url
+
+
+  2 passing (11ms)
+
+npm notice 
+npm notice New minor version of npm available! 10.2.4 -> 10.4.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.4.0
+npm notice Run npm install -g npm@10.4.0 to update!
+npm notice 
+```
+
+
+### Deploy Multiple Versions
 
 The Terraform creates two Lambda aliases.  They are:
 - live:  The live alias is configured to use the "live" or production version of the Lambda function. 
 - latest: The latest alias is configured to use the latest version of the Lambda function. 
 
-These steps simulate a deployment where the Lambda live alias points to an old version of the lambda and the latest alias points to the version of the code.
+These steps show how to to deploy multiple versions of a lambda function and with different endpoints.  One endpoint, the live alias, will reference the previous versions of the lambda, and the latest alias, will point to the current recent release. 
 
 
 Steps:
-
 
 1. Create a version of the Lambda function and point the live alias to it.
     ``` bash
@@ -190,7 +236,7 @@ Steps:
     }
    
     ```
-    Now the live alias points to the version 9 of the Lambda function.  
+    Now the live alias points to the version 9 of the Lambda function.  Your version might be different.
 
 2. Run the `scripts/test-live.zsh` script to test the live alias.  
    All tests will pass.
@@ -229,4 +275,5 @@ All tests will pass.  Why?  The  script that you ran in Step 1 created a version
 Notice it fails.  Why? You pointed the live alias to the version you just deployed which contains the validation code.  Validation is good.  So you need to fix the test. This is done in the next script.
 7. Run the `scripts/test-live-new.zsh` 
 All tests will pass.  These tests include the name for the file in the query string.
+
 

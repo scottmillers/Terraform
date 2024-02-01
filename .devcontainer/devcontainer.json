@@ -2,7 +2,7 @@
   "name": "terraform",
   "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
   "mounts": [
-      "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/host-home-folder,type=bind,consistency=cached"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/host-home-folder,type=bind,consistency=cached"
   ],
   "customizations": {
     "vscode": {
@@ -11,7 +11,8 @@
         "GitHub.copilot",
         "GitHub.vscode-pull-request-github",
         "streetsidesoftware.code-spell-checker",
-        "shd101wyy.markdown-preview-enhanced"
+        "shd101wyy.markdown-preview-enhanced",
+        "eamodio.gitlens"
       ]
     }
   },

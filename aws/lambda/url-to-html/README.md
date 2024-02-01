@@ -244,7 +244,7 @@ Steps:
    Open the `src/index.ts` file and uncomment out this line to enforce validation of the query string parameters
     ```
     /* Uncomment for validation 
-    if (    !body.name || !body.url) {
+    if (!body.name || !body.url) {
         throw Error(`name and url are required`);
     }
     */  

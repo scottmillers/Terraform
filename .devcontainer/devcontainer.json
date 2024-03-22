@@ -11,8 +11,7 @@
         "GitHub.copilot",
         "GitHub.vscode-pull-request-github",
         "streetsidesoftware.code-spell-checker",
-        "shd101wyy.markdown-preview-enhanced",
-        "eamodio.gitlens"
+        "shd101wyy.markdown-preview-enhanced"
       ]
     }
   },

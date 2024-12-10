@@ -2,10 +2,8 @@
 
 apply () {
     cd vpc
-    terraform init
     terraform apply -auto-approve
     cd ../subnet
-    terraform init
     terraform apply -auto-approve
    
 } 
@@ -18,6 +16,13 @@ destroy () {
    
 }
 
+init () {
+    cd vpc
+    terraform init
+    cd ../subnet
+    terraform init
+}
+
 case $1 in
     apply)
         apply
@@ -25,6 +30,10 @@ case $1 in
     destroy)
         destroy
         ;;
+    init)
+        init
+        ;;
+        
     *)
         echo "Usage: $0 {apply|destroy}"
         exit 1

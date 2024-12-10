@@ -1,20 +1,19 @@
-# Terraform Best Practices
+# Terraform Project Structure
 
-This directory contains a structure to use for my Terraform projects.
-
-The structure solves a few problems:
-
-1. How to have different terraform for different deployment environments(e.g. dev, test)
-2. How to reference resources that are not in your state file
-3. How to manage changes to your modules without updating every environment
+This Terraform project structure in 'projects/example' solves a few problems:
 
 
+1. [How to structure your Terraform so you can deploy to different environments while still getting reuse by using modules](#how-to-have-different-terraform-for-different-deployment-environments)
+2. [How to reference resources that are found in different state files](#how-to-reference-terraform-resources-not-in-your-state-file)
+3. [How to have a controlled deployment to different environments when you update a module](#how-to-have-a-controlled-deployment-to-different-environment-when-you-update-a-module)
 
-## How to have different terraform for different deployment environments(e.g. dev, test)
 
-Go to the `projects/example` directory.  You will called envs.  For each of your deployment environment make a separate directory. 
 
-## How to reference Terraform resources not in your state file
+## How to have different terraform for different deployment environments
+
+Go to the `projects/example` directory.  You will see a directory called envs.  For each of your deployment environment make a separate directory. 
+
+## How to reference terraform resources not in your state file
 
 Here are the options:
 
@@ -59,7 +58,7 @@ module "subnet" {
 
 You need to ensure that the statefile referenced, in this case vpc,  has an output called `vpc_id`
 
-## How to manage changes to your modules without updating every environment
+## How to have a controlled deployment to different environment when you update a module
 
 If a module is modified all environments that reference that module will be updated. If you want to control the deployment of modules to each environment you have two options:
 
@@ -83,8 +82,7 @@ module "subnet" {
 
 2. Put the module in GitHub, tag it, and reference the tag
 
-Prerequisite:
-- You need to setup a GitHub SSH key to access the remote repository where you modules reside
+- You need to [setup a GitHub SSH key](#setup-github-ssh-key) to access the remote repository where your modules reside
 
 Steps:
 
@@ -105,8 +103,6 @@ module "vpc" {
 6. Rerun the terraform init since the module source has changes
 
 
-
-
 ```
 module "vpc" {
     source = "git@github.com:scottmillers/terraform-aws-vpc.git?ref=0.1.1"
@@ -118,42 +114,40 @@ module "vpc" {
 ```
 
 
-# Setup GitHub SSH key access
-
-
+## Setup GitHub SSH key
 
 Steps:
-1. Verify you don't already have (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)[existing GitHub SSH keys]
+1. Verify you don't already have [existing GitHub SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
 
 2. To create a new SSH key replace you email with your GitHub email
-```
-ssh-keygen -t ed25519 -C "scott_millers@hotmail.com"
-```
+    ```
+    ssh-keygen -t ed25519 -C "scott_millers@hotmail.com"
+    ```
 3. Start the ssh-agent
-```
-eval "$(ssh-agent -s)"
-```
+    ```
+    eval "$(ssh-agent -s)"
+    ```
 
 4. Add your SSH private key to the ssh-agent
-```
-ssh-add ~/.ssh/id_ed25519
-```
+    ```
+    ssh-add ~/.ssh/id_ed25519
+    ```
 
 5. Authenticate with GitHub through the CLI
-```
-gh auth login
-```
+    ```
+    gh auth login
+    ```
 
 5. Add you SSH public key to your account on GitHub
 
-```
-gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication
-```
+    ```
+    gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication
+    ```
 
 6. Verify it works
-```
-gh repo list
-```
+    ```
+    gh repo list
+    ```
 
 ## References
 

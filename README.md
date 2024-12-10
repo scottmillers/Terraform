@@ -63,6 +63,7 @@ You need to ensure that the statefile referenced, in this case vpc,  has an outp
 
 If a module is modified all environments that reference that module will be updated. If you want to control the deployment of modules to each environment you have two options:
 
+
 1. Copy the module to a new directory and reference the new directory
 
 For example, let's say you want to make a change to the `subnet` module. You copy the directory to `subnet-v2` and then make the change.  Then reference the new module in the environment that needs the change.
@@ -81,6 +82,9 @@ module "subnet" {
 ```
 
 2. Put the module in GitHub, tag it, and reference the tag
+
+Prerequisite:
+- You need to setup a GitHub SSH key to access the remote repository where you modules reside
 
 Steps:
 
@@ -113,13 +117,14 @@ module "vpc" {
 }
 ```
 
-## Setup SSH key to access GitHub
 
-### Prerequisites
+# Setup GitHub SSH key access
 
-You can use your GitHub SSH 
+
+
 Steps:
 1. Verify you don't already have (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)[existing GitHub SSH keys]
+
 2. To create a new SSH key replace you email with your GitHub email
 ```
 ssh-keygen -t ed25519 -C "scott_millers@hotmail.com"
@@ -134,10 +139,20 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
+5. Authenticate with GitHub through the CLI
+```
+gh auth login
+```
+
 5. Add you SSH public key to your account on GitHub
 
 ```
-gh ssh-key add ~/.ssh/id_ed25519.pub --type signing
+gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication
+```
+
+6. Verify it works
+```
+gh repo list
 ```
 
 ## References
@@ -149,7 +164,6 @@ https://developer.hashicorp.com/terraform/language/modules/sources
 
 
 GitHub ssh agent
-
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh
 
 

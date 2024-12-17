@@ -18,6 +18,7 @@
   "features": {
     "ghcr.io/devcontainers-contrib/features/terraform-asdf:2": {},
     "ghcr.io/devcontainers/features/aws-cli:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/terragrunt:1": {}
   }
 }

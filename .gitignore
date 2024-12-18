@@ -1,4 +1,7 @@
-# Local .terraform directories
+# Exclude terragrunt cache files
+**/.terragrunt-cache/*
+
+# Exclude .terraform directories
 **/.terraform/*
 hashicorp/
 

@@ -1,15 +1,17 @@
-# Terraform Project Structure
+# Terraform Project Structure using Terragrunt
 
-This Terraform project structure in 'projects/example' solves a few problems:
+[Terragrunt](https://terragrunt.gruntwork.io/) is used to structure your Terraform/OpenTofu infrastructure as code to support multiple environments(e.g. dev, test, production) without duplicating code. 
 
-
-1. [How to structure your Terraform so you can deploy to different environments while still getting reuse by using modules](#how-to-have-different-terraform-for-different-deployment-environments)
-2. [How to reference resources that are found in different state files](#how-to-reference-terraform-resources-not-in-your-state-file)
-3. [How to have a controlled deployment to different environments when you update a module](#how-to-have-a-controlled-deployment-to-different-environment-when-you-update-a-module)
+This repository explores Terragrunt to solve the following challenges:
 
 
+1. Standard project structure where I can have define different environment without duplicate code
+2. Reference resources that are found in different state files
+3. Controlled deployment to different environments when you update a module
 
-## How to have different terraform for different deployment environments
+
+
+## Standard project structure where I can have define different environment without duplicate code
 
 Go to the `projects/example` directory.  You will see a directory called envs.  For each of your deployment environment make a separate directory. 
 

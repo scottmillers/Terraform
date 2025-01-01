@@ -21,10 +21,26 @@ include "envcommon" {
 # Configure the version of the module to use in this environment. This allows you to promote new versions one
 # environment at a time (e.g., qa -> stage -> prod).
 terraform {
-  source = "${include.envcommon.locals.base_source_url}?ref=v0.0.1"
+  source = "${include.envcommon.locals.base_source_url}?ref=v0.8.0"
 }
-
 
 # ---------------------------------------------------------------------------------------------------------------------
 # We don't need to override any of the common parameters for this environment, so we don't specify any inputs.
 # ---------------------------------------------------------------------------------------------------------------------
+
+
+terraform {
+  source = "../shared"
+}
+
+dependency "foo" {
+  config_path = "../foo"
+  mock_outputs = {
+    content = "Mocked content from foo"
+  }
+  mock_outputs_allowed_terraform_commands = ["plan"]
+}
+
+inputs = {
+  content = "Foo content: ${dependency.foo.outputs.content}"
+}

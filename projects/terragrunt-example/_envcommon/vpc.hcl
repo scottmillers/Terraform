@@ -14,7 +14,7 @@ locals {
 
   # Expose the base source URL so different versions of the module can be deployed in different environments. This will
   # be used to construct the source URL in the child terragrunt configurations.
-  base_source_url = "git::git@github.com:gruntwork-io/terragrunt-infrastructure-modules-example.git//modules/mysql"
+  base_source_url = "https://github.com/scottmillers/terragrunt-infrastructure-modules-examples.git//modules/vpc"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,11 +23,5 @@ locals {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name              = "mysql_${local.env}"
-  instance_class    = "db.m5.large"
-  allocated_storage = 20
-  storage_type      = "standard"
-  master_username   = "admin"
-  skip_final_snapshot = "true"
-  # TODO: To avoid storing your DB password in the code, set it as the environment variable TF_VAR_master_password
+   cidr_block = "10.0.0.0/16"
 }

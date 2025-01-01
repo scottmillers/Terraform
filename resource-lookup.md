@@ -1,6 +1,6 @@
 # How to reference resources not in your state file
 
-I often need to lookup existing AWS resources. 
+I often need to lookup existing AWS resources. My prefered option is to use Terragrunt since has the concept of a dependency. This will ensure that the module you are calling will be run after the module you are depending on.  You can have that module output the resource you need to lookup and then use that as input to the module you are calling.
 
 ## Terragrunt Options
 

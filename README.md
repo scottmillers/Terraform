@@ -5,7 +5,7 @@ When I started to use Terraform I ran into challenges with code dependencies and
 This repository uses Terragrunt to address these challenges:
 
 1. Define a standard [directory structure](project-structure.md) for my projects
-2. How I store a remote state file
+2. Store a [state file in a s3 bucket](state-file.md) to manage the infrastructure state
 2. How I [lookup resources](resource-lookup.md) that are in different state files
 3. How I [control deployment](control-deployment.md) to different environments when you update a common module
 

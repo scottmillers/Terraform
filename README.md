@@ -6,10 +6,11 @@ This repository uses Terragrunt to address these challenges:
 
 1. Define a [standard directory structure](project-structure.md) for my projects that support multiple environments while using common modules
 2. Store a [state file in a s3 bucket](state-file.md) to manage the infrastructure state
-3. How to manage dependencies and [reference to resources](resource-lookup.md) that are in different state files
+3. How to manage dependencies and [references to resources](resource-lookup.md) that are in different state files
 4. How to [control deployment](control-deployment.md) to different environments when you update a common module
 
 
+These standards are all used in my [terragrunt-example](projects/terragrunt-example/) project.
 
 
 

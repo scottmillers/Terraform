@@ -6,20 +6,11 @@ This repository uses Terragrunt to address these challenges:
 
 1. Define a standard [directory structure](project-structure.md) for my projects
 2. Store a [state file in a s3 bucket](state-file.md) to manage the infrastructure state
-2. How I [lookup resources](resource-lookup.md) that are in different state files
-3. How I [control deployment](control-deployment.md) to different environments when you update a common module
+3. Reference [resources](resource-lookup.md) that are in different state files
+4. How I [control deployment](control-deployment.md) to different environments when you update a common module
 
 
 
-
-
-## References
-
-- How to structure Terraform projects
-https://www.youtube.com/watch?v=nMVXs8VnrF4&t=1614s
-
-- Terraform Module Sources
-https://developer.hashicorp.com/terraform/language/modules/sources
 
 
 

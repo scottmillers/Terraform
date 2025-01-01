@@ -13,7 +13,7 @@ include "root" {
 # Include the envcommon configuration for the component. The envcommon configuration contains settings that are common
 # for the component across all environments.
 include "envcommon" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/_envcommon/vpc.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_envcommon/subnet.hcl"
   # We want to reference the variables from the included config in this configuration, so we expose it.
   expose = true
 }
@@ -22,10 +22,19 @@ include "envcommon" {
 # environment at a time (e.g., qa -> stage -> prod).
 terraform {
   #source = "${include.envcommon.locals.base_source_url}?ref=v0.0.1"
-  source = "/workspaces/terraform-infrastructure-modules-examples/modules/vpc"
+  source = "/workspaces/terraform-infrastructure-modules-examples/modules/subnet"
+}
+
+
+dependency "vpc" {
+  config_path = "../vpc"
 }
 
 
 # ---------------------------------------------------------------------------------------------------------------------
 # We don't need to override any of the common parameters for this environment, so we don't specify any inputs.
 # ---------------------------------------------------------------------------------------------------------------------
+
+inputs = {
+  vpc_id = "${dependency.vpc.outputs.vpc_id}"
+}

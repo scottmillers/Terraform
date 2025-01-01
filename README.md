@@ -1,4 +1,4 @@
-# My example Terraform infrastructure standards
+# Terraform infrastructure standards
 
 When I started to use Terraform I ran into challenges with code dependencies and repeating common code.  To get around these challenges I am using [Terragrunt](https://terragrunt.gruntwork.io/).  Terragrunt is used to structure your Terraform infrastructure as code to support multiple environments(e.g. dev, test, production) without duplicating code.
 

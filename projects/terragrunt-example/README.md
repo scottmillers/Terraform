@@ -1,4 +1,7 @@
-# My Terragrunt example
+# A Terragrunt Example
+
+This repository contains a set of examples that demonstrate how to use Terragrunt to manage Terraform configurations. The examples are organized by the following categories:
+
 
 ## Pre-requisites
 

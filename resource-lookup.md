@@ -1,14 +1,16 @@
-# How to reference resources not in your state file
+# How to reference resources in other Terraform projects
 
-I often need to lookup existing AWS resources. My prefered option is to use Terragrunt since has the concept of a dependency. This will ensure that the module you are calling will be run after the module you are depending on.  You can have that module output the resource you need to lookup and then use that as input to the module you are calling.
+I often need to lookup existing AWS resources. My preferred option is to use the Terragrunt `dependency`. 
 
 ## Terragrunt Options
 
 In Terragrunt you can set a dependency on another module.  This will ensure that the module you are calling will be run after the module you are depending on.  You can have that module output the resource you need to lookup and then use that as input to the module you are calling.
 
+Here is the process:
+
 1. Set a dependency on another module
 
-    In the example below the `subnet` depends on the `vpc`.  The `vpc` will output the `vpc_id` which the `subnet` module will use.
+    In the example below the `subnet` depends on the `vpc`.  The `vpc` will output the `vpc_id` which the `subnet` module will use this vpc_id as a input parameter.
 
     ```
     # terragrunt.hcl in the subnet directory
@@ -53,32 +55,30 @@ In Terragrunt you can set a dependency on another module.  This will ensure that
 
 ## Terraform Option
 
-In Terraform one option is to lookup the resources in AWS using tags.  Another options is to reference the resource in an existing state file.
+In Terraform one option is to lookup the resources using the data block and AWS using tags.  
 
-1. Use a data block to lookup existing resources 
-  The example below will call AWS and lookup the default VPC.
-    ```
+The example below will use he data block to lookup the default VPC.
+  ```
     # Get the default VPC
     data "aws_vpc" "default" {
       default = true
     }
-    ```
+  ```
 
-2. Reference a local or remote state file
+Another options is to reference the resource in an existing state file.
 
-    The following code will reference a local state file
-
-    ```
+The following code will reference a local state file
+  ```
     data "terraform_remote_state" "vpc" {
       backend = "local"
       config = {
         path = "../vpc/terraform.tfstate"
       }
     }
-    ```
-    You need to ensure that the state file referenced, in this case vpc,  has an output called `vpc_id`.  To use the `vpc_id` in your module do the following:
+  ```
+You need to ensure that the state file referenced, in this case vpc,  has an output called `vpc_id`.  To use the `vpc_id` in your module do the following:
 
-    ```
+  ```
     module "subnet" {
       source = "../../../modules/subnet"
       region = var.region
@@ -87,6 +87,6 @@ In Terraform one option is to lookup the resources in AWS using tags.  Another o
       vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
       cidr_block = "10.0.0.0/19"
     }
-    ```
+  ```
 
     
